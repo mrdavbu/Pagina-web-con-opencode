@@ -351,6 +351,8 @@ body { margin: 0; padding: 0; background: var(--bg); overflow-x: hidden; }
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
 // Service Worker Registration
 if ('serviceWorker' in navigator) {
@@ -364,86 +366,67 @@ if ('serviceWorker' in navigator) {
 }
 
 (function(){
-  // Almacenamiento en la nube (compartido entre dispositivos) con respaldo local.
-  // Pide/guarda todo en la API /api/state; si no hay conexión usa localStorage.
+  // Almacenamiento en la nube con Firebase Realtime Database (compartido y en tiempo real).
+  // =====================================================================================
+  // PASO IMPORTANTE: pega aquí la URL de tu base de datos de Firebase.
+  // Se ve así: https://tu-proyecto-default-rtdb.firebaseio.com
+  // Se obtiene en https://console.firebase.google.com -> Realtime Database -> tu URL.
+  const FIREBASE_DATABASE_URL = https://link-de-proyecto-estrategico-default-rtdb.firebaseio.com/;
+  // =====================================================================================
+
   const sysStorage = window.storage || (function(){
     const CONFIG_KEY = 'config_v3';
     const ENTRIES_KEY = 'entradas_v3';
-    const API = '/api/state';
-    const VERIFY_API = '/api/verify';
-    const CODE_KEY = 'bitacora_edit_code';
-    let cache = null;
+    let fbPromise = null;
+
+    function getRef(){
+      if (!fbPromise){
+        fbPromise = new Promise((resolve, reject) => {
+          if (!FIREBASE_DATABASE_URL || FIREBASE_DATABASE_URL.indexOf('PEGA_AQUI') !== -1){
+            reject(new Error('Firebase no configurado'));
+            return;
+          }
+          try {
+            firebase.initializeApp({ databaseURL: FIREBASE_DATABASE_URL });
+            resolve(firebase.database().ref('bitacora'));
+          } catch (e) { reject(e); }
+        });
+      }
+      return fbPromise;
+    }
 
     function norm(v){
       return { value: (v === null || v === undefined) ? null : JSON.stringify(v) };
     }
-    function getCode(){ return localStorage.getItem(CODE_KEY) || ''; }
-
-    async function fetchAll(){
-      if (cache) return cache;
-      try {
-        const r = await fetch(API, { cache: 'no-store' });
-        if (!r.ok) throw new Error('api no disponible');
-        cache = Object.assign(await r.json(), { online: true });
-      } catch (e) {
-        cache = { config: undefined, entries: undefined, protected: false, online: false };
-      }
-      return cache;
-    }
 
     return {
       get: async function(k){
-        const all = await fetchAll();
-        const v = k === CONFIG_KEY ? all.config : all.entries;
-        if (v === undefined) return { value: localStorage.getItem(k) };
-        return norm(v);
+        try {
+          const ref = await getRef();
+          const snap = await ref.once('value');
+          const data = snap.val() || {};
+          const v = k === CONFIG_KEY ? data.config : data.entries;
+          if (v === undefined) return { value: localStorage.getItem(k) };
+          return norm(v);
+        } catch (e) { return { value: localStorage.getItem(k) }; }
       },
       set: async function(k, v){
-        const payload = k === CONFIG_KEY
-          ? { config: JSON.parse(v) }
-          : { entries: JSON.parse(v) };
-        const headers = { 'Content-Type': 'application/json' };
-        const code = getCode();
-        if (code) headers['Authorization'] = 'Bearer ' + code;
         try {
-          const r = await fetch(API, {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify(payload)
-          });
-          if (r.ok) {
-            cache = Object.assign({}, await fetchAll(), payload);
-            return true;
-          }
-          if (r.status === 401 || r.status === 403) {
-            const err = new Error('Código de edición incorrecto');
-            err.code = 'AUTH';
-            throw err;
-          }
-          const err = new Error('API no disponible (' + r.status + ')');
-          err.code = 'SERVER';
-          throw err;
+          const ref = await getRef();
+          await ref.update({ [k === CONFIG_KEY ? 'config' : 'entries']: JSON.parse(v) });
+          return true;
         } catch (e) {
-          if (e && (e.code === 'AUTH' || e.code === 'SERVER')) throw e;
+          localStorage.setItem(k, v);
+          return true;
         }
-        localStorage.setItem(k, v);
-        return true;
-      },
-      verify: async function(code){
-        try {
-          const r = await fetch(VERIFY_API, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ code: code })
-          });
-          if (!r.ok) return false;
-          const j = await r.json();
-          return j.ok === true;
-        } catch (e) { return false; }
       },
       status: async function(){
-        const all = await fetchAll();
-        return { protected: !!all.protected, online: all.online === true };
+        try { await getRef(); return { protected: false, online: true }; }
+        catch (e) { return { protected: false, online: false }; }
+      },
+      verify: async function(){ return false; },
+      on: function(cb){
+        getRef().then(ref => ref.on('value', snap => cb(snap.val()))).catch(() => {});
       }
     };
   })();
@@ -985,8 +968,28 @@ if ('serviceWorker' in navigator) {
   $('#confirmLockBtn').addEventListener('click', tryUnlock);
   $('#lockCode').addEventListener('keydown', (e) => { if (e.key === 'Enter') tryUnlock(); });
 
+  // Actualización en tiempo real: cuando alguien guarda un cambio, los demás lo ven al instante.
+  let subscribed = false;
+  function subscribeRealtime(){
+    if (subscribed) return;
+    subscribed = true;
+    if (!sysStorage.on) return;
+    sysStorage.on((data) => {
+      if (!data) return;
+      try {
+        const formOpen = $('#formOverlay') && $('#formOverlay').classList.contains('open');
+        const canvasOpen = $('#canvasOverlay') && $('#canvasOverlay').classList.contains('open');
+        if (formOpen || canvasOpen) return;
+        config = data.config || null;
+        entries = data.entries || [];
+        if (config) renderMain(); else renderSetup();
+      } catch (e) {}
+    });
+  }
+
   renderBackgroundField();
   loadAll();
+  subscribeRealtime();
 })();
 </script>
 </body>

@@ -3,7 +3,5 @@
   "version": "1.0.0",
   "private": true,
   "description": "Bitácora de proyecto hidropónico compartida entre dispositivos",
-  "dependencies": {
-    "@upstash/redis": "^1.34.0"
-  }
+  "dependencies": {}
 }
