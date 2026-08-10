@@ -19,7 +19,7 @@ self.addEventListener('install', event => {
 
 self.addEventListener('fetch', event => {
   // Nunca cachear la API de datos para no servir información vieja
-  if (event.request.url.includes('/api/state')) {
+  if (event.request.url.includes('/api/state') || event.request.url.includes('/api/verify')) {
     return;
   }
   event.respondWith(

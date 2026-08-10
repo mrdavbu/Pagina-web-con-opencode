@@ -197,6 +197,9 @@ body { margin: 0; padding: 0; background: var(--bg); overflow-x: hidden; }
 #bitacora-root .action-btn.edit:hover { color: var(--green); background: var(--green-soft); }
 #bitacora-root .action-btn.del:hover { color: var(--pink); background: var(--pink-soft); }
 
+/* Modo solo lectura (visitantes) */
+#bitacora-root.readonly .card-foot { display: none !important; }
+
 #bitacora-root .toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(30px); background: var(--green); color:#021006; padding: 12px 24px; border-radius: 999px; font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:700; opacity:0; transition: all .3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 300; pointer-events:none; box-shadow: var(--shadow-lg), 0 0 15px var(--green-soft); }
 #bitacora-root .toast.show { opacity:1; transform: translateX(-50%) translateY(0); }
 </style>
@@ -240,6 +243,7 @@ body { margin: 0; padding: 0; background: var(--bg); overflow-x: hidden; }
         <div class="chips" id="chipRow"></div>
         <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
           <input class="search" type="text" id="searchInput" placeholder="Buscar entradas...">
+          <button class="btn-ghost" id="lockBtn">🔒 Bloquear</button>
           <button class="btn-ghost" id="exportBackupBtn">📥 Exportar Backup</button>
           <button class="btn-ghost" id="importBackupBtn">📤 Restaurar</button>
           <input type="file" id="importFile" accept=".json" style="display:none;">
@@ -324,6 +328,21 @@ body { margin: 0; padding: 0; background: var(--bg); overflow-x: hidden; }
     </div>
   </div>
 
+  <div class="modal-overlay" id="lockOverlay">
+    <div class="form-panel" style="max-width:420px;">
+      <h2>Desbloquear edición</h2>
+      <div class="field">
+        <label>Código de edición</label>
+        <input type="password" id="lockCode" placeholder="Código para editar">
+      </div>
+      <p style="color: var(--text-dim); font-size: 13px; margin: 8px 0 0;">Solo la persona editora tiene este código. Los demás pueden ver la bitácora pero no modificar.</p>
+      <div class="form-actions">
+        <button class="btn-ghost" id="cancelLockBtn">Cancelar</button>
+        <button class="btn-primary" id="confirmLockBtn">Desbloquear</button>
+      </div>
+    </div>
+  </div>
+
   <div class="lightbox" id="lightbox">
     <img id="lightboxImg" src="">
   </div>
@@ -351,20 +370,23 @@ if ('serviceWorker' in navigator) {
     const CONFIG_KEY = 'config_v3';
     const ENTRIES_KEY = 'entradas_v3';
     const API = '/api/state';
+    const VERIFY_API = '/api/verify';
+    const CODE_KEY = 'bitacora_edit_code';
     let cache = null;
 
     function norm(v){
       return { value: (v === null || v === undefined) ? null : JSON.stringify(v) };
     }
+    function getCode(){ return localStorage.getItem(CODE_KEY) || ''; }
 
     async function fetchAll(){
       if (cache) return cache;
       try {
         const r = await fetch(API, { cache: 'no-store' });
         if (!r.ok) throw new Error('api no disponible');
-        cache = await r.json();
+        cache = Object.assign(await r.json(), { online: true });
       } catch (e) {
-        cache = { config: undefined, entries: undefined };
+        cache = { config: undefined, entries: undefined, protected: false, online: false };
       }
       return cache;
     }
@@ -380,20 +402,48 @@ if ('serviceWorker' in navigator) {
         const payload = k === CONFIG_KEY
           ? { config: JSON.parse(v) }
           : { entries: JSON.parse(v) };
+        const headers = { 'Content-Type': 'application/json' };
+        const code = getCode();
+        if (code) headers['Authorization'] = 'Bearer ' + code;
         try {
           const r = await fetch(API, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: headers,
             body: JSON.stringify(payload)
           });
           if (r.ok) {
-            const all = await fetchAll();
-            cache = Object.assign({}, all, payload);
+            cache = Object.assign({}, await fetchAll(), payload);
             return true;
           }
-        } catch (e) {}
+          if (r.status === 401 || r.status === 403) {
+            const err = new Error('Código de edición incorrecto');
+            err.code = 'AUTH';
+            throw err;
+          }
+          const err = new Error('API no disponible (' + r.status + ')');
+          err.code = 'SERVER';
+          throw err;
+        } catch (e) {
+          if (e && (e.code === 'AUTH' || e.code === 'SERVER')) throw e;
+        }
         localStorage.setItem(k, v);
         return true;
+      },
+      verify: async function(code){
+        try {
+          const r = await fetch(VERIFY_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code: code })
+          });
+          if (!r.ok) return false;
+          const j = await r.json();
+          return j.ok === true;
+        } catch (e) { return false; }
+      },
+      status: async function(){
+        const all = await fetchAll();
+        return { protected: !!all.protected, online: all.online === true };
       }
     };
   })();
@@ -416,6 +466,8 @@ if ('serviceWorker' in navigator) {
   let currentView = 'timeline'; 
   let pendingImages = []; 
   let chartInstance = null;
+  let isProtected = false;
+  let editingUnlocked = true;
 
   const $ = sel => document.querySelector(sel);
   const setupArea = $('#setupArea');
@@ -492,11 +544,26 @@ if ('serviceWorker' in navigator) {
       const e = await sysStorage.get(ENTRIES_KEY);
       entries = e && e.value ? JSON.parse(e.value) : [];
     }catch(e){ entries = []; }
+    const status = await sysStorage.status();
+    isProtected = status.protected === true;
+    const storedCode = localStorage.getItem('bitacora_edit_code') || '';
+    editingUnlocked = !isProtected || !!storedCode;
     if (!config) renderSetup(); else renderMain();
   }
 
   function renderSetup(){
     mainArea.style.display = 'none';
+    if (!editingUnlocked){
+      setupArea.innerHTML = `
+        <div class="glass" style="padding: 40px; border-radius: var(--radius); margin-bottom: 32px; text-align: center;">
+          <h2 style="font-size: 28px; margin-top: 0; color: var(--green);">Bitácora aún no configurada</h2>
+          <p style="color: var(--text-dim); margin-bottom: 24px;">Esta bitácora está vacía. Si eres quien la administra, desbloquéala para configurarla.</p>
+          <button class="btn-primary" id="setupUnlockBtn">🔓 Desbloquear edición</button>
+        </div>
+      `;
+      $('#setupUnlockBtn').addEventListener('click', openLockModal);
+      return;
+    }
     setupArea.innerHTML = `
       <div class="glass" style="padding: 40px; border-radius: var(--radius); margin-bottom: 32px; text-align: center;">
         <h2 style="font-size: 28px; margin-top: 0; color: var(--green);">Inicia tu Bitácora</h2>
@@ -514,8 +581,13 @@ if ('serviceWorker' in navigator) {
     $('#setDate').value = new Date().toISOString().slice(0,10);
     $('#setupSaveBtn').addEventListener('click', async () => {
       config = { title: $('#setTitle').value.trim() || 'Bitácora del proyecto', startDate: $('#setDate').value || new Date().toISOString().slice(0,10) };
-      await sysStorage.set(CONFIG_KEY, JSON.stringify(config));
-      setupArea.innerHTML = ''; renderMain();
+      try {
+        await sysStorage.set(CONFIG_KEY, JSON.stringify(config));
+        setupArea.innerHTML = ''; renderMain();
+      } catch(err){
+        if (err && err.code === 'AUTH'){ editingUnlocked = false; localStorage.removeItem('bitacora_edit_code'); showToast('Código de edición incorrecto'); loadAll(); }
+        else showToast('No se pudo guardar. Revisa tu conexión.');
+      }
     });
   }
 
@@ -537,6 +609,7 @@ if ('serviceWorker' in navigator) {
     renderViewSwitch();
     renderChips();
     renderCategorySelect();
+    applyEditMode();
     renderTimeline();
     bindFormEvents();
     bindBackupEvents();
@@ -748,23 +821,36 @@ if ('serviceWorker' in navigator) {
       ph: $('#fPh').value, ec: $('#fEc').value, temp: $('#fTemp').value,
       notes: $('#fNotes').value.trim(), tags: $('#fTags').value.split(',').map(t=>t.trim()).filter(Boolean), images: pendingImages.slice()
     };
+    const list = entries.slice();
     if (editId) {
-      const idx = entries.findIndex(e => e.id === editId);
-      if(idx > -1) entries[idx] = { ...entries[idx], ...entryData };
-      showToast('Entrada actualizada');
+      const idx = list.findIndex(e => e.id === editId);
+      if (idx > -1) list[idx] = { ...list[idx], ...entryData };
     } else {
       entryData.id = 'e_' + Date.now() + '_' + Math.random().toString(36).slice(2,7);
-      entries.push(entryData); showToast('Entrada guardada');
+      list.push(entryData);
     }
-    await sysStorage.set(ENTRIES_KEY, JSON.stringify(entries));
-    $('#formOverlay').classList.remove('open'); resetForm(); renderMain();
+    try {
+      await sysStorage.set(ENTRIES_KEY, JSON.stringify(list));
+      entries = list;
+      showToast(editId ? 'Entrada actualizada' : 'Entrada guardada');
+      $('#formOverlay').classList.remove('open'); resetForm(); renderMain();
+    } catch(err){
+      if (err && err.code === 'AUTH'){ editingUnlocked = false; localStorage.removeItem('bitacora_edit_code'); showToast('Código de edición incorrecto'); loadAll(); }
+      else showToast('No se pudo guardar en la nube. Revisa tu conexión.');
+    }
   }
 
   async function deleteEntry(id){
     if (!confirm('¿Eliminar esta entrada permanentemente?')) return;
-    entries = entries.filter(e => e.id !== id);
-    await sysStorage.set(ENTRIES_KEY, JSON.stringify(entries));
-    renderMain(); showToast('Entrada eliminada');
+    const list = entries.filter(e => e.id !== id);
+    try {
+      await sysStorage.set(ENTRIES_KEY, JSON.stringify(list));
+      entries = list;
+      renderMain(); showToast('Entrada eliminada');
+    } catch(err){
+      if (err && err.code === 'AUTH'){ editingUnlocked = false; localStorage.removeItem('bitacora_edit_code'); showToast('Código de edición incorrecto'); loadAll(); }
+      else showToast('No se pudo eliminar. Revisa tu conexión.');
+    }
   }
 
   // Backup / Restore
@@ -785,16 +871,61 @@ if ('serviceWorker' in navigator) {
         try {
           const parsed = JSON.parse(ev.target.result);
           if (parsed.config && parsed.entries) {
-            config = parsed.config; entries = parsed.entries;
-            await sysStorage.set(CONFIG_KEY, JSON.stringify(config));
-            await sysStorage.set(ENTRIES_KEY, JSON.stringify(entries));
+            const newConfig = parsed.config; const newEntries = parsed.entries;
+            await sysStorage.set(CONFIG_KEY, JSON.stringify(newConfig));
+            await sysStorage.set(ENTRIES_KEY, JSON.stringify(newEntries));
+            config = newConfig; entries = newEntries;
             renderMain(); showToast('Backup restaurado con éxito');
           } else { showToast('El archivo no tiene el formato correcto'); }
-        } catch(err) { showToast('Error al leer el backup'); }
+        } catch(err) {
+          if (err && err.code === 'AUTH'){ editingUnlocked = false; localStorage.removeItem('bitacora_edit_code'); showToast('Código de edición incorrecto'); loadAll(); }
+          else showToast('Error al leer el backup');
+        }
       };
       reader.readAsText(file);
       e.target.value = '';
     };
+  }
+
+  // Edición protegida (solo lectura para los demás)
+  function applyEditMode(){
+    $('#bitacora-root').classList.toggle('readonly', !editingUnlocked);
+    $('#toggleFormBtn').style.display = editingUnlocked ? '' : 'none';
+    $('#exportBackupBtn').style.display = editingUnlocked ? '' : 'none';
+    $('#importBackupBtn').style.display = editingUnlocked ? '' : 'none';
+    if ($('#lockBtn')){
+      $('#lockBtn').style.display = isProtected ? '' : 'none';
+      $('#lockBtn').innerHTML = editingUnlocked ? '🔒 Bloquear' : '🔓 Desbloquear';
+    }
+  }
+
+  function openLockModal(){
+    $('#lockCode').value = '';
+    $('#lockOverlay').classList.add('open');
+    setTimeout(() => { if ($('#lockCode')) $('#lockCode').focus(); }, 150);
+  }
+  function closeLockModal(){ $('#lockOverlay').classList.remove('open'); }
+
+  async function tryUnlock(){
+    const code = $('#lockCode').value.trim();
+    if (!code){ showToast('Ingresa el código de edición'); return; }
+    const ok = await sysStorage.verify(code);
+    if (ok){
+      localStorage.setItem('bitacora_edit_code', code);
+      editingUnlocked = true;
+      closeLockModal();
+      showToast('Edición desbloqueada en este dispositivo');
+      loadAll();
+    } else {
+      showToast('Código incorrecto');
+    }
+  }
+
+  function lockEditing(){
+    editingUnlocked = false;
+    localStorage.removeItem('bitacora_edit_code');
+    showToast('Edición bloqueada');
+    if (!config) renderSetup(); else { applyEditMode(); renderTimeline(); }
   }
 
   // Drawing Canvas Logic
@@ -847,6 +978,12 @@ if ('serviceWorker' in navigator) {
     renderPreviews();
     $('#canvasOverlay').classList.remove('open');
   };
+
+  // Bloqueo / desbloqueo de edición
+  $('#lockBtn').addEventListener('click', () => { if (editingUnlocked) lockEditing(); else openLockModal(); });
+  $('#cancelLockBtn').addEventListener('click', closeLockModal);
+  $('#confirmLockBtn').addEventListener('click', tryUnlock);
+  $('#lockCode').addEventListener('keydown', (e) => { if (e.key === 'Enter') tryUnlock(); });
 
   renderBackgroundField();
   loadAll();
