@@ -1,0 +1,21 @@
+{
+  "name": "Bitácora Hidropónica",
+  "short_name": "Bitácora",
+  "description": "Registro de investigación y cultivo hidropónico",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#031208",
+  "theme_color": "#69F0AE",
+  "icons": [
+    {
+      "src": "logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    },
+    {
+      "src": "logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}

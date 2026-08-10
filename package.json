@@ -1,0 +1,9 @@
+{
+  "name": "bitacora-hidroponica",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Bitácora de proyecto hidropónico compartida entre dispositivos",
+  "dependencies": {
+    "@vercel/kv": "^1.0.1"
+  }
+}
