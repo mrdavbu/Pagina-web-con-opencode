@@ -202,6 +202,12 @@ body { margin: 0; padding: 0; background: var(--bg); overflow-x: hidden; }
 
 #bitacora-root .toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(30px); background: var(--green); color:#021006; padding: 12px 24px; border-radius: 999px; font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:700; opacity:0; transition: all .3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 300; pointer-events:none; box-shadow: var(--shadow-lg), 0 0 15px var(--green-soft); }
 #bitacora-root .toast.show { opacity:1; transform: translateX(-50%) translateY(0); }
+
+/* LIGHTBOX */
+#bitacora-root .lightbox { position: fixed; inset:0; background: rgba(2,8,4,0.92); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display:none; align-items:center; justify-content:center; z-index: 200; padding: 24px; opacity:0; transition: opacity 0.3s ease; cursor: zoom-out; }
+#bitacora-root .lightbox.open { display:flex; opacity:1; }
+#bitacora-root .lightbox img { max-width: 92%; max-height: 88vh; border-radius: 10px; box-shadow: 0 20px 60px rgba(0,0,0,.6), 0 0 0 1px rgba(126,231,165,0.2); transform: scale(0.85); transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+#bitacora-root .lightbox.open img { transform: scale(1); }
 </style>
 </head>
 <body>
@@ -687,11 +693,12 @@ if ('serviceWorker' in navigator) {
       if (!imgs.length){ area.innerHTML = `<div class="glass" style="text-align:center; padding: 60px; border-radius: var(--radius); color: var(--text-dim);"><span class="num" style="font-size:40px; color:var(--green); display:block; margin-bottom:10px;">0</span>No hay fotos todavía.</div>`; return; }
       area.innerHTML = `<div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap:16px;">${imgs.map(im => {
         const cat = catById(im.entry.category);
-        return `<div class="glass" style="position:relative; border-radius:12px; overflow:hidden; cursor:zoom-in; aspect-ratio:1;" onclick="openLightbox('${im.data}')">
+        return `<div class="glass gitem" data-src="${im.data}" style="position:relative; border-radius:12px; overflow:hidden; cursor:zoom-in; aspect-ratio:1;">
           <span style="position:absolute; top:12px; left:12px; width:10px; height:10px; border-radius:50%; background:${cat.color}; z-index:1;"></span>
           <img src="${im.data}" style="width:100%; height:100%; object-fit:cover; transition: 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
         </div>`;
       }).join('')}</div>`;
+      area.querySelectorAll('.gitem').forEach(el => { el.addEventListener('click', () => openLightbox(el.dataset.src)); });
       return;
     }
 
@@ -750,7 +757,8 @@ if ('serviceWorker' in navigator) {
   function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
   function openLightbox(src){ $('#lightboxImg').src = src; $('#lightbox').classList.add('open'); }
-  $('#lightbox').addEventListener('click', (e) => { if(e.target === $('#lightbox')) $('#lightbox').classList.remove('open'); });
+  $('#lightbox').addEventListener('click', (e) => { if(e.target === $('#lightbox') || e.target === $('#lightboxImg')) $('#lightbox').classList.remove('open'); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') $('#lightbox').classList.remove('open'); });
 
   function bindFormEvents(){
     $('#toggleFormBtn').onclick = () => { resetForm(); $('#formModalTitle').textContent = 'Nueva Entrada'; $('#formOverlay').classList.add('open'); $('#fDate').value = new Date().toISOString().slice(0,10); };
