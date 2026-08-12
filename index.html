@@ -583,7 +583,7 @@ if ('serviceWorker' in navigator) {
   function renderMain(){
     mainArea.style.display = 'block';
     $('#hTitle').textContent = config.title;
-    const days = Math.max(1, Math.floor((new Date() - new Date(config.startDate)) / 86400000) + 1);
+    const days = Math.max(1, Math.floor((new Date() - new Date(config.startDate + 'T00:00:00')) / 86400000) + 1);
     $('#statDay').textContent = days;
     $('#statEntries').textContent = entries.length;
     if (entries.length){
