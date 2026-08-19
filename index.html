@@ -141,6 +141,20 @@ body { margin: 0; padding: 0; background: var(--bg); overflow-x: hidden; }
 #bitacora-root .preview-thumb .rm { position:absolute; top:4px; right:4px; background:rgba(0,0,0,0.8); color:var(--pink); width:20px;height:20px; border-radius: 50%; font-size:12px; line-height:20px; text-align:center; cursor: pointer; transition: 0.2s; z-index:10; }
 #bitacora-root .preview-thumb .rm:hover { transform: scale(1.1); background: var(--pink); color: #000; }
 
+/* PDF thumbnails */
+#bitacora-root .preview-thumb.pdf-thumb { background: var(--bg-card); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; cursor:pointer; }
+#bitacora-root .preview-thumb.pdf-thumb .pdf-icon { width:32px; height:40px; background: linear-gradient(135deg, #FF5F52, #FF3B30); border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:#fff; font-family:'IBM Plex Mono',monospace; box-shadow: 0 2px 8px rgba(255,59,48,0.3); }
+#bitacora-root .preview-thumb.pdf-thumb .pdf-name { font-size:9px; color:var(--text-dim); text-align:center; line-height:1.2; overflow:hidden; max-width:70px; text-overflow:ellipsis; white-space:nowrap; }
+#bitacora-root .card .pdf-embed { border-radius:10px; overflow:hidden; border:1px solid var(--line-strong); margin: 16px 0; background: rgba(0,0,0,0.4); }
+#bitacora-root .card .pdf-embed iframe { width:100%; height:400px; border:none; display:block; }
+#bitacora-root .card .pdf-embed .pdf-bar { display:flex; align-items:center; gap:8px; padding:10px 14px; background:rgba(0,0,0,0.5); border-bottom:1px solid var(--line); font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--text-dim); cursor:pointer; transition: 0.2s; }
+#bitacora-root .card .pdf-embed .pdf-bar:hover { color:var(--green); }
+#bitacora-root .card .pdf-embed .pdf-bar .pdf-badge { background: linear-gradient(135deg, #FF5F52, #FF3B30); color:#fff; padding:2px 8px; border-radius:4px; font-weight:700; font-size:10px; }
+#bitacora-root .gallery-pdf { position:relative; border-radius:12px; overflow:hidden; cursor:pointer; aspect-ratio:1; background: rgba(20,50,35,0.8); border:1px solid var(--line-strong); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; transition: var(--transition); }
+#bitacora-root .gallery-pdf:hover { border-color:var(--pink); transform:translateY(-4px); box-shadow: var(--shadow-sm); }
+#bitacora-root .gallery-pdf .gp-icon { width:48px; height:60px; background: linear-gradient(135deg, #FF5F52, #FF3B30); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:700; color:#fff; font-family:'IBM Plex Mono',monospace; box-shadow: 0 4px 16px rgba(255,59,48,0.35); }
+#bitacora-root .gallery-pdf .gp-name { font-size:11px; color:var(--text-dim); text-align:center; max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
 #bitacora-root .form-actions { display:flex; gap:12px; justify-content:flex-end; margin-top: 32px; border-top: 1px solid var(--line); padding-top: 24px; }
 
 /* CANVAS DRAWING */
@@ -299,9 +313,9 @@ body { margin: 0; padding: 0; background: var(--bg); overflow-x: hidden; }
           <input type="text" id="fTags" placeholder="pH, lechuga, sistema NFT">
         </div>
         <div class="field full">
-          <label>Imágenes (Toca una foto para dibujar encima)</label>
-          <div class="file-drop" id="fileDrop">Toca o arrastra para subir fotos o capturas</div>
-          <input type="file" id="fFiles" accept="image/*" multiple style="display:none;">
+          <label>Archivos (Imágenes y PDFs)</label>
+          <div class="file-drop" id="fileDrop">Toca o arrastra para subir fotos o PDFs</div>
+          <input type="file" id="fFiles" accept="image/*,.pdf" multiple style="display:none;">
           <div class="preview-row" id="previewRow"></div>
         </div>
       </div>
@@ -688,11 +702,20 @@ if ('serviceWorker' in navigator) {
     const list = getFilteredEntries();
 
     if (currentView === 'gallery'){
-      const imgs = [];
-      list.forEach(e => (e.images||[]).forEach(im => imgs.push({ data: im.data, name: im.name, entry: e })));
-      if (!imgs.length){ area.innerHTML = `<div class="glass" style="text-align:center; padding: 60px; border-radius: var(--radius); color: var(--text-dim);"><span class="num" style="font-size:40px; color:var(--green); display:block; margin-bottom:10px;">0</span>No hay fotos todavía.</div>`; return; }
-      area.innerHTML = `<div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap:16px;">${imgs.map(im => {
+      const items = [];
+      const isPdfData = d => d && d.startsWith('data:application/pdf');
+      list.forEach(e => (e.images||[]).forEach(im => items.push({ data: im.data, name: im.name, entry: e })));
+      if (!items.length){ area.innerHTML = `<div class="glass" style="text-align:center; padding: 60px; border-radius: var(--radius); color: var(--text-dim);"><span class="num" style="font-size:40px; color:var(--green); display:block; margin-bottom:10px;">0</span>No hay archivos todavía.</div>`; return; }
+      area.innerHTML = `<div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap:16px;">${items.map(im => {
         const cat = catById(im.entry.category);
+        if (isPdfData(im.data)) {
+          const fname = (im.name || 'documento').replace(/\.pdf$/i,'');
+          return `<div class="gallery-pdf gitem" data-src="${im.data}">
+            <span style="position:absolute; top:12px; left:12px; width:10px; height:10px; border-radius:50%; background:${cat.color}; z-index:1;"></span>
+            <div class="gp-icon">PDF</div>
+            <span class="gp-name">${escapeHtml(fname)}</span>
+          </div>`;
+        }
         return `<div class="glass gitem" data-src="${im.data}" style="position:relative; border-radius:12px; overflow:hidden; cursor:zoom-in; aspect-ratio:1;">
           <span style="position:absolute; top:12px; left:12px; width:10px; height:10px; border-radius:50%; background:${cat.color}; z-index:1;"></span>
           <img src="${im.data}" style="width:100%; height:100%; object-fit:cover; transition: 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
@@ -712,12 +735,26 @@ if ('serviceWorker' in navigator) {
   }
 
   function buildImgFeature(images){
-    const imgs = images || [];
-    if (!imgs.length) return '';
-    if (imgs.length === 1) return `<div class="img-feature single"><div class="hero-img"><img src="${imgs[0].data}"></div></div>`;
-    const hero = imgs[0], rest = imgs.slice(1, 4), extra = imgs.length - 1 - rest.length;
-    const subHtml = rest.map((im, i) => `<div class="sub-img-wrap"><img src="${im.data}">${i === rest.length - 1 && extra > 0 ? `<span class="more-badge">+${extra}</span>` : ''}</div>`).join('');
-    return `<div class="img-feature"><div class="hero-img"><img src="${hero.data}"></div><div class="sub-imgs">${subHtml}</div></div>`;
+    const items = images || [];
+    if (!items.length) return '';
+    const isPdf = d => d && d.startsWith('data:application/pdf');
+    const imgs = items.filter(im => !isPdf(im.data));
+    const pdfs = items.filter(im => isPdf(im.data));
+    let html = '';
+    if (imgs.length === 1) {
+      html = `<div class="img-feature single"><div class="hero-img"><img src="${imgs[0].data}"></div></div>`;
+    } else if (imgs.length > 1) {
+      const hero = imgs[0], rest = imgs.slice(1, 4), extra = imgs.length - 1 - rest.length;
+      const subHtml = rest.map((im, i) => `<div class="sub-img-wrap"><img src="${im.data}">${i === rest.length - 1 && extra > 0 ? `<span class="more-badge">+${extra}</span>` : ''}</div>`).join('');
+      html = `<div class="img-feature"><div class="hero-img"><img src="${hero.data}"></div><div class="sub-imgs">${subHtml}</div></div>`;
+    }
+    if (pdfs.length) {
+      html += pdfs.map(im => {
+        const fname = (im.name || 'documento').replace(/\.pdf$/i,'');
+        return `<div class="pdf-embed"><div class="pdf-bar" onclick="window.open('${im.data}','_blank')"><span class="pdf-badge">PDF</span> ${escapeHtml(fname)}</div><iframe src="${im.data}"></iframe></div>`;
+      }).join('');
+    }
+    return html;
   }
 
   function entryHtml(e, idx){
@@ -756,7 +793,17 @@ if ('serviceWorker' in navigator) {
 
   function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
-  function openLightbox(src){ $('#lightboxImg').src = src; $('#lightbox').classList.add('open'); }
+  function openLightbox(src){
+    const lb = $('#lightbox');
+    if (src && src.startsWith('data:application/pdf')) {
+      window.open(src, '_blank');
+      return;
+    }
+    $('#lightboxImg').src = src;
+    $('#lightboxImg').style.display = '';
+    $('#lightboxIframe') && ($('#lightboxIframe').style.display = 'none');
+    lb.classList.add('open');
+  }
   $('#lightbox').addEventListener('click', (e) => { if(e.target === $('#lightbox') || e.target === $('#lightboxImg')) $('#lightbox').classList.remove('open'); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') $('#lightbox').classList.remove('open'); });
 
@@ -769,7 +816,9 @@ if ('serviceWorker' in navigator) {
     $('#fFiles').onchange = async (ev) => {
       const files = Array.from(ev.target.files || []);
       for (const file of files){
-        if (file.size > 5 * 1024 * 1024){ showToast(`"${file.name}" pesa mucho, máximo 5MB.`); continue; }
+        const isPdf = file.type === 'application/pdf';
+        const limit = isPdf ? 10 * 1024 * 1024 : 5 * 1024 * 1024;
+        if (file.size > limit){ showToast(`"${file.name}" pesa mucho, máximo ${isPdf?'10':'5'}MB.`); continue; }
         const data = await fileToBase64(file);
         pendingImages.push({ name: file.name, data });
       }
@@ -783,11 +832,17 @@ if ('serviceWorker' in navigator) {
 
   function renderPreviews(){
     const row = $('#previewRow');
-    row.innerHTML = pendingImages.map((im, i) =>
-      `<div class="preview-thumb"><img src="${im.data}"><div class="draw-btn" data-i="${i}">✎ DIBUJAR</div><span class="rm" data-i="${i}">×</span></div>`
-    ).join('');
+    row.innerHTML = pendingImages.map((im, i) => {
+      const isPdf = im.data && im.data.startsWith('data:application/pdf');
+      if (isPdf) {
+        const fname = (im.name || 'documento').replace(/\.pdf$/i,'');
+        return `<div class="preview-thumb pdf-thumb" data-i="${i}"><div class="pdf-icon">PDF</div><span class="pdf-name">${escapeHtml(fname)}</span><span class="rm" data-i="${i}">×</span></div>`;
+      }
+      return `<div class="preview-thumb"><img src="${im.data}"><div class="draw-btn" data-i="${i}">✎ DIBUJAR</div><span class="rm" data-i="${i}">×</span></div>`;
+    }).join('');
     row.querySelectorAll('.rm').forEach(el => { el.addEventListener('click', (e) => { e.stopPropagation(); pendingImages.splice(Number(el.dataset.i), 1); renderPreviews(); }); });
     row.querySelectorAll('.draw-btn').forEach(el => { el.addEventListener('click', (e) => { e.stopPropagation(); openCanvas(Number(el.dataset.i)); }); });
+    row.querySelectorAll('.pdf-thumb').forEach(el => { el.addEventListener('click', () => { window.open(pendingImages[Number(el.dataset.i)].data, '_blank'); }); });
   }
 
   function resetForm(){ $('#fTitle').value = ''; $('#fNotes').value = ''; $('#fTags').value = ''; $('#fPh').value = ''; $('#fEc').value = ''; $('#fTemp').value = ''; $('#saveEntryBtn').dataset.editId = ''; pendingImages = []; renderPreviews(); }
