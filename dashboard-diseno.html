@@ -156,7 +156,13 @@ footer a:hover{ color:var(--green); }
       <div class="field"><label>Año</label><input type="text" id="fYear" placeholder="Ej. 2024"></div>
       <div class="field full"><label>URL de la imagen</label><input type="url" id="fImage" placeholder="https://... (URL directa de imagen)"></div>
       <div class="field full"><label>Descripción</label><textarea id="fDesc" rows="3" placeholder="Descripción del proyecto, enfoque de diseño..."></textarea></div>
-      <div class="field full"><label>Link al proyecto</label><input type="url" id="fUrl" placeholder="https://..."></div>
+      <div class="field full"><label>Link al proyecto</label>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input type="url" id="fUrl" placeholder="https://..." style="flex:1">
+          <button type="button" id="fetchBtn" class="btn btn-ghost" style="white-space:nowrap;font-size:13px" onclick="fetchFromUrl()">🔍 Buscar datos</button>
+        </div>
+        <span id="fetchStatus" style="font-size:11px;color:var(--muted);margin-top:4px;display:none"></span>
+      </div>
       <div class="field full"><label>Bibliografía / Referencias</label><textarea id="fBiblio" rows="2" placeholder="Autores, artículos, libros de referencia..."></textarea></div>
       <div class="field full"><label>Tags (separados por coma)</label><input type="text" id="fTags" placeholder="Ej. aeroponía, diseño industrial, indoor"></div>
     </div>
@@ -404,6 +410,46 @@ footer a:hover{ color:var(--green); }
     ];
     seed.forEach(p=>db.push(p));
   });
+
+  // --- Auto-fetch design data from URL ---
+  window.fetchFromUrl = async function() {
+    const url = document.getElementById('fUrl').value.trim();
+    if(!url){ toast('Pega una URL primero'); return; }
+    const btn = document.getElementById('fetchBtn');
+    const status = document.getElementById('fetchStatus');
+    btn.disabled = true; btn.textContent = '⏳ Buscando...';
+    status.style.display = 'block'; status.textContent = 'Extrayendo datos del enlace...';
+
+    try {
+      const r = await fetch('/api/scrape?url=' + encodeURIComponent(url) + '&type=design');
+      const d = await r.json();
+      if(d.error) throw new Error(d.error);
+
+      if(d.name && !document.getElementById('fName').value.trim()) document.getElementById('fName').value = d.name;
+      if(d.author && !document.getElementById('fAuthor').value.trim()) document.getElementById('fAuthor').value = d.author;
+      if(d.source && !document.getElementById('fSource').value.trim()) document.getElementById('fSource').value = d.source;
+      if(d.year && !document.getElementById('fYear').value.trim()) document.getElementById('fYear').value = d.year;
+      if(d.image && !document.getElementById('fImage').value.trim()) document.getElementById('fImage').value = d.image;
+      if(d.desc && !document.getElementById('fDesc').value.trim()) document.getElementById('fDesc').value = d.desc;
+      if(d.biblio && !document.getElementById('fBiblio').value.trim()) document.getElementById('fBiblio').value = d.biblio;
+      if(d.tags && d.tags.length) {
+        const cur = document.getElementById('fTags').value.trim();
+        const merged = [...new Set([...cur.split(',').map(t=>t.trim()).filter(Boolean), ...d.tags])];
+        document.getElementById('fTags').value = merged.join(', ');
+      }
+
+      const filled = [d.name,d.author,d.source,d.year,d.image,d.desc,d.biblio].filter(Boolean).length;
+      status.textContent = '✔ ' + filled + ' campos completados' + (d.source ? ' (' + d.source + ')' : '');
+      status.style.color = '#4ae084';
+      toast(filled + ' campos auto-completados');
+    } catch(e) {
+      status.textContent = '⚠ ' + (e.message || 'No se pudo extraer. Ingresa manualmente.');
+      status.style.color = '#ff6b6b';
+      toast('Error al buscar datos');
+    } finally {
+      btn.disabled = false; btn.textContent = '🔍 Buscar datos';
+    }
+  };
 })();
 </script>
 </body>
