@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#031208">
+<link rel="manifest" href="manifest.json">
+<title>Dashboard de Diseño — Hidroponía</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#031208; --bg-panel:rgba(12,34,20,0.45); --bg-card:rgba(15,43,25,0.55);
+  --bg-input:rgba(7,20,11,0.6); --line:rgba(126,231,165,0.15); --line-strong:rgba(126,231,165,0.35);
+  --text:#E8F5E9; --text-dim:#A5D6A7; --text-faint:#66BB6A;
+  --green:#69F0AE; --green-soft:rgba(105,240,174,0.15);
+  --pink:#FF8FD1; --terra:#D08A4F; --blue:#7FB8FF; --yellow:#E8D46F;
+  --red:#FF5F52; --radius:16px;
+  --shadow-sm:0 4px 16px rgba(0,0,0,0.4); --shadow-lg:0 16px 40px rgba(0,0,0,0.6);
+}
+*{box-sizing:border-box;}
+body{ margin:0; background:var(--bg); color:var(--text); overflow-x:hidden; }
+body::before{ content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background: radial-gradient(ellipse at 50% 15%, rgba(105,240,174,0.06) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 60%, rgba(208,138,79,0.04) 0%, transparent 40%),
+              radial-gradient(ellipse at 20% 80%, rgba(105,240,174,0.03) 0%, transparent 40%); }
+#root{ max-width:1180px; margin:0 auto; padding:56px 24px 70px; position:relative; z-index:1;
+  font-family:'Source Serif 4',Georgia,serif; line-height:1.6; }
+#root h1,#root h2,#root h3,.mono,#root .eyebrow,#root button,#root input,#root select{ font-family:'Space Grotesk',sans-serif; }
+.eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--green); margin-bottom:10px; display:flex; align-items:center; gap:10px; }
+.eyebrow .dot{ width:8px; height:8px; border-radius:50%; background:var(--green); box-shadow:0 0 12px var(--green); animation:pulseDot 2s infinite; }
+@keyframes pulseDot{ 0%{box-shadow:0 0 0 0 rgba(105,240,174,0.4);} 70%{box-shadow:0 0 0 10px rgba(105,240,174,0);} 100%{box-shadow:0 0 0 0 rgba(105,240,174,0);} }
+h1{ font-size:clamp(28px,4vw,42px); line-height:1.1; margin:0 0 12px; font-weight:700; letter-spacing:-.02em; background:linear-gradient(90deg,#FFF,#69F0AE); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.sub{ color:var(--text-dim); font-size:16px; max-width:640px; line-height:1.6; margin:0 0 8px; }
+.glass{ background:var(--bg-panel); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid var(--line); box-shadow:var(--shadow-sm); border-radius:var(--radius); }
+
+.controls{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:24px; align-items:flex-end; }
+select,input[type=text]{ background:var(--bg-input); border:1px solid var(--line); color:var(--text);
+  font-family:'Space Grotesk',sans-serif; font-size:13px; padding:9px 12px; border-radius:9px; }
+select:focus,input:focus{ outline:none; border-color:var(--green); box-shadow:0 0 0 2px rgba(105,240,174,0.15); }
+.ctl-group{ display:flex; flex-direction:column; min-width:140px; }
+.ctl-group label{ font-size:11px; color:var(--text-faint); display:block; margin-bottom:4px; font-family:'IBM Plex Mono',monospace; }
+input[type=text]{ min-width:200px; }
+
+button{ cursor:pointer; border:none; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:13px; }
+.btn{ padding:10px 20px; border-radius:9px; transition:all .2s; display:inline-flex; align-items:center; gap:6px; }
+.btn-primary{ background:var(--green); color:#031208; }
+.btn-primary:hover{ background:#B9F6CA; transform:translateY(-1px); box-shadow:0 4px 12px rgba(105,240,174,0.3); }
+.btn-ghost{ background:transparent; color:var(--text-dim); border:1px solid var(--line); }
+.btn-ghost:hover{ border-color:var(--green); color:var(--green); background:var(--green-soft); }
+.btn-sm{ padding:6px 12px; font-size:11px; }
+.btn-danger{ background:transparent; color:var(--red); border:1px solid rgba(255,95,82,0.3); }
+.btn-danger:hover{ background:rgba(255,95,82,0.1); }
+
+.stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; margin-bottom:30px; }
+.stat{ background:var(--bg-panel); padding:16px; backdrop-filter:blur(12px); }
+.stat .num{ font-family:'IBM Plex Mono',monospace; font-size:21px; font-weight:600; color:var(--green); text-shadow:0 0 20px rgba(105,240,174,0.3); }
+.stat .lbl{ font-size:11px; color:var(--text-faint); margin-top:4px; line-height:1.35; }
+@media(max-width:760px){ .stats{ grid-template-columns:repeat(2,1fr); } }
+
+.project-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:20px; margin-bottom:40px; }
+.project-card{ background:var(--bg-card); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; transition:transform .2s, box-shadow .2s; }
+.project-card:hover{ transform:translateY(-4px); box-shadow:var(--shadow-lg); }
+.project-img{ width:100%; height:200px; object-fit:cover; border-bottom:1px solid var(--line); background:var(--bg-input); }
+.project-body{ padding:18px 20px; }
+.project-body h3{ font-size:16px; margin:0 0 6px; color:var(--text); font-weight:600; }
+.project-meta{ font-size:11px; color:var(--text-faint); margin-bottom:10px; font-family:'IBM Plex Mono',monospace; }
+.project-desc{ font-size:13.5px; color:var(--text-dim); line-height:1.6; margin-bottom:12px; }
+.project-biblio{ font-size:11.5px; color:var(--text-faint); border-top:1px solid var(--line); padding-top:10px; margin-top:10px; }
+.project-biblio strong{ color:var(--text-dim); }
+.project-tags{ display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+.tag{ font-size:10px; padding:3px 8px; border-radius:5px; background:var(--green-soft); color:var(--green); border:1px solid rgba(105,240,174,0.15); font-family:'IBM Plex Mono',monospace; }
+.tag.award{ background:rgba(208,138,79,0.15); color:var(--terra); border-color:rgba(208,138,79,0.2); }
+.tag.phase{ background:rgba(127,184,255,0.15); color:var(--blue); border-color:rgba(127,184,255,0.2); }
+.project-links{ display:flex; gap:8px; margin-top:12px; }
+.project-links a{ font-size:11.5px; color:var(--green); text-decoration:none; font-family:'IBM Plex Mono',monospace; }
+.project-links a:hover{ text-decoration:underline; }
+
+.modal-overlay{ position:fixed; inset:0; background:rgba(3,18,8,0.88); backdrop-filter:blur(8px); z-index:100; opacity:0; pointer-events:none; display:flex; align-items:center; justify-content:center; padding:20px; transition:opacity .3s; }
+.modal-overlay.open{ opacity:1; pointer-events:auto; }
+.modal-panel{ background:var(--bg-panel); backdrop-filter:blur(16px); border:1px solid var(--line); border-radius:var(--radius); padding:28px 30px; width:100%; max-width:680px; max-height:85vh; overflow-y:auto; box-shadow:var(--shadow-lg); }
+.modal-panel h2{ margin:0 0 20px; font-size:20px; color:var(--green); }
+.form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.form-grid .full{ grid-column:1/-1; }
+.form-grid .field label{ display:block; font-size:11px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.08em; margin-bottom:5px; font-family:'IBM Plex Mono',monospace; font-weight:500; }
+.form-grid .field input,.form-grid .field textarea,.form-grid .field select{ width:100%; background:var(--bg-input); border:1px solid var(--line); color:var(--text); font-family:'Space Grotesk',sans-serif; font-size:13px; padding:9px 12px; border-radius:9px; }
+.form-grid .field input:focus,.form-grid .field textarea:focus{ outline:none; border-color:var(--green); }
+.form-actions{ display:flex; gap:10px; justify-content:flex-end; margin-top:20px; border-top:1px solid var(--line); padding-top:16px; }
+@media(max-width:600px){ .form-grid{ grid-template-columns:1fr; } .form-grid .full{ grid-column:auto; } }
+
+.toast{ position:fixed; bottom:32px; left:50%; transform:translateX(-50%) translateY(30px); background:var(--green); color:#031208; padding:12px 24px; border-radius:999px; font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:700; opacity:0; transition:all .3s cubic-bezier(.175,.885,.32,1.275); z-index:300; pointer-events:none; box-shadow:0 8px 24px rgba(0,0,0,0.4); }
+.toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+footer{ color:var(--text-faint); font-size:11px; line-height:1.7; border-top:1px solid var(--line); padding-top:16px; margin-top:40px; }
+footer a{ color:var(--text-faint); text-decoration:none; }
+footer a:hover{ color:var(--green); }
+
+.empty{ text-align:center; padding:60px 20px; color:var(--text-faint); }
+.empty h3{ color:var(--text-dim); margin:0 0 8px; }
+</style>
+</head>
+<body>
+<div id="root">
+
+  <header style="margin-bottom:26px;">
+    <div class="eyebrow"><span class="dot"></span> Bitácora · Investigación de diseño</div>
+    <h1>Dashboard de Diseño Hidropónico</h1>
+    <p class="sub">Proyectos de diseño de sistemas hidropónicos en fase de estudio — referencias de Red Dot, iF Design, Behance y fuentes académicas.</p>
+  </header>
+
+  <div style="display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;">
+    <button class="btn btn-primary" id="addBtn">+ Agregar proyecto</button>
+  </div>
+
+  <div class="stats" id="statStrip"></div>
+
+  <div class="controls">
+    <div class="ctl-group">
+      <label>Buscar</label>
+      <input type="text" id="search" placeholder="nombre, autor, fuente...">
+    </div>
+    <div class="ctl-group">
+      <label>Fuente</label>
+      <select id="filterSource"><option value="all">Todas</option></select>
+    </div>
+    <div class="ctl-group">
+      <label>Fase</label>
+      <select id="filterPhase"><option value="all">Todas</option></select>
+    </div>
+  </div>
+
+  <div class="project-grid" id="grid"></div>
+
+  <div class="empty" id="emptyState" style="display:none;">
+    <h3>No hay proyectos aún</h3>
+    <p>Agrega un proyecto con "+ Agregar proyecto" para comenzar.</p>
+  </div>
+
+  <footer>
+    Referencias: <a href="https://www.red-dot.org/project/aeroponic-planter-60109" target="_blank">Red Dot Design Concept</a> · 
+    <a href="https://www.behance.net/search/projects/hydroponic%20design" target="_blank">Behance</a> · 
+    <a href="https://ifdesign.com" target="_blank">iF Design Award</a> · 
+    <a href="https://dribbble.com/tags/hydroponic" target="_blank">Dribbble</a>
+  </footer>
+</div>
+
+<!-- Add/Edit Modal -->
+<div class="modal-overlay" id="formModal">
+  <div class="modal-panel">
+    <h2 id="formTitle">Agregar proyecto</h2>
+    <div class="form-grid">
+      <div class="field full"><label>Nombre del proyecto</label><input type="text" id="fName" placeholder="Ej. Aeroponic Planter"></div>
+      <div class="field"><label>Autor / Estudio</label><input type="text" id="fAuthor" placeholder="Ej. Studio Precht"></div>
+      <div class="field"><label>Fuente / Plataforma</label><input type="text" id="fSource" placeholder="Ej. Red Dot, Behance, iF"></div>
+      <div class="field"><label>Fase</label><select id="fPhase"><option value="Estudio">Estudio</option><option value="Prototipo">Prototipo</option><option value="Publicado">Publicado</option><option value="En desarrollo">En desarrollo</option></select></div>
+      <div class="field"><label>Año</label><input type="text" id="fYear" placeholder="Ej. 2024"></div>
+      <div class="field full"><label>URL de la imagen</label><input type="url" id="fImage" placeholder="https://... (URL directa de imagen)"></div>
+      <div class="field full"><label>Descripción</label><textarea id="fDesc" rows="3" placeholder="Descripción del proyecto, enfoque de diseño..."></textarea></div>
+      <div class="field full"><label>Link al proyecto</label><input type="url" id="fUrl" placeholder="https://..."></div>
+      <div class="field full"><label>Bibliografía / Referencias</label><textarea id="fBiblio" rows="2" placeholder="Autores, artículos, libros de referencia..."></textarea></div>
+      <div class="field full"><label>Tags (separados por coma)</label><input type="text" id="fTags" placeholder="Ej. aeroponía, diseño industrial, indoor"></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-ghost" id="cancelFormBtn">Cancelar</button>
+      <button class="btn btn-primary" id="saveFormBtn">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+(function(){
+  const FIREBASE_URL = 'https://link-de-proyecto-estrategico-default-rtdb.firebaseio.com';
+  const DB_PATH = 'diseno/projects';
+  firebase.initializeApp({ databaseURL: FIREBASE_URL });
+  const db = firebase.database().ref(DB_PATH);
+
+  let projects = {};
+  let filterSource = 'all', filterPhase = 'all', searchQ = '';
+  let editingId = null;
+
+  function toast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(()=> t.classList.remove('show'), 2800);
+  }
+
+  function renderStats(){
+    const list = Object.values(projects);
+    const sources = [...new Set(list.map(p=>p.source).filter(Boolean))];
+    const phases = [...new Set(list.map(p=>p.phase).filter(Boolean))];
+    const awarded = list.filter(p=>(p.tags||[]).some(t=>t.toLowerCase().includes('red dot')||t.toLowerCase().includes('if design'))).length;
+    document.getElementById('statStrip').innerHTML = [
+      { num: list.length, lbl: 'Proyectos registrados' },
+      { num: sources.length, lbl: 'Fuentes de referencia' },
+      { num: awarded, lbl: 'Con premio de diseño' },
+    ].map(s => `<div class="stat"><div class="num">${s.num}</div><div class="lbl">${s.lbl}</div></div>`).join('');
+  }
+
+  function renderFilters(){
+    const list = Object.values(projects);
+    const srcSel = document.getElementById('filterSource');
+    const phSel = document.getElementById('filterPhase');
+    const curSrc = srcSel.value, curPh = phSel.value;
+    srcSel.innerHTML = '<option value="all">Todas</option>';
+    phSel.innerHTML = '<option value="all">Todas</option>';
+    [...new Set(list.map(p=>p.source).filter(Boolean))].sort().forEach(s=>{
+      const o = document.createElement('option'); o.value=s; o.textContent=s; srcSel.appendChild(o);
+    });
+    [...new Set(list.map(p=>p.phase).filter(Boolean))].sort().forEach(p=>{
+      const o = document.createElement('option'); o.value=p; o.textContent=p; phSel.appendChild(o);
+    });
+    srcSel.value = curSrc; phSel.value = curPh;
+  }
+
+  function getFiltered(){
+    return Object.entries(projects).filter(([id,p])=>{
+      if (filterSource!=='all' && p.source!==filterSource) return false;
+      if (filterPhase!=='all' && p.phase!==filterPhase) return false;
+      if (searchQ && !(p.name+p.author+p.source+p.desc+(p.tags||[]).join('')).toLowerCase().includes(searchQ)) return false;
+      return true;
+    });
+  }
+
+  function renderGrid(){
+    const filtered = getFiltered();
+    const el = document.getElementById('grid');
+    const empty = document.getElementById('emptyState');
+    if (!filtered.length){
+      el.innerHTML = '';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+    el.innerHTML = filtered.map(([id,p])=>{
+      const tags = (p.tags||[]).map(t=>{
+        const isAward = t.toLowerCase().includes('red dot')||t.toLowerCase().includes('if design')||t.toLowerCase().includes('a\'design');
+        return `<span class="tag ${isAward?'award':''}">${t}</span>`;
+      }).join('');
+      const phaseTag = p.phase ? `<span class="tag phase">${p.phase}</span>` : '';
+      return `<div class="project-card">
+        ${p.image ? `<img class="project-img" src="${p.image}" alt="${p.name||''}" onerror="this.style.display='none'">` : `<div class="project-img" style="display:flex;align-items:center;justify-content:center;color:var(--text-faint);font-size:13px;">Sin imagen</div>`}
+        <div class="project-body">
+          <h3>${p.name||'(sin nombre)'}</h3>
+          <div class="project-meta">${p.author||''} ${p.source?'· '+p.source:''} ${p.year?'· '+p.year:''}</div>
+          <div class="project-desc">${p.desc||''}</div>
+          ${p.biblio ? `<div class="project-biblio"><strong>Referencias:</strong> ${p.biblio}</div>` : ''}
+          <div class="project-tags">${phaseTag}${tags}</div>
+          <div class="project-links">
+            ${p.url ? `<a href="${p.url}" target="_blank" rel="noopener">Ver proyecto ↗</a>` : ''}
+            <a href="#" onclick="openForm('${id}');return false;">Editar</a>
+            <a href="#" onclick="openDelete('${id}');return false;" style="color:var(--red);">Eliminar</a>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  document.getElementById('filterSource').addEventListener('change', e=>{ filterSource=e.target.value; renderGrid(); });
+  document.getElementById('filterPhase').addEventListener('change', e=>{ filterPhase=e.target.value; renderGrid(); });
+  document.getElementById('search').addEventListener('input', e=>{ searchQ=e.target.value.toLowerCase(); renderGrid(); });
+
+  function clearForm(){
+    ['fName','fAuthor','fSource','fYear','fImage','fDesc','fUrl','fBiblio','fTags'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('fPhase').value='Estudio';
+  }
+
+  document.getElementById('addBtn').addEventListener('click',()=>{ editingId=null; clearForm(); document.getElementById('formTitle').textContent='Agregar proyecto'; document.getElementById('formModal').classList.add('open'); });
+  document.getElementById('cancelFormBtn').addEventListener('click',()=>document.getElementById('formModal').classList.remove('open'));
+
+  window.openForm = function(id){
+    editingId=id;
+    const p=projects[id];
+    document.getElementById('formTitle').textContent='Editar proyecto';
+    document.getElementById('fName').value=p.name||'';
+    document.getElementById('fAuthor').value=p.author||'';
+    document.getElementById('fSource').value=p.source||'';
+    document.getElementById('fPhase').value=p.phase||'Estudio';
+    document.getElementById('fYear').value=p.year||'';
+    document.getElementById('fImage').value=p.image||'';
+    document.getElementById('fDesc').value=p.desc||'';
+    document.getElementById('fUrl').value=p.url||'';
+    document.getElementById('fBiblio').value=p.biblio||'';
+    document.getElementById('fTags').value=(p.tags||[]).join(', ');
+    document.getElementById('formModal').classList.add('open');
+  };
+
+  let deleteId = null;
+  window.openDelete = function(id){
+    deleteId=id;
+    if(confirm('Eliminar proyecto "'+(projects[id]?.name||'')+'" ?')){
+      db.child(id).remove().then(()=>{ toast('Eliminado'); deleteId=null; }).catch(()=>toast('Error'));
+    }
+  };
+
+  document.getElementById('saveFormBtn').addEventListener('click', async()=>{
+    const name = document.getElementById('fName').value.trim();
+    if(!name){ toast('El nombre es requerido'); return; }
+    const tags = document.getElementById('fTags').value.split(',').map(t=>t.trim()).filter(Boolean);
+    const obj = {
+      name, author:document.getElementById('fAuthor').value.trim(),
+      source:document.getElementById('fSource').value.trim(),
+      phase:document.getElementById('fPhase').value,
+      year:document.getElementById('fYear').value.trim(),
+      image:document.getElementById('fImage').value.trim(),
+      desc:document.getElementById('fDesc').value.trim(),
+      url:document.getElementById('fUrl').value.trim(),
+      biblio:document.getElementById('fBiblio').value.trim(),
+      tags,
+    };
+    try{
+      if(editingId) await db.child(editingId).set(obj);
+      else await db.push(obj);
+      document.getElementById('formModal').classList.remove('open');
+      toast(editingId?'Actualizado':'Agregado');
+      editingId=null;
+    }catch(e){ toast('Error al guardar'); }
+  });
+
+  db.on('value', snap=>{
+    projects = snap.val()||{};
+    renderStats(); renderFilters(); renderGrid();
+  });
+
+  // Seed initial projects if empty
+  db.once('value', snap=>{
+    if(snap.val()) return;
+    const seed = [
+      {
+        name:"Aeroponic Planter",
+        author:"Midea Group — Zhang Zhe",
+        source:"Red Dot",
+        phase:"Publicado",
+        year:"2022",
+        image:"https://www.red-dot.org/fileadmin/bilder/2022/dc_2022_domestic-aid/Domestic_Aid_and_Home_Appliances/Aeroponic_Planter/Aeroponic_Planter_Thumbnail.jpg",
+        desc:"Maceta aeropónica con módulos ultrasónicos que descomponen moléculas de agua exponiendo raíces al aire. Incluye app para control de iluminación y temperatura, y cámara web para diagnóstico botánico y compartir en redes sociales. Enfocada en jóvenes con estilo de vida activo.",
+        url:"https://www.red-dot.org/project/aeroponic-planter-60109",
+        biblio:"Red Dot Design Concept 2022. Midea Group Co., Ltd. Zhang Zhe (Design Lead).",
+        tags:["aeroponía","diseño industrial"," Red Dot","indoor","IoT"],
+      },
+      {
+        name:"The Farmhouse",
+        author:"Studio Precht — Chris & Fei Precht",
+        source:"Behance",
+        phase:"Estudio",
+        year:"2019",
+        image:"https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/d65e6679706861.5cbe1f2d6e3b8.jpg",
+        desc:"Torre modular que combina vivienda y agricultura vertical. Sistema de ciclo orgánico: calor del edificio reutilizado para cultivos, tratamiento de agua gris, compostaje de residuos alimentarios. Módulos DIY que permiten a residentes diseñar su layout.",
+        url:"https://www.behance.net/gallery/79763321/The-Farmhouse",
+        biblio:"Precht, C. (2019). The Farmhouse. Behance Project. Studio Precht, Salzburg, Austria.",
+        tags:["arquitectura","vertical farming","modular","sustentable"," Behance"],
+      },
+      {
+        name:"Smart Coop",
+        author:"The Smart Coop",
+        source:"Red Dot",
+        phase:"Publicado",
+        year:"2024",
+        image:"https://smart.coop.farm/cdn/shop/files/RedDot.jpg",
+        desc:"Gallinero urbano inteligente con WiFi, cámara 1080P, visión nocturna a color, detección de movimiento, app móvil para monitoreo remoto. Diseñado para espacios pequeños (100 sq ft). Aislamiento climático para clima frío o caliente.",
+        url:"https://smart.coop.farm/blogs/blog/our-smart-coop-wins-the-2024-red-dot-design-award",
+        biblio:"Red Dot Award: Product Design 2024. The Smart Coop. 'Combina alta funcionalidad con estética alegre.'",
+        tags:["agricultura urbana"," IoT"," Red Dot","smart home"],
+      },
+      {
+        name:"Vertical Innovations Farming",
+        author:"Jim Kerns, David Geisler, Tinlin",
+        source:"417 Magazine",
+        phase:"En desarrollo",
+        year:"2016",
+        image:"https://www.417mag.com/issues/october-2016/vertical-innovations-farming-project/6A7A0149.jpg",
+        desc:"Conversión de silos industriales en granjas verticales hidropónicas. Cada silo cilídrico alberga ~24 plataformas de cultivo (12.5 acres equivalentes). 95% más eficiente en agua que agricultura tradicional. Estructuras de concreto aisladas permiten cultivo todo el año.",
+        url:"https://www.417mag.com/issues/october-2016/vertical-innovations-farming-project/",
+        biblio:"Benoit, S.T. (2016). Vertical Innovations Farming Project. 417 Magazine. Vertical Innovations LLC, Springfield, MO.",
+        tags:["vertical farming","reciclaje industrial","hidroponía","commercial"],
+      },
+      {
+        name:"ZipGrow Vertical Tower",
+        author:"New Age Industries",
+        source:"Behance",
+        phase:"Publicado",
+        year:"2020",
+        image:"https://growwithoutsoil.com/wp-content/uploads/2021/05/zip-grow-system.jpg",
+        desc:"Torre vertical de cultivo con sistema de columnas apilables y medio de cultivo poroso. Usa técnica NFT vertical con gravedad. Ideal para jardines verticales comerciales y domésticos. Fácil mantenimiento y alta densidad de plantas por sq ft.",
+        url:"https://growwithoutsoil.com/vertical-hydroponics-systems/",
+        biblio:"GrowWithoutSoil.com (2021). 11 Vertical Hydroponics Systems and Designs. New Age Industries.",
+        tags:["NFT","vertical","tower","DIY","comercial"],
+      },
+      {
+        name:"The Ridiculously Useful Rotary System",
+        author:"GrowWithoutSoil",
+        source:"Behance",
+        phase:"Estudio",
+        year:"2021",
+        image:"https://growwithoutsoil.com/wp-content/uploads/2021/05/rotary-hydroponics-system.jpg",
+        desc:"Sistema rotatorio hidropónico que gira las plantas alrededor de una fuente de luz central. Maximiza exposición lumínica y reduce espacio. Los nutrientes fluyen por gravedad mientras el sistema rota. Concepto eficiente para espacios compactos.",
+        url:"https://growwithoutsoil.com/rotary-hydroponics-system/",
+        biblio:"GrowWithoutSoil.com (2021). The Rotary Hydroponic System. Design analysis.",
+        tags:["rotatorio","innovación"," compacto","experimental"],
+      },
+    ];
+    seed.forEach(p=>db.push(p));
+  });
+})();
+</script>
+</body>
+</html>
