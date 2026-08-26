@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#031208">
+<link rel="manifest" href="manifest.json">
+<title>Comparador de Hidrocultivos — Mercado Colombiano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#031208; --bg-panel:rgba(12,34,20,0.45); --bg-input:rgba(7,20,11,0.6);
+    --line:rgba(126,231,165,0.15); --line-strong:rgba(126,231,165,0.35);
+    --text:#E8F5E9; --text-dim:#A5D6A7; --text-faint:#66BB6A;
+    --green:#69F0AE; --green-soft:rgba(105,240,174,0.15);
+    --pink:#FF8FD1; --terra:#D08A4F; --blue:#7FB8FF; --yellow:#E8D46F;
+    --red:#FF5F52; --radius:16px;
+    --shadow-sm:0 4px 16px rgba(0,0,0,0.4); --shadow-lg:0 16px 40px rgba(0,0,0,0.6);
+    --transition:0.3s cubic-bezier(0.25,0.8,0.25,1);
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--bg); color:var(--text); overflow-x:hidden; }
+  body::before{ content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background: radial-gradient(ellipse at 50% 15%, rgba(105,240,174,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 60%, rgba(208,138,79,0.04) 0%, transparent 40%),
+                radial-gradient(ellipse at 20% 80%, rgba(105,240,174,0.03) 0%, transparent 40%); }
+  .mono{ font-family:'IBM Plex Mono',monospace; }
+  #root{ max-width:1180px; margin:0 auto; padding:56px 24px 70px; position:relative; z-index:1; font-family:'Source Serif 4',Georgia,serif; line-height:1.6; }
+  #root h1,#root h2,#root h3,#root .mono,#root .eyebrow,#root button,#root input,#root select,#root .tag{ font-family:'Space Grotesk',sans-serif; }
+  header.top{ margin-bottom:26px; }
+  .eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--green); margin-bottom:10px; display:flex; align-items:center; gap:10px; }
+  .eyebrow .dot{ width:8px; height:8px; border-radius:50%; background:var(--green); box-shadow:0 0 12px var(--green); animation:pulseDot 2s infinite; }
+  @keyframes pulseDot{ 0%{ box-shadow:0 0 0 0 rgba(105,240,174,0.4); } 70%{ box-shadow:0 0 0 10px rgba(105,240,174,0); } 100%{ box-shadow:0 0 0 0 rgba(105,240,174,0); } }
+  h1{ font-size:clamp(28px,4vw,42px); line-height:1.1; margin:0 0 12px; font-weight:700; letter-spacing:-.02em; background:linear-gradient(90deg,#FFF,#69F0AE); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .sub{ color:var(--text-dim); font-size:16px; max-width:640px; line-height:1.6; margin:0 0 8px; }
+  .meta{ color:var(--text-faint); font-size:12.5px; margin-top:10px; }
+  .meta b{ color:var(--text-dim); }
+  .connection-dot{ display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:6px; vertical-align:middle; }
+  .connection-dot.online{ background:var(--green); box-shadow:0 0 8px var(--green); }
+  .connection-dot.offline{ background:var(--red); box-shadow:0 0 8px var(--red); }
+
+  .glass{ background:var(--bg-panel); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid var(--line); box-shadow:var(--shadow-sm); }
+
+  /* stat strip */
+  .stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; margin:26px 0 30px; }
+  .stat{ background:var(--bg-panel); padding:16px 16px; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); }
+  .stat .num{ font-family:'IBM Plex Mono',monospace; font-size:21px; font-weight:600; color:var(--green); text-shadow:0 0 20px rgba(105,240,174,0.3); }
+  .stat .lbl{ font-size:11px; color:var(--text-faint); margin-top:4px; line-height:1.35; }
+  @media(max-width:760px){ .stats{ grid-template-columns:repeat(2,1fr); } }
+
+  /* chart */
+  .chart-panel{ background:var(--bg-panel); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid var(--line); border-radius:var(--radius); padding:22px 22px 14px; margin-bottom:30px; }
+  .chart-title{ font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-faint); margin-bottom:18px; font-weight:600; }
+  .terrace-row{ display:grid; grid-template-columns:190px 1fr 96px; align-items:center; gap:12px; margin-bottom:12px; }
+  .terrace-name{ font-size:12.5px; color:var(--text-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .terrace-track{ position:relative; height:22px; background:rgba(7,20,11,0.6); border-radius:4px; overflow:hidden; border:1px solid rgba(105,240,174,0.08); }
+  .terrace-fill{ position:absolute; inset:0; width:0; border-radius:4px 0 0 4px; background:linear-gradient(90deg,#1B5E20,var(--green)); transition:width .8s cubic-bezier(.2,.8,.2,1); }
+  .terrace-fill.na{ background:repeating-linear-gradient(135deg,rgba(105,240,174,0.08),rgba(105,240,174,0.08) 6px,rgba(105,240,174,0.03) 6px,rgba(105,240,174,0.03) 12px); }
+  .terrace-price{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--text-faint); text-align:right; }
+  .chart-note{ font-size:11px; color:var(--text-faint); margin:10px 0 4px; }
+
+  /* controls */
+  .controls{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px; align-items:flex-end; }
+  select, input[type=text], input[type=number], input[type=url], textarea{
+    background:var(--bg-input); border:1px solid var(--line); color:var(--text);
+    font-family:'Space Grotesk',sans-serif; font-size:13px; padding:9px 12px; border-radius:9px; width:100%;
+    backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  }
+  select:focus, input:focus, textarea:focus{ outline:none; border-color:var(--green); box-shadow:0 0 0 2px rgba(105,240,174,0.15); }
+  .ctl-group{ display:flex; flex-direction:column; min-width:140px; }
+  .ctl-group label{ font-size:11px; color:var(--text-faint); display:block; margin-bottom:4px; font-family:'IBM Plex Mono',monospace; }
+
+  /* buttons */
+  button{ cursor:pointer; border:none; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:13px; }
+  .btn{ padding:10px 20px; border-radius:9px; transition:all .2s; display:inline-flex; align-items:center; gap:6px; }
+  .btn-primary{ background:var(--green); color:#031208; }
+  .btn-primary:hover{ background:#B9F6CA; transform:translateY(-1px); box-shadow:0 4px 12px rgba(105,240,174,0.3); }
+  .btn-ghost{ background:transparent; color:var(--text-dim); border:1px solid var(--line); }
+  .btn-ghost:hover{ border-color:var(--green); color:var(--green); background:var(--green-soft); }
+  .btn-danger{ background:transparent; color:var(--red); border:1px solid rgba(255,95,82,0.3); }
+  .btn-danger:hover{ background:rgba(255,95,82,0.1); }
+  .btn-sm{ padding:6px 12px; font-size:11px; }
+  .btn-refresh{ background:var(--blue); color:#031208; }
+  .btn-refresh:hover{ background:#B3D4FF; transform:translateY(-1px); }
+  .btn-refresh:disabled{ opacity:0.5; cursor:wait; }
+
+  /* staleness badge */
+  .stale{ display:inline-block; font-size:10px; padding:2px 7px; border-radius:5px; margin-left:6px; font-family:'IBM Plex Mono',monospace; }
+  .stale.fresh{ background:rgba(105,240,174,0.15); color:var(--green); }
+  .stale.stale{ background:rgba(232,212,111,0.15); color:var(--yellow); }
+  .stale.old{ background:rgba(255,95,82,0.15); color:var(--red); }
+
+  /* table */
+  .table-wrap{ overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius); margin-bottom:34px; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); }
+  table{ border-collapse:collapse; width:100%; min-width:1000px; }
+  thead th{ text-align:left; font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--text-faint); background:rgba(12,34,20,0.6); padding:12px 14px; border-bottom:1px solid var(--line); cursor:pointer; white-space:nowrap; user-select:none; }
+  thead th:hover{ color:var(--green); }
+  thead th.sorted::after{ content:' \2193'; color:var(--green); }
+  thead th.sorted.asc::after{ content:' \2191'; }
+  tbody td{ padding:13px 14px; border-bottom:1px solid var(--line); font-size:12.8px; vertical-align:top; color:var(--text-dim); }
+  tbody tr:last-child td{ border-bottom:none; }
+  tbody tr:hover{ background:rgba(105,240,174,0.04); }
+  td.name{ color:var(--text); font-weight:500; }
+  td.price{ font-family:'IBM Plex Mono',monospace; color:var(--terra); white-space:nowrap; }
+  .src-tag{ display:inline-block; font-size:9.5px; padding:2px 6px; border-radius:5px; margin-top:4px; background:var(--green-soft); color:var(--green); border:1px solid rgba(105,240,174,0.15); }
+  .stars{ color:var(--yellow); font-size:12px; white-space:nowrap; }
+  .na{ color:var(--text-faint); font-style:italic; }
+  .price-change{ font-size:10px; margin-top:4px; font-family:'IBM Plex Mono',monospace; }
+  .price-change.up{ color:var(--red); }
+  .price-change.down{ color:var(--green); }
+
+  /* review cards */
+  .cards-title{ font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-faint); margin:8px 0 14px; font-weight:600; }
+  .cards{ display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:14px; margin-bottom:36px; }
+  .card{ background:var(--bg-panel); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid var(--line); border-radius:var(--radius); padding:16px 17px; }
+  .card h3{ font-size:14.5px; margin:0 0 6px; color:var(--text); }
+  .card .card-meta{ font-size:11px; color:var(--text-faint); margin-bottom:10px; }
+  .card .quote{ font-size:12.5px; color:var(--text-dim); line-height:1.5; border-left:2px solid var(--green); padding-left:10px; margin:10px 0; font-style:italic; }
+  .card a{ color:var(--green); font-size:11.5px; text-decoration:none; }
+  .card a:hover{ text-decoration:underline; }
+  .no-review{ color:var(--text-faint); font-size:12px; font-style:italic; }
+
+  /* insight box */
+  .insight{ background:var(--bg-panel); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-left:3px solid var(--terra); border-radius:0 var(--radius) var(--radius) 0; padding:18px 20px; margin-bottom:30px; }
+  .insight h4{ margin:0 0 8px; font-size:13px; color:var(--terra); text-transform:uppercase; letter-spacing:.05em; }
+  .insight p{ margin:0; font-size:13.5px; line-height:1.6; color:var(--text-dim); }
+  .insight ul{ margin:8px 0 0; padding-left:18px; font-size:13px; color:var(--text-dim); line-height:1.7; }
+
+  /* modal */
+  .modal-overlay{ position:fixed; inset:0; background:rgba(3,18,8,0.88); backdrop-filter:blur(8px); z-index:100; opacity:0; pointer-events:none; display:flex; align-items:center; justify-content:center; padding:20px; transition:opacity .3s; }
+  .modal-overlay.open{ opacity:1; pointer-events:auto; }
+  .modal-panel{ background:var(--bg-panel); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid var(--line); border-radius:var(--radius); padding:28px 30px; width:100%; max-width:680px; max-height:85vh; overflow-y:auto; box-shadow:var(--shadow-lg); }
+  .modal-panel h2{ margin:0 0 20px; font-size:20px; color:var(--green); }
+  .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .form-grid .full{ grid-column:1/-1; }
+  .form-grid .field label{ display:block; font-size:11px; color:var(--text-faint); text-transform:uppercase; letter-spacing:.08em; margin-bottom:5px; font-family:'IBM Plex Mono',monospace; font-weight:500; }
+  .form-actions{ display:flex; gap:10px; justify-content:flex-end; margin-top:20px; border-top:1px solid var(--line); padding-top:16px; }
+  @media(max-width:600px){ .form-grid{ grid-template-columns:1fr; } .form-grid .full{ grid-column:auto; } }
+
+  /* toast */
+  .toast{ position:fixed; bottom:32px; left:50%; transform:translateX(-50%) translateY(30px); background:var(--green); color:#031208; padding:12px 24px; border-radius:999px; font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:700; opacity:0; transition:all .3s cubic-bezier(.175,.885,.32,1.275); z-index:300; pointer-events:none; box-shadow:0 8px 24px rgba(0,0,0,0.4); }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  footer{ color:var(--text-faint); font-size:11px; line-height:1.7; border-top:1px solid var(--line); padding-top:16px; }
+  footer a{ color:var(--text-faint); text-decoration:none; }
+  footer a:hover{ color:var(--green); }
+</style>
+</head>
+<body>
+<div id="root">
+
+  <header class="top">
+    <div class="eyebrow">
+      <span class="connection-dot" id="connDot"></span>
+      Bitácora · Investigación de mercado
+    </div>
+    <h1>Comparador de Hidrocultivos</h1>
+    <p class="sub">Sistemas de cultivo hidropónico disponibles en Colombia, con precios, materiales, dimensiones y método de bombeo puestos lado a lado — para ubicar dónde entra una propuesta que no dependa de plástico ni de electricidad.</p>
+    <div class="meta">
+      Datos almacenados en la nube · <span id="metaInfo">Cargando...</span> ·
+      Pulsa <b>Actualizar precios</b> para verificar cambios en las tiendas.
+    </div>
+  </header>
+
+  <div style="display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;">
+    <button class="btn btn-primary" id="addBtn">+ Agregar producto</button>
+    <button class="btn btn-refresh" id="refreshAllBtn">Actualizar precios</button>
+  </div>
+
+  <div class="stats" id="statStrip"></div>
+
+  <div class="chart-panel">
+    <div class="chart-title">Precio de lista (COP) — barras a escala del más caro</div>
+    <div id="chart"></div>
+    <div class="chart-note">Las franjas rayadas indican que la publicación no mostraba un precio numérico confiable.</div>
+  </div>
+
+  <div class="controls">
+    <div class="ctl-group">
+      <label>Buscar</label>
+      <input type="text" id="search" placeholder="nombre, material, tienda…">
+    </div>
+    <div class="ctl-group">
+      <label>Bombeo</label>
+      <select id="filterPump"><option value="all">Todos</option></select>
+    </div>
+    <div class="ctl-group">
+      <label>Origen</label>
+      <select id="filterOrigin"><option value="all">Todos</option></select>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th data-key="name">Producto</th>
+          <th data-key="priceSort">Precio</th>
+          <th data-key="material">Material</th>
+          <th data-key="capacity">Capacidad</th>
+          <th data-key="pumping">Bombeo</th>
+          <th data-key="origin">Origen</th>
+          <th data-key="ratingSort">Reseñas</th>
+          <th style="cursor:default">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <div class="cards-title">Reseñas de usuarios</div>
+  <div class="cards" id="cards"></div>
+
+  <div class="insight" id="insightBox"></div>
+
+  <footer id="footer"></footer>
+</div>
+
+<!-- Add/Edit Modal -->
+<div class="modal-overlay" id="formModal">
+  <div class="modal-panel">
+    <h2 id="formTitle">Agregar producto</h2>
+    <div class="form-grid">
+      <div class="field full"><label>Nombre del producto</label><input type="text" id="fName" placeholder="Ej. Torre Hidropónica Vertical 80 Plantas"></div>
+      <div class="field"><label>Tienda</label><input type="text" id="fStore" placeholder="Ej. Mercado Libre"></div>
+      <div class="field" style="display:flex;flex-direction:column;gap:6px;">
+        <label>URL del producto</label>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <input type="url" id="fUrl" placeholder="https://..." style="flex:1;">
+          <button class="btn btn-ghost btn-sm" type="button" id="autoFetchBtn" title="Buscar datos desde URL" style="white-space:nowrap;font-size:12px;padding:8px 12px;">🔍 Buscar datos</button>
+        </div>
+      </div>
+      <div class="field"><label>Material</label><input type="text" id="fMaterial" placeholder="Ej. PVC grado alimenticio"></div>
+      <div class="field"><label>Capacidad</label><input type="text" id="fCapacity" placeholder="Ej. 80 plantas"></div>
+      <div class="field"><label>Dimensiones</label><input type="text" id="fDimensions" placeholder="Ej. 66×66×176 cm"></div>
+      <div class="field"><label>Bombeo (descripción)</label><input type="text" id="fPumping" placeholder="Ej. Bomba eléctrica 16W"></div>
+      <div class="field"><label>Tipo de bomba</label><select id="fPumpType"><option value="Eléctrico">Eléctrico</option><option value="Manual">Manual</option><option value="Gravedad">Gravedad</option><option value="Cerámico">Cerámico</option><option value="Otro">Otro</option></select></div>
+      <div class="field"><label>Origen</label><input type="text" id="fOrigin" placeholder="Ej. Nacional (Cundinamarca)"></div>
+      <div class="field"><label>Automatización</label><input type="text" id="fAutomation" placeholder="Ej. Riego automatizado"></div>
+      <div class="field"><label>Precio (COP, solo números)</label><input type="number" id="fPrice" placeholder="Ej. 850000"></div>
+      <div class="field"><label>Rating (0-5)</label><input type="number" id="fRating" min="0" max="5" step="0.1" placeholder="Ej. 4.5"></div>
+      <div class="field"><label>Nº de reseñas</label><input type="number" id="fReviewCount" min="0" placeholder="Ej. 12"></div>
+      <div class="field full"><label>Reseña destacada (texto de usuario)</label><textarea id="fReviewQuote" rows="2" placeholder="Escribe o pega la reseña..."></textarea></div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-ghost" id="cancelFormBtn">Cancelar</button>
+      <button class="btn btn-primary" id="saveFormBtn">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Delete Modal -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal-panel" style="max-width:420px;text-align:center;">
+    <h2 style="color:var(--red)">Eliminar producto</h2>
+    <p style="color:var(--text-dim);font-size:14px;">¿Seguro que quieres eliminar <b id="confirmName"></b>?</p>
+    <div class="form-actions" style="justify-content:center;">
+      <button class="btn btn-ghost" onclick="document.getElementById('confirmModal').classList.remove('open')">Cancelar</button>
+      <button class="btn btn-danger" id="confirmDeleteBtn">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+(function(){
+  const FIREBASE_URL = 'https://link-de-proyecto-estrategico-default-rtdb.firebaseio.com';
+  const DB_PATH = 'comparador/products';
+
+  firebase.initializeApp({ databaseURL: FIREBASE_URL });
+  const db = firebase.database().ref(DB_PATH);
+
+  let products = {};
+  let sortKey = 'priceSort', sortDir = 'desc';
+  let filterPump = 'all', filterOrigin = 'all', searchQ = '';
+  let editingId = null;
+  let deleteId = null;
+
+  function toast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(()=> t.classList.remove('show'), 2800);
+  }
+
+  function showConn(ok){
+    const dot = document.getElementById('connDot');
+    dot.classList.toggle('online', ok);
+    dot.classList.toggle('offline', !ok);
+  }
+
+  function fmtCOP(n){ return n != null ? '$' + Number(n).toLocaleString('es-CO') : null; }
+
+  function stars(r){
+    if (r == null) return '<span class="na">Sin reseñas</span>';
+    const full = Math.round(r);
+    return `<span class="stars">${'★'.repeat(full)}${'☆'.repeat(5-full)}</span> <span class="mono" style="color:var(--text-faint)">${Number(r).toFixed(1)}</span>`;
+  }
+
+  function staleBadge(checkedAt){
+    if (!checkedAt) return '<span class="stale old">sin verificar</span>';
+    const h = (Date.now() - new Date(checkedAt).getTime()) / 3600000;
+    if (h < 24) return '<span class="stale fresh">actualizado</span>';
+    if (h < 168) return '<span class="stale stale">' + Math.floor(h/24) + 'd sin verificar</span>';
+    return '<span class="stale old">' + Math.floor(h/24) + 'd sin verificar</span>';
+  }
+
+  function priceDiff(p){
+    if (!p || p.price == null || p.prevPrice == null) return '';
+    const diff = p.price - p.prevPrice;
+    if (diff === 0) return '';
+    if (diff > 0) return `<div class="price-change up">▲ +$${Math.abs(diff).toLocaleString('es-CO')}</div>`;
+    return `<div class="price-change down">▼ -$${Math.abs(diff).toLocaleString('es-CO')}</div>`;
+  }
+
+  // subscribe to Firebase
+  db.on('value', snap => {
+    const data = snap.val() || {};
+    products = data;
+    showConn(true);
+    renderAll();
+  }, err => {
+    showConn(false);
+    toast('Error de conexión con la nube');
+  });
+
+  function renderAll(){
+    renderStats();
+    renderChart();
+    renderTable();
+    renderCards();
+    renderInsight();
+    renderFooter();
+    renderMeta();
+  }
+
+  function renderMeta(){
+    const count = Object.keys(products).length;
+    document.getElementById('metaInfo').textContent = count + ' producto' + (count !== 1 ? 's' : '') + ' registrado' + (count !== 1 ? 's' : '');
+  }
+
+  function renderStats(){
+    const list = Object.values(products);
+    const priced = list.filter(p => p.price != null);
+    if (!priced.length){
+      document.getElementById('statStrip').innerHTML = '<div class="stat"><div class="num">0</div><div class="lbl">No hay productos con precio registrado aún.</div></div>';
+      return;
+    }
+    const prices = priced.map(p => p.price);
+    const min = Math.min(...prices), max = Math.max(...prices);
+    const electric = list.filter(p => p.pumpType === 'Eléctrico').length;
+    const withReviews = list.filter(p => (p.reviewCount||0) > 0).length;
+    const stats = [
+      { num: fmtCOP(min) + ' – ' + fmtCOP(max), lbl: 'Rango de precio (COP)' },
+      { num: electric + '/' + list.length, lbl: 'Usan bomba eléctrica' },
+      { num: list.filter(p => p.pumpType !== 'Eléctrico').length + '', lbl: 'Con bombeo no eléctrico' },
+      { num: withReviews + '/' + list.length, lbl: 'Tienen reseñas públicas' },
+    ];
+    document.getElementById('statStrip').innerHTML = stats.map(s =>
+      `<div class="stat"><div class="num">${s.num}</div><div class="lbl">${s.lbl}</div></div>`).join('');
+  }
+
+  function renderChart(){
+    const list = Object.values(products).filter(p => p.price != null);
+    const maxPrice = Math.max(...list.map(p=>p.price), 1);
+    const el = document.getElementById('chart');
+    const sorted = Object.values(products).sort((a,b)=> (b.price||0) - (a.price||0));
+    el.innerHTML = sorted.map(p => {
+      const pct = p.price ? Math.max(6, Math.round((p.price / maxPrice) * 100)) : 100;
+      const fillClass = p.price ? '' : 'na';
+      return `<div class="terrace-row">
+        <div class="terrace-name" title="${p.name||''}">${p.name||'(sin nombre)'}</div>
+        <div class="terrace-track"><div class="terrace-fill ${fillClass}" style="width:${pct}%"></div></div>
+        <div class="terrace-price">${p.price ? fmtCOP(p.price) : 'consultar'}</div>
+      </div>`;
+    }).join('');
+  }
+
+  function getAllPumpTypes(){
+    const s = new Set();
+    Object.values(products).forEach(p => { if (p.pumpType) s.add(p.pumpType); });
+    return [...s];
+  }
+  function getAllOrigins(){
+    const s = new Set();
+    Object.values(products).forEach(p => { if (p.origin) s.add(p.origin); });
+    return [...s];
+  }
+
+  function renderFilters(){
+    const ps = document.getElementById('filterPump');
+    const os = document.getElementById('filterOrigin');
+    const pVal = ps.value, oVal = os.value;
+    ps.innerHTML = '<option value="all">Todos</option>';
+    os.innerHTML = '<option value="all">Todos</option>';
+    getAllPumpTypes().forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; ps.appendChild(o); });
+    getAllOrigins().forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; os.appendChild(o); });
+    ps.value = pVal; os.value = oVal;
+  }
+
+  function getFiltered(){
+    return Object.entries(products).filter(([id, p]) => {
+      if (filterPump !== 'all' && p.pumpType !== filterPump) return false;
+      if (filterOrigin !== 'all' && p.origin !== filterOrigin) return false;
+      if (searchQ && !(p.name + p.material + p.store + p.url).toLowerCase().includes(searchQ)) return false;
+      return true;
+    });
+  }
+
+  function renderTable(){
+    renderFilters();
+    let list = getFiltered();
+    list.sort((a,b) => {
+      let va = a[1][sortKey] ?? (sortKey.includes('price') || sortKey.includes('rating') ? -1 : '');
+      let vb = b[1][sortKey] ?? (sortKey.includes('price') || sortKey.includes('rating') ? -1 : '');
+      if (typeof va === 'string') { va = va.toLowerCase(); vb = (vb||'').toLowerCase(); }
+      if (va < vb) return sortDir === 'asc' ? -1 : 1;
+      if (va > vb) return sortDir === 'asc' ? 1 : -1;
+      return 0;
+    });
+    document.getElementById('tbody').innerHTML = list.map(([id, p]) => `
+      <tr>
+        <td class="name">${p.name||'(sin nombre)'}<br><span class="src-tag">${p.store||''}</span>${staleBadge(p.checkedAt)}</td>
+        <td class="price">${p.priceLabel || (p.price ? fmtCOP(p.price) : '<span class="na">sin precio</span>')}${priceDiff(p)}</td>
+        <td>${p.material||'—'}</td>
+        <td>${p.capacity||'—'}</td>
+        <td>${p.pumping||'—'}</td>
+        <td>${p.origin||'—'}</td>
+        <td>${stars(p.rating)}${p.reviewCount ? `<br><span class="mono" style="font-size:10.5px;color:var(--text-faint)">${p.reviewCount} opinion(es)</span>` : ''}</td>
+        <td style="white-space:nowrap;">
+          ${p.url ? `<a href="${p.url}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="text-decoration:none;">Ver</a>` : ''}
+          <button class="btn btn-ghost btn-sm" onclick="openForm('${id}')">Editar</button>
+          <button class="btn btn-ghost btn-sm" onclick="refreshOne('${id}')">Actualizar</button>
+          <button class="btn btn-danger btn-sm" onclick="openDelete('${id}')">Eliminar</button>
+        </td>
+      </tr>
+    `).join('') || `<tr><td colspan="8" style="text-align:center;color:var(--text-faint);padding:24px;">Ningún producto coincide. Agrega uno con "+ Agregar producto".</td></tr>`;
+    document.querySelectorAll('thead th[data-key]').forEach(th => {
+      th.classList.toggle('sorted', th.dataset.key === sortKey);
+      th.classList.toggle('asc', th.dataset.key === sortKey && sortDir === 'asc');
+    });
+  }
+
+  document.querySelectorAll('thead th[data-key]').forEach(th => {
+    th.addEventListener('click', () => {
+      const key = th.dataset.key;
+      if (sortKey === key) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+      else { sortKey = key; sortDir = 'desc'; }
+      renderTable();
+    });
+  });
+
+  function renderCards(){
+    const withReviews = Object.entries(products).filter(([,p]) => p.reviewQuote);
+    const el = document.getElementById('cards');
+    if (!withReviews.length){
+      el.innerHTML = `<div class="card"><p class="no-review">Aún no hay reseñas registradas.</p></div>`;
+      return;
+    }
+    el.innerHTML = withReviews.map(([id, p]) => `
+      <div class="card">
+        <h3>${p.name||''}</h3>
+        <div class="card-meta">${stars(p.rating)} · ${p.reviewCount||0} opinión(es) · ${p.store||''}</div>
+        <div class="quote">"${p.reviewQuote}"</div>
+        <a href="${p.url||'#'}" target="_blank" rel="noopener">Ver publicación ↗</a>
+      </div>
+    `).join('');
+  }
+
+  function renderInsight(){
+    const list = Object.values(products);
+    const electric = list.filter(p => p.pumpType === 'Eléctrico').length;
+    const nonElectric = list.filter(p => p.pumpType && p.pumpType !== 'Eléctrico');
+    const priced = list.filter(p => p.price != null);
+    const withReviews = list.filter(p => (p.reviewCount||0) > 0);
+
+    let nonElecText = nonElectric.length
+      ? `Solo ${nonElectric.map(p=>p.name).join(', ')} no depende de bomba eléctrica.`
+      : 'Ninguno reporta bombeo manual o cerámico.';
+
+    let priceText = priced.length
+      ? `De ${priced.length} productos con precio confirmado, el rango va de ${fmtCOP(Math.min(...priced.map(p=>p.price)))} a ${fmtCOP(Math.max(...priced.map(p=>p.price)))}.`
+      : 'Aún no hay precios confirmados.';
+
+    document.getElementById('insightBox').innerHTML = `
+      <h4>Lo que salta a la vista</h4>
+      <p>De ${list.length} sistemas registrados, ${electric} usan bomba eléctrica. ${nonElecText}</p>
+      <ul>
+        <li>${priceText}</li>
+        <li>${withReviews.length} de ${list.length} productos tienen reseñas públicas visibles.</li>
+        <li>${list.filter(p=>!p.price).length} productos aún sin precio confirmado — usa "Actualizar" para verificar.</li>
+      </ul>
+    `;
+  }
+
+  function renderFooter(){
+    document.getElementById('footer').innerHTML = `
+      Panel de comparación · Datos almacenados en Firebase Realtime Database ·
+      Scraping automático vía Vercel Serverless · Última renderización: ${new Date().toLocaleString('es-CO')}.
+    `;
+  }
+
+  // --- FORM ---
+  document.getElementById('addBtn').addEventListener('click', () => openForm(null));
+  document.getElementById('cancelFormBtn').addEventListener('click', () => document.getElementById('formModal').classList.remove('open'));
+
+  function clearForm(){
+    ['fName','fStore','fUrl','fMaterial','fCapacity','fDimensions','fPumping','fOrigin','fAutomation','fPrice','fRating','fReviewCount','fReviewQuote'].forEach(id => {
+      const el = document.getElementById(id);
+      el.value = el.tagName === 'SELECT' ? el.options[0].value : '';
+    });
+  }
+
+  window.openForm = function(id){
+    editingId = id;
+    document.getElementById('formTitle').textContent = id ? 'Editar producto' : 'Agregar producto';
+    if (id){
+      const p = products[id];
+      document.getElementById('fName').value = p.name || '';
+      document.getElementById('fStore').value = p.store || '';
+      document.getElementById('fUrl').value = p.url || '';
+      document.getElementById('fMaterial').value = p.material || '';
+      document.getElementById('fCapacity').value = p.capacity || '';
+      document.getElementById('fDimensions').value = p.dimensions || '';
+      document.getElementById('fPumping').value = p.pumping || '';
+      document.getElementById('fPumpType').value = p.pumpType || 'Eléctrico';
+      document.getElementById('fOrigin').value = p.origin || '';
+      document.getElementById('fAutomation').value = p.automation || '';
+      document.getElementById('fPrice').value = p.price || '';
+      document.getElementById('fRating').value = p.rating != null ? p.rating : '';
+      document.getElementById('fReviewCount').value = p.reviewCount || '';
+      document.getElementById('fReviewQuote').value = p.reviewQuote || '';
+    } else { clearForm(); }
+    document.getElementById('formModal').classList.add('open');
+  };
+
+  document.getElementById('autoFetchBtn').addEventListener('click', async () => {
+    const url = document.getElementById('fUrl').value.trim();
+    if (!url){ toast('Pega una URL primero'); return; }
+    const btn = document.getElementById('autoFetchBtn');
+    btn.disabled = true; btn.textContent = 'Buscando...';
+    try {
+      const resp = await fetch('/api/scrape?url=' + encodeURIComponent(url));
+      const data = await resp.json();
+      if (data.error && !data.name && !data.price){
+        toast(data.hint || data.error);
+        btn.disabled = false; btn.textContent = '🔍 Buscar datos';
+        return;
+      }
+      const map = {
+        fName: 'name', fStore: 'store', fMaterial: 'material',
+        fCapacity: 'capacity', fDimensions: 'dimensions', fPumping: 'pumping',
+        fOrigin: 'origin', fAutomation: 'automation', fReviewQuote: 'reviewQuote'
+      };
+      for (const [elId, key] of Object.entries(map)){
+        if (data[key]) document.getElementById(elId).value = data[key];
+      }
+      if (data.pumpType){
+        const sel = document.getElementById('fPumpType');
+        const opt = [...sel.options].find(o => o.value.toLowerCase() === data.pumpType.toLowerCase());
+        if (opt) sel.value = data.pumpType;
+      }
+      if (data.price){
+        document.getElementById('fPrice').value = data.price;
+      }
+      if (data.rating != null) document.getElementById('fRating').value = data.rating;
+      if (data.reviewCount != null) document.getElementById('fReviewCount').value = data.reviewCount;
+
+      const filled = Object.values(data).filter(v => v != null && v !== '').length;
+      toast(`Datos extraídos: ${filled} campos completados`);
+    } catch(e){
+      toast('Error al conectar con el servidor');
+    }
+    btn.disabled = false; btn.textContent = '🔍 Buscar datos';
+  });
+
+  document.getElementById('saveFormBtn').addEventListener('click', async () => {
+    const name = document.getElementById('fName').value.trim();
+    if (!name){ toast('El nombre es requerido'); return; }
+    const price = document.getElementById('fPrice').value ? parseInt(document.getElementById('fPrice').value) : null;
+    const rating = document.getElementById('fRating').value ? parseFloat(document.getElementById('fRating').value) : null;
+    const obj = {
+      name,
+      store: document.getElementById('fStore').value.trim(),
+      url: document.getElementById('fUrl').value.trim(),
+      material: document.getElementById('fMaterial').value.trim(),
+      capacity: document.getElementById('fCapacity').value.trim(),
+      dimensions: document.getElementById('fDimensions').value.trim(),
+      pumping: document.getElementById('fPumping').value.trim(),
+      pumpType: document.getElementById('fPumpType').value,
+      origin: document.getElementById('fOrigin').value.trim(),
+      automation: document.getElementById('fAutomation').value.trim(),
+      price,
+      priceLabel: price ? fmtCOP(price) : null,
+      priceSort: price || -1,
+      rating,
+      ratingSort: rating || -1,
+      reviewCount: document.getElementById('fReviewCount').value ? parseInt(document.getElementById('fReviewCount').value) : 0,
+      reviewQuote: document.getElementById('fReviewQuote').value.trim(),
+      checkedAt: products[editingId]?.checkedAt || null,
+      prevPrice: products[editingId]?.prevPrice || null,
+    };
+    try {
+      if (editingId) await db.child(editingId).set(obj);
+      else await db.push(obj);
+      document.getElementById('formModal').classList.remove('open');
+      toast(editingId ? 'Producto actualizado' : 'Producto agregado');
+      editingId = null;
+    } catch(e){ toast('Error al guardar'); }
+  });
+
+  // --- DELETE ---
+  window.openDelete = function(id){
+    deleteId = id;
+    document.getElementById('confirmName').textContent = products[id]?.name || '';
+    document.getElementById('confirmModal').classList.add('open');
+  };
+  document.getElementById('confirmDeleteBtn').addEventListener('click', async () => {
+    if (!deleteId) return;
+    try {
+      await db.child(deleteId).remove();
+      document.getElementById('confirmModal').classList.remove('open');
+      toast('Producto eliminado');
+      deleteId = null;
+    } catch(e){ toast('Error al eliminar'); }
+  });
+
+  // --- REFRESH ---
+  window.refreshOne = async function(id){
+    const p = products[id];
+    if (!p || !p.url){ toast('No hay URL para verificar'); return; }
+    toast('Verificando precio...');
+    try {
+      const resp = await fetch('/api/scrape?url=' + encodeURIComponent(p.url));
+      const data = await resp.json();
+      const updates = { checkedAt: new Date().toISOString() };
+      if (data.price != null){
+        if (p.price != null && data.price !== p.price) updates.prevPrice = p.price;
+        updates.price = data.price;
+        updates.priceLabel = fmtCOP(data.price);
+        updates.priceSort = data.price;
+      }
+      if (data.rating != null){ updates.rating = data.rating; updates.ratingSort = data.rating; }
+      if (data.reviewCount != null) updates.reviewCount = data.reviewCount;
+      await db.child(id).update(updates);
+      const msgs = [];
+      if (data.price != null) msgs.push('Precio: ' + fmtCOP(data.price));
+      if (data.rating != null) msgs.push('Rating: ' + data.rating);
+      toast(msgs.length ? 'Actualizado: ' + msgs.join(', ') : 'Verificado — sin cambios detectados');
+    } catch(e){
+      toast('Error al verificar — abre el link manualmente');
+      window.open(p.url, '_blank');
+    }
+  };
+
+  document.getElementById('refreshAllBtn').addEventListener('click', async () => {
+    const btn = document.getElementById('refreshAllBtn');
+    btn.disabled = true; btn.textContent = 'Verificando...';
+    const ids = Object.keys(products);
+    for (const id of ids){
+      const p = products[id];
+      if (!p.url) continue;
+      try {
+        const resp = await fetch('/api/scrape?url=' + encodeURIComponent(p.url));
+        const data = await resp.json();
+        const updates = { checkedAt: new Date().toISOString() };
+        if (data.price != null){
+          if (p.price != null && data.price !== p.price) updates.prevPrice = p.price;
+          updates.price = data.price;
+          updates.priceLabel = fmtCOP(data.price);
+          updates.priceSort = data.price;
+        }
+        if (data.rating != null){ updates.rating = data.rating; updates.ratingSort = data.rating; }
+        if (data.reviewCount != null) updates.reviewCount = data.reviewCount;
+        await db.child(id).update(updates);
+      } catch(e){
+        await db.child(id).update({ checkedAt: new Date().toISOString() });
+      }
+    }
+    btn.disabled = false; btn.textContent = 'Actualizar precios';
+    toast('Todos los precios verificados');
+  });
+
+  // --- SEARCH ---
+  document.getElementById('search').addEventListener('input', e => { searchQ = e.target.value.toLowerCase(); renderTable(); });
+  document.getElementById('filterPump').addEventListener('change', e => { filterPump = e.target.value; renderTable(); });
+  document.getElementById('filterOrigin').addEventListener('change', e => { filterOrigin = e.target.value; renderTable(); });
+
+})();
+</script>
+</body>
+</html>
