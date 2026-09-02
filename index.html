@@ -75,6 +75,18 @@ body { margin: 0; padding: 0; background: var(--bg); overflow-x: hidden; }
 #bitacora-root .stat .lbl { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
 
 /* PANORAMA */
+#bitacora-root .phase-box { background: var(--bg-card); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 28px; margin-bottom: 32px; box-shadow: var(--shadow-sm); }
+#bitacora-root .phase-head { display:flex; align-items:center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+#bitacora-root .phase-pill { font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #031208; background: var(--green); padding: 6px 14px; border-radius: 999px; box-shadow: 0 0 18px rgba(105,240,174,0.35); }
+#bitacora-root .phase-title { font-size: 20px; font-weight: 700; color: #FFF; margin:0; letter-spacing: -0.01em; }
+#bitacora-root .phase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+#bitacora-root .phase-mini { background: rgba(7,20,11,0.5); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+#bitacora-root .phase-mini h4 { margin: 0 0 8px; font-size: 13px; color: var(--green); font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.03em; }
+#bitacora-root .phase-mini p { margin: 0 0 10px; font-size: 13.5px; color: var(--text-dim); line-height: 1.5; }
+#bitacora-root .phase-mini .phase-quote { font-size: 12.5px; color: var(--text-faint); font-style: italic; border-left: 2px solid var(--terra); padding-left: 10px; font-family: 'Source Serif 4', serif; }
+#bitacora-root .phase-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
+#bitacora-root .phase-foot .phase-note { font-size: 12.5px; color: var(--text-faint); font-family: 'IBM Plex Mono', monospace; }
+@media (max-width: 820px){ #bitacora-root .phase-grid { grid-template-columns: 1fr; } }
 #bitacora-root .panorama { display:grid; grid-template-columns: 1.2fr 1fr; gap:0; border-radius: var(--radius); margin-bottom: 32px; overflow:hidden; }
 #bitacora-root .panorama > div { padding: 24px 28px; }
 #bitacora-root .panorama-heat { border-right: 1px solid var(--line); }
@@ -242,6 +254,14 @@ body { margin: 0; padding: 0; background: var(--bg); overflow-x: hidden; }
           <div class="stat"><span class="num" id="statDay">—</span><span class="lbl">Día de proyecto</span></div>
           <div class="stat"><span class="num" id="statEntries">0</span><span class="lbl">Entradas</span></div>
           <div class="stat"><span class="num" id="statLast">—</span><span class="lbl">Última actualización</span></div>
+          <a class="stat" href="hidroponia-dashboard/dashboard.html" target="_blank" style="align-items:center; text-decoration:none; color:var(--blue); gap:4px; cursor:pointer;">
+            <span class="num" style="font-size:14px;">📊</span>
+            <span class="lbl" style="font-size:12px; text-transform:none;">Dashboard comparativo</span>
+          </a>
+          <a class="stat" href="dashboard-diseno.html" target="_blank" style="align-items:center; text-decoration:none; color:var(--pink); gap:4px; cursor:pointer;">
+            <span class="num" style="font-size:14px;">🎨</span>
+            <span class="lbl" style="font-size:12px; text-transform:none;">Diseño hidropónico</span>
+          </a>
           <a class="stat" href="empatizar.html" target="_blank" style="align-items:center; text-decoration:none; color:var(--green); gap:4px; cursor:pointer;">
             <span class="num" style="font-size:14px;">🎯</span>
             <span class="lbl" style="font-size:12px; text-transform:none;">Empatizar · fase 1</span>
@@ -250,6 +270,35 @@ body { margin: 0; padding: 0; background: var(--bg); overflow-x: hidden; }
             <span class="num" style="font-size:14px;">🔬</span>
             <span class="lbl" style="font-size:12px; text-transform:none;">Comparador de hidrocultivos</span>
           </a>
+        </div>
+      </div>
+
+      <!-- Fase 1 · Empatizar -->
+      <div class="phase-box">
+        <div class="phase-head">
+          <span class="phase-pill">Fase 1 · Empatizar</span>
+          <h3 class="phase-title">Comprender antes de diseñar: Camila y las hierbas en la cocina</h3>
+        </div>
+        <div class="phase-grid">
+          <div class="phase-mini">
+            <h4>🌿 Ambiental</h4>
+            <p>Dependencia de plástico virgen en casi todo sistema comercial.</p>
+            <div class="phase-quote">"Compro albahaca en bolsa de plástico cada semana y la mitad se marchita antes de usarla."</div>
+          </div>
+          <div class="phase-mini">
+            <h4>🔧 Técnica</h4>
+            <p>Deficiencias nutricionales y de riego por pérdida rápida de agua.</p>
+            <div class="phase-quote">"No sé por qué el cilantro se me daña más rápido que la albahaca si están en la misma matera."</div>
+          </div>
+          <div class="phase-mini">
+            <h4>📦 Uso y mantenimiento</h4>
+            <p>Dependencia total de electricidad para bombeo y control.</p>
+            <div class="phase-quote">"No quiero otro aparato con cable en la cocina."</div>
+          </div>
+        </div>
+        <div class="phase-foot">
+          <span class="phase-note">👩🏻‍🍳 Camila Rojas · 34 años · Diseñadora freelance · Bucaramanga</span>
+          <a href="empatizar.html" target="_blank" class="btn-primary" style="text-decoration:none; font-size:13px; padding:10px 20px; display:inline-block;">Ver fase completa →</a>
         </div>
       </div>
 
