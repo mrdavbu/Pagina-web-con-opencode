@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared-nav.css">
 <style>
   :root{
     --bg:#031208; --panel:rgba(12,34,20,0.45); --card:rgba(15,43,25,0.55);
@@ -109,7 +110,15 @@
   .foot{ margin-top:44px; color:var(--faint); font-size:12px; line-height:1.7; border-top:1px solid var(--line); padding-top:22px; font-family:'IBM Plex Mono',monospace; }
 </style>
 </head>
-<body>
+<body data-section="empatizar">
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a class="nav-brand" href="index.html"><img src="logo.jpg" alt=""><span><span class="nb-sub">Diseño Estratégico · UIS</span>HydroKultivoz</span></a>
+    <div class="nav-bar" data-nav></div>
+  </div>
+</nav>
+
 <div class="wrap">
 
   <a class="back" href="index.html">← Volver a la bitácora</a>
@@ -298,5 +307,6 @@
   </div>
 
 </div>
+<script src="shared-nav.js"></script>
 </body>
 </html>
