@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investigar · HydroKultivoz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared-nav.css">
+<style>
+  .dash-grid{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media(max-width:900px){ .dash-grid{ grid-template-columns:1fr; } }
+  .dash-card{ background:var(--card); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid var(--line); border-radius:var(--radius); padding:26px 28px; box-shadow:var(--shadow-sm); display:flex; flex-direction:column; transition:var(--transition); }
+  .dash-card:hover{ transform:translateY(-3px); border-color:var(--line-strong); }
+  .dash-card .dc-ic{ font-size:30px; }
+  .dash-card h3{ margin:10px 0 6px; font-size:20px; color:#fff; letter-spacing:-0.01em; }
+  .dash-card p{ margin:0 0 4px; color:var(--text-dim); font-size:14px; font-family:'Source Serif 4',serif; line-height:1.6; }
+  .dash-card .dc-stat{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.1em; margin:8px 0 16px; }
+  .dash-card .dc-stat b{ color:var(--green); }
+  .dash-card .dc-actions{ margin-top:auto; display:flex; gap:10px; flex-wrap:wrap; }
+  .info-row{ display:flex; gap:20px; flex-wrap:wrap; color:var(--text-dim); font-size:13.5px; font-family:'Source Serif 4',serif; margin-top:8px; }
+  .info-row b{ color:var(--green); font-family:'IBM Plex Mono',monospace; }
+</style>
+</head>
+<body data-section="investigar">
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a class="nav-brand" href="index.html"><img src="logo.jpg" alt=""><span><span class="nb-sub">Diseño Estratégico · UIS</span>HydroKultivoz</span></a>
+    <div class="nav-bar" data-nav></div>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-head">
+    <div class="eyebrow"><span class="dot"></span> Sección · Investigar</div>
+    <h1>Investigar</h1>
+    <p>Dashboards de investigación: comparación de productos del mercado hidropónico colombiano y referentes de diseño.</p>
+  </div>
+
+  <div class="dash-grid">
+    <div class="dash-card" style="border-top:3px solid var(--blue)">
+      <div class="dc-ic">📊</div>
+      <h3>Dashboard comparativo de mercado</h3>
+      <p>Compara productos hidropónicos reales del mercado colombiano por precio, material, tipo de sistema y energía requerida. Incluye scraping automático desde Mercado Libre, INDULIFE y otros WooCommerce.</p>
+      <div class="dc-stat"><b>15+</b> productos curados · <b>7</b> fuentes</div>
+      <div class="dc-actions">
+        <a class="btn primary" href="hidroponia-dashboard/dashboard.html" target="_blank">Abrir dashboard →</a>
+        <a class="btn" href="comparador.html" target="_blank">Comparador de hidrocultivos</a>
+      </div>
+    </div>
+
+    <div class="dash-card" style="border-top:3px solid var(--pink)">
+      <div class="dc-ic">🎨</div>
+      <h3>Dashboard de diseño hidropónico</h3>
+      <p>Referentes de proyectos de diseño hidropónico de Red Dot, Behance, iF Design y más. Con imágenes, bibliografías y fases de cada proyecto.</p>
+      <div class="dc-stat"><b>6</b> proyectos · Red Dot · Behance · GrowWithoutSoil</div>
+      <div class="dc-actions">
+        <a class="btn primary" href="dashboard-diseno.html" target="_blank">Abrir dashboard →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:8px">
+    <h2>¿Qué estás investigando?</h2>
+    <p class="kicker">Guía de la sección</p>
+    <div class="info-row">
+      <span>1. <b>Mercado</b> — revisa precios, materiales y sistemas en el dashboard comparativo.</span>
+    </div>
+    <div class="info-row">
+      <span>2. <b>Diseño</b> — explora proyectos referentes en el dashboard de diseño hidropónico.</span>
+    </div>
+    <div class="info-row">
+      <span>3. <b>Documenta</b> — registra tus hallazgos como entradas en la bitácora desde <a href="index.html" style="color:var(--green)">Inicio</a>.</span>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="shared-nav.js"></script>
+</body>
+</html>
