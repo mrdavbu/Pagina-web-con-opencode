@@ -1,0 +1,17 @@
+{
+  "name": "bitacora-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dashboard de comparación de productos hidropónicos del mercado colombiano para la bitácora de investigación en cerámica modular",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "vercel": "^32.0.0"
+  }
+}
