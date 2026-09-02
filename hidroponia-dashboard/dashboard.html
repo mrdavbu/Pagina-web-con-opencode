@@ -111,6 +111,7 @@ h1 { font-size: 42px; font-weight: 700; line-height: 1.1; margin: 0 0 12px; lett
 
 .producto-card .thumb { width:100%; height:160px; background: var(--bg-input); border-radius: 10px; overflow: hidden; display:flex; align-items:center; justify-content:center; color: var(--text-faint); font-size: 32px; }
 .producto-card .thumb img { width:100%; height:100%; object-fit: cover; }
+.producto-card .thumb-fallback { width:100%; height:100%; display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, #eaf6ec, #dcefe3); color:#3b6b4c; font-size:48px; }
 
 .producto-card .nombre { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; line-height: 1.3; color: var(--text); margin: 0; }
 .producto-card .meta-row { display:flex; gap: 8px; flex-wrap: wrap; font-size: 11px; color: var(--text-faint); font-family: 'IBM Plex Mono', monospace; }
@@ -218,7 +219,7 @@ h1 { font-size: 42px; font-weight: 700; line-height: 1.1; margin: 0 0 12px; lett
 
   <!-- Barra superior con breadcrumb -->
   <div class="back-bar">
-    <a href="./index.html">← Volver a la bitácora</a>
+    <a href="../index.html">← Volver a la bitácora</a>
     <span class="breadcrumb">Bitácora <b>/</b> Dashboard comparativo</span>
   </div>
 
@@ -512,9 +513,18 @@ function renderCard(p) {
   if (p.categoria === 'sistema-vertical' || p.tipo_sistema?.toLowerCase().includes('vertical') || p.tipo_sistema?.toLowerCase().includes('torre')) badges.push('<span class="badge badge-vertical">Vertical</span>');
   if (p.capacidad_plantas > 1) badges.push('<span class="badge badge-modular">Modular</span>');
 
+  const categoryIcon = {
+    'kit-interior': '🌱',
+    'sistema-modular': '🧩',
+    'sistema-vertical': '🏗️',
+    'maceta-pasiva': '🪴',
+    'accesorio': '💡',
+    'nutriente': '🧪'
+  }[p.categoria] || '🌿';
+
   const thumb = p.thumbnail || p.imagenes?.[0] || p.imagen
-    ? `<img src="${p.thumbnail || p.imagenes?.[0] || p.imagen}" alt="${escapeHtml(p.nombre)}" onerror="this.style.display='none'; this.parentNode.innerHTML='🌿';">`
-    : '🌿';
+    ? `<img src="${p.thumbnail || p.imagenes?.[0] || p.imagen}" alt="${escapeHtml(p.nombre)}" onerror="this.style.display='none'; this.parentNode.innerHTML='<span class=&quot;thumb-fallback&quot;>${categoryIcon}</span>';">`
+    : `<span class="thumb-fallback">${categoryIcon}</span>`;
 
   return `
     <div class="producto-card ${isSelected ? 'selected' : ''}" data-id="${p.id}">
@@ -853,7 +863,7 @@ function bindEvents() {
   });
 
   document.getElementById('btnOpenBitacora').addEventListener('click', () => {
-    window.open('./index.html', '_blank');
+    window.open('../index.html', '_blank');
   });
 
   document.getElementById('btnAddManual').addEventListener('click', () => {
