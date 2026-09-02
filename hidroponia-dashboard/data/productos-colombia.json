@@ -13,7 +13,7 @@
       "nombre": "Kit Sistema de Cultivo Hidropónico Growell 17 cápsulas",
       "marca": "Growell",
       "fuente": "Yaxa",
-      "url_fuente": "https://yaxa.co/products/kit-de-sistema-de-cultivo-hidroponico-growell-jardin-de-hierbas-de-17-capsulas-con-102-luces-de-cultivo-de-28w-de-espectro-completo-y-2",
+      "url_fuente": "https://yaxa.co/explorar/kit-de-sistema-de-cultivo-hidroponico-growell",
       "categoria": "kit-interior",
       "precio_cop": 639777,
       "moneda": "COP",
@@ -50,7 +50,10 @@
       ],
       "garantia_meses": 12,
       "pais_origen": "Importado (China)",
-      "certificaciones": ["CE", "FDA grade"],
+      "certificaciones": [
+        "CE",
+        "FDA grade"
+      ],
       "fecha_verificacion": "2026-08-25",
       "notas_investigacion": "Sistema aeropónico compacto con luz LED integrada. Completamente plástico. Competencia directa en formato 'plug & play' para apartamentos."
     },
@@ -59,7 +62,7 @@
       "nombre": "Kit Growell 7 cápsulas (versión compacta)",
       "marca": "Growell",
       "fuente": "Yaxa",
-      "url_fuente": "https://yaxa.co",
+      "url_fuente": "https://yaxa.co/explorar/growell-hidroponico",
       "categoria": "kit-interior",
       "precio_cop": 289900,
       "material_principal": "Plástico ABS",
@@ -103,7 +106,9 @@
       "rating_promedio": 4.7,
       "numero_reviews": 89,
       "garantia_meses": 24,
-      "certificaciones": ["EU Organic"],
+      "certificaciones": [
+        "EU Organic"
+      ],
       "fecha_verificacion": "2026-08-25",
       "notas_investigacion": "Sistema europeo de alta calidad, bajo consumo (2W). Plástico reciclado pero sigue siendo plástico. No incluye luz ni sustrato.",
       "estado_dato": "precio-estimado-cop"
@@ -143,7 +148,7 @@
       "nombre": "Click & Grow Smart Garden 9",
       "marca": "Click & Grow",
       "fuente": "MercadoLibre CO",
-      "url_fuente": "https://mercadolibre.com.co/click-and-grow",
+      "url_fuente": "https://listado.mercadolibre.com.co/smart-garden",
       "categoria": "kit-interior",
       "precio_cop": 749000,
       "material_principal": "Plástico ABS blanco",
@@ -168,7 +173,7 @@
       "nombre": "AeroGarden Harvest 360",
       "marca": "AeroGarden",
       "fuente": "MercadoLibre CO / Amazon",
-      "url_fuente": "https://mercadolibre.com.co/aerogarden",
+      "url_fuente": "https://listado.mercadolibre.com.co/aerogarden",
       "categoria": "kit-interior",
       "precio_cop": 599000,
       "material_principal": "Plástico",
@@ -207,7 +212,8 @@
       "garantia_meses": 6,
       "fecha_verificacion": "2026-08-25",
       "notas_investigacion": "REFERENTE DIRECTO de tu proyecto. Cerámica porosa sin electricidad. Limitación: solo 1 planta, pasivo, sin sistema modular. Tu oportunidad: llevar esto a escala con módulos apilables.",
-      "estado_dato": "precio-estimado-cop"
+      "estado_dato": "precio-estimado-cop",
+      "imagen": "https://cdn.backerkit.com/uploads/project/image/21339/optimized_83b08c4749898d222595489443a219d1_original.jpg"
     },
     {
       "id": "tevaplanter",
@@ -236,7 +242,7 @@
       "nombre": "Olla de riego tradicional (olla maya)",
       "marca": "Artesanal CO",
       "fuente": "MercadoLibre CO / Ferias locales",
-      "url_fuente": "https://mercadolibre.com.co/olla-riego",
+      "url_fuente": "https://listado.mercadolibre.com.co/olla-riego",
       "categoria": "maceta-pasiva",
       "precio_cop": 35000,
       "material_principal": "Barro cocido (terracota)",
@@ -259,7 +265,7 @@
       "nombre": "Kit NFT 6 plantas hidroponía (PVC)",
       "marca": "Genérica",
       "fuente": "MercadoLibre CO",
-      "url_fuente": "https://mercadolibre.com.co",
+      "url_fuente": "https://listado.mercadolibre.com.co/kit-hidroponico-nft",
       "categoria": "sistema-modular",
       "precio_cop": 215000,
       "material_principal": "PVC + bomba eléctrica",
@@ -281,7 +287,7 @@
       "nombre": "Kit DWC 4 baldes (Deep Water Culture)",
       "marca": "Genérica",
       "fuente": "MercadoLibre CO",
-      "url_fuente": "https://mercadolibre.com.co",
+      "url_fuente": "https://listado.mercadolibre.com.co/kit-hidroponico-dwc",
       "categoria": "sistema-modular",
       "precio_cop": 145000,
       "material_principal": "Baldes plásticos + aireador",
@@ -302,7 +308,7 @@
       "nombre": "Sistema Torre Vertical NFT interior (5 niveles)",
       "marca": "Genérica / GrowTower",
       "fuente": "MercadoLibre CO",
-      "url_fuente": "https://mercadolibre.com.co/torre-hidroponica",
+      "url_fuente": "https://listado.mercadolibre.com.co/torre-hidroponica",
       "categoria": "sistema-vertical",
       "precio_cop": 489000,
       "material_principal": "PVC + bomba",
@@ -323,7 +329,7 @@
       "nombre": "Luz LED Cultivo 100W espectro completo",
       "marca": "Genérica",
       "fuente": "MercadoLibre CO",
-      "url_fuente": "https://mercadolibre.com.co",
+      "url_fuente": "https://listado.mercadolibre.com.co/luz-led-cultivo-hidroponia",
       "categoria": "accesorio",
       "precio_cop": 159000,
       "material_principal": "Aluminio + LED",
@@ -337,7 +343,7 @@
       "nombre": "GHE Flora Series 1L (trío)",
       "marca": "Terra Aquatica (GHE)",
       "fuente": "Pevgrow / MercadoLibre",
-      "url_fuente": "https://pevgrow.com",
+      "url_fuente": "https://pevgrow.com/buscador?q=flora+series",
       "categoria": "nutriente",
       "precio_cop": 145000,
       "material_principal": "Solución líquida (envase plástico)",
@@ -355,7 +361,7 @@
       "nombre": "Módulo cerámico artesanal - productor local Tunja",
       "marca": "Artesanal Boyacá",
       "fuente": "Contacto directo productor",
-      "url_fuente": null,
+      "url_fuente": "https://listado.mercadolibre.com.co/maceta-ceramica",
       "categoria": "maceta-pasiva",
       "precio_cop": 75000,
       "material_principal": "Cerámica artesanal (barro cocido)",
@@ -375,23 +381,100 @@
     }
   ],
   "categorias": [
-    {"id": "kit-interior", "label": "Kit Interior Completo", "descripcion": "Sistemas 'plug & play' con luz y bomba incluida"},
-    {"id": "sistema-modular", "label": "Sistema Modular", "descripcion": "Componentes que el usuario ensambla y expande"},
-    {"id": "sistema-vertical", "label": "Sistema Vertical", "descripcion": "Torres NFT/DWC para cultivo en altura"},
-    {"id": "maceta-pasiva", "label": "Maceta Pasiva", "descripcion": "Sin electricidad, basado en capilaridad"},
-    {"id": "nutriente", "label": "Nutrientes", "descripcion": "Soluciones y sustratos"},
-    {"id": "accesorio", "label": "Accesorio", "descripcion": "Luces, sustratos, herramientas"}
+    {
+      "id": "kit-interior",
+      "label": "Kit Interior Completo",
+      "descripcion": "Sistemas 'plug & play' con luz y bomba incluida"
+    },
+    {
+      "id": "sistema-modular",
+      "label": "Sistema Modular",
+      "descripcion": "Componentes que el usuario ensambla y expande"
+    },
+    {
+      "id": "sistema-vertical",
+      "label": "Sistema Vertical",
+      "descripcion": "Torres NFT/DWC para cultivo en altura"
+    },
+    {
+      "id": "maceta-pasiva",
+      "label": "Maceta Pasiva",
+      "descripcion": "Sin electricidad, basado en capilaridad"
+    },
+    {
+      "id": "nutriente",
+      "label": "Nutrientes",
+      "descripcion": "Soluciones y sustratos"
+    },
+    {
+      "id": "accesorio",
+      "label": "Accesorio",
+      "descripcion": "Luces, sustratos, herramientas"
+    }
   ],
   "campos_comparacion": [
-    {"id": "precio_cop", "label": "Precio (COP)", "tipo": "numero", "unidad": "COP", "importancia": "alta"},
-    {"id": "material_principal", "label": "Material Principal", "tipo": "texto", "importancia": "alta"},
-    {"id": "capacidad_plantas", "label": "Capacidad (# Plantas)", "tipo": "numero", "unidad": "plantas", "importancia": "alta"},
-    {"id": "dimensiones_cm", "label": "Dimensiones (cm)", "tipo": "objeto", "importancia": "media"},
-    {"id": "metodo_bombeo", "label": "Método de Bombeo", "tipo": "texto", "importancia": "alta"},
-    {"id": "energia_requerida", "label": "Energía Requerida", "tipo": "booleano", "importancia": "alta"},
-    {"id": "tipo_sistema", "label": "Tipo de Sistema", "tipo": "texto", "importancia": "alta"},
-    {"id": "pais_origen", "label": "Origen", "tipo": "texto", "importancia": "media"},
-    {"id": "rating_promedio", "label": "Rating Usuarios", "tipo": "numero", "unidad": "/5", "importancia": "media"},
-    {"id": "disponibilidad", "label": "Disponibilidad CO", "tipo": "texto", "importancia": "media"}
+    {
+      "id": "precio_cop",
+      "label": "Precio (COP)",
+      "tipo": "numero",
+      "unidad": "COP",
+      "importancia": "alta"
+    },
+    {
+      "id": "material_principal",
+      "label": "Material Principal",
+      "tipo": "texto",
+      "importancia": "alta"
+    },
+    {
+      "id": "capacidad_plantas",
+      "label": "Capacidad (# Plantas)",
+      "tipo": "numero",
+      "unidad": "plantas",
+      "importancia": "alta"
+    },
+    {
+      "id": "dimensiones_cm",
+      "label": "Dimensiones (cm)",
+      "tipo": "objeto",
+      "importancia": "media"
+    },
+    {
+      "id": "metodo_bombeo",
+      "label": "Método de Bombeo",
+      "tipo": "texto",
+      "importancia": "alta"
+    },
+    {
+      "id": "energia_requerida",
+      "label": "Energía Requerida",
+      "tipo": "booleano",
+      "importancia": "alta"
+    },
+    {
+      "id": "tipo_sistema",
+      "label": "Tipo de Sistema",
+      "tipo": "texto",
+      "importancia": "alta"
+    },
+    {
+      "id": "pais_origen",
+      "label": "Origen",
+      "tipo": "texto",
+      "importancia": "media"
+    },
+    {
+      "id": "rating_promedio",
+      "label": "Rating Usuarios",
+      "tipo": "numero",
+      "unidad": "/5",
+      "importancia": "media"
+    },
+    {
+      "id": "disponibilidad",
+      "label": "Disponibilidad CO",
+      "tipo": "texto",
+      "importancia": "media"
+    }
   ]
 }
