@@ -234,12 +234,66 @@ body { margin: 0; padding: 0; background: var(--bg); overflow-x: hidden; }
 #bitacora-root .lightbox.open { display:flex; opacity:1; }
 #bitacora-root .lightbox img { max-width: 92%; max-height: 88vh; border-radius: 10px; box-shadow: 0 20px 60px rgba(0,0,0,.6), 0 0 0 1px rgba(126,231,165,0.2); transform: scale(0.85); transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 #bitacora-root .lightbox.open img { transform: scale(1); }
+
+  /* ---------- NAVEGACIÓN DE SECCIONES ---------- */
+  .sections-nav{ position:sticky; top:0; z-index:120; background:rgba(3,18,8,0.88); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid #117a4d; }
+  .sections-nav .sn-inner{ max-width:1200px; margin:0 auto; padding:10px 24px; display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+  .sections-nav .sn-brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff; font-family:'Space Grotesk',sans-serif; }
+  .sections-nav .sn-brand img{ width:34px; height:34px; border-radius:9px; }
+  .sections-nav .sn-brand .nb-sub{ display:block; font-size:9px; color:#66BB6A; font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:0.12em; }
+  .sections-nav .sn-brand .nb-name{ font-size:16px; font-weight:700; display:block; line-height:1.1; }
+  .sections-nav .sn-bar{ flex:1; min-width:0; }
+  .sections-nav .nav-list{ list-style:none; margin:0; padding:0; display:flex; gap:4px; flex-wrap:wrap; }
+  .sections-nav .nav-list a{ display:flex; align-items:center; gap:7px; padding:8px 13px; border-radius:10px; color:#A5D6A7; text-decoration:none; font-size:13.5px; font-weight:500; transition:.3s cubic-bezier(.25,.8,.25,1); font-family:'Space Grotesk',sans-serif; border:1px solid transparent; }
+  .sections-nav .nav-list a:hover{ color:#fff; background:rgba(105,240,174,0.15); border-color:rgba(126,231,165,0.35); }
+  .sections-nav .nav-list li.active a{ color:#69F0AE; background:rgba(105,240,174,0.15); border-color:#69F0AE; }
+  .sections-nav .nav-list li.active a::after{ content:none; }
+  .sections-nav .nav-list .nav-tx{ font-weight:600; }
+  @media(max-width:760px){ .sections-nav .nav-list .nav-tx{ display:none; } .sections-nav .nav-list a{ gap:0; padding:8px 10px; } }
+
+  /* ---------- PREVIEWS DE SECCIONES ---------- */
+  #bitacora-root .sec-preview{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:12px; }
+  @media(max-width:900px){ #bitacora-root .sec-preview{ grid-template-columns:1fr 1fr; } }
+  @media(max-width:600px){ #bitacora-root .sec-preview{ grid-template-columns:1fr; } }
+  #bitacora-root .sec-card{ position:relative; background:var(--bg-card); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid var(--line); border-radius:var(--radius); padding:22px 22px 18px; transition:var(--transition); overflow:hidden; }
+  #bitacora-root .sec-card:hover{ transform:translateY(-3px); border-color:var(--line-strong); box-shadow:0 12px 30px rgba(0,0,0,0.5); }
+  #bitacora-root .sec-card .sec-ic{ font-size:26px; }
+  #bitacora-root .sec-card h4{ margin:0 0 4px; font-size:17px; font-family:'Space Grotesk',sans-serif; color:#fff; letter-spacing:-0.01em; }
+  #bitacora-root .sec-card .sec-desc{ font-size:13px; color:var(--text-dim); line-height:1.5; margin:0 0 8px; font-family:'Source Serif 4',serif; }
+  #bitacora-root .sec-card .sec-status{ font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-faint); }
+  #bitacora-root .sec-card .sec-status.done{ color:var(--green); }
+  #bitacora-root .sec-card .sec-status.active{ color:var(--terra); }
+  #bitacora-root .sec-card .sec-status.pending{ color:var(--faint,var(--text-faint)); }
+  #bitacora-root .sec-card a.sec-link{ display:inline-flex; align-items:center; gap:6px; margin-top:8px; font-size:12.5px; font-weight:600; color:var(--green); text-decoration:none; font-family:'Space Grotesk',sans-serif; }
+  #bitacora-root .sec-card a.sec-link:hover{ text-decoration:underline; }
+  #bitacora-root .sec-section-title{ font-size:12px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.1em; margin:34px 0 16px; font-weight:600; }
+
+  /* ---------- SUBIR DOCUMENTOS ---------- */
+  #bitacora-root .docs-box{ background:var(--bg-card); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px dashed var(--line-strong); border-radius:var(--radius); padding:26px 28px; margin-bottom:26px; }
+  #bitacora-root .docs-box input[type=file]{ display:block; margin:14px 0; }
+  #bitacora-root .docs-list{ list-style:none; margin:14px 0 0; padding:0; display:flex; flex-direction:column; gap:8px; }
+  #bitacora-root .docs-list li{ display:flex; align-items:center; gap:10px; background:rgba(7,20,11,0.5); border:1px solid var(--line); border-radius:10px; padding:10px 14px; font-size:13px; font-family:'Space Grotesk',sans-serif; }
+  #bitacora-root .docs-list li .d-link{ color:var(--green); text-decoration:none; font-weight:600; margin-left:auto; }
+  #bitacora-root .docs-list li .d-link:hover{ text-decoration:underline; }
+  #bitacora-root .docs-list li .d-rm{ background:none; border:none; color:var(--red); cursor:pointer; font-size:15px; }
 </style>
 </head>
 <body>
 
 <div id="bitacora-root">
   <div class="wash"></div>
+
+  <!-- Barra de navegación de secciones -->
+  <nav class="sections-nav">
+    <div class="sn-inner">
+      <a class="sn-brand" href="index.html">
+        <img src="logo.jpg" alt="logo">
+        <span><span class="nb-sub">Diseño Estratégico · UIS</span><span class="nb-name">HydroKultivoz</span></span>
+      </a>
+      <div class="sn-bar" data-nav></div>
+    </div>
+  </nav>
+
   <div class="wrap">
 
     <div id="setupArea"></div>
@@ -299,6 +353,63 @@ body { margin: 0; padding: 0; background: var(--bg); overflow-x: hidden; }
         <div class="phase-foot">
           <span class="phase-note">👩🏻‍🍳 Camila Rojas · 34 años · Diseñadora freelance · Bucaramanga</span>
           <a href="empatizar.html" target="_blank" class="btn-primary" style="text-decoration:none; font-size:13px; padding:10px 20px; display:inline-block;">Ver fase completa →</a>
+        </div>
+      </div>
+
+      <!-- Subir documentos -->
+      <div class="sec-section-title">Documentos del proyecto</div>
+      <div class="docs-box">
+        <h3 style="margin:0 0 4px; font-size:16px; color:#fff; font-family:'Space Grotesk',sans-serif;">📁 Subir documentos</h3>
+        <p style="margin:0 0 8px; font-size:13px; color:var(--text-dim); font-family:'Source Serif 4',serif;">Adjunta PDFs, imágenes o archivos del proyecto. Se guardan en la nube y se comparten en todos tus dispositivos.</p>
+        <input type="file" id="docFileInput" multiple>
+        <div id="docUploadMsg" style="font-size:12px; color:var(--text-faint); font-family:'IBM Plex Mono',monospace; margin-top:6px;"></div>
+        <ul class="docs-list" id="docList"></ul>
+      </div>
+
+      <!-- Previews de secciones del proyecto -->
+      <div class="sec-section-title">Secciones del proyecto</div>
+      <div class="sec-preview">
+        <div class="sec-card">
+          <div class="sec-ic">🔎</div>
+          <h4>Investigar</h4>
+          <p class="sec-desc">Dashboards de comparación de mercado y proyectos de diseño hidropónico.</p>
+          <span class="sec-status done">● Con dashboard</span>
+          <br><a class="sec-link" href="investigar.html">Abrir sección →</a>
+        </div>
+        <div class="sec-card">
+          <div class="sec-ic">🎯</div>
+          <h4>Empatizar</h4>
+          <p class="sec-desc">Mapa de empatía, persona (Camila), deseos y motivaciones.</p>
+          <span class="sec-status done">● Completada</span>
+          <br><a class="sec-link" href="empatizar.html">Abrir sección →</a>
+        </div>
+        <div class="sec-card">
+          <div class="sec-ic">🎛️</div>
+          <h4>Definir</h4>
+          <p class="sec-desc">Enunciado del problema, punto de vista y alcance de la fase.</p>
+          <span class="sec-status active">● Siguiente etapa</span>
+          <br><a class="sec-link" href="definir.html">Abrir sección →</a>
+        </div>
+        <div class="sec-card">
+          <div class="sec-ic">💡</div>
+          <h4>Idear</h4>
+          <p class="sec-desc">Generación de conceptos y alternativas de solución.</p>
+          <span class="sec-status pending">○ Por iniciar</span>
+          <br><a class="sec-link" href="idear.html">Abrir sección →</a>
+        </div>
+        <div class="sec-card">
+          <div class="sec-ic">🧪</div>
+          <h4>Prototipar</h4>
+          <p class="sec-desc">Prototipos físicos y pruebas del sistema.</p>
+          <span class="sec-status pending">○ Por iniciar</span>
+          <br><a class="sec-link" href="prototipar.html">Abrir sección →</a>
+        </div>
+        <div class="sec-card">
+          <div class="sec-ic">✅</div>
+          <h4>Validar</h4>
+          <p class="sec-desc">Evaluación y retroalimentación con el usuario.</p>
+          <span class="sec-status pending">○ Por iniciar</span>
+          <br><a class="sec-link" href="validar.html">Abrir sección →</a>
         </div>
       </div>
 
@@ -1112,5 +1223,64 @@ if ('serviceWorker' in navigator) {
   subscribeRealtime();
 })();
 </script>
+<script>
+// ---------- Subir documentos del proyecto ----------
+(function(){
+  if (!window.firebase) return;
+  var ISEUDO_DB = 'https://link-de-proyecto-estrategico-default-rtdb.firebaseio.com';
+  var input = document.getElementById('docFileInput');
+  var msg = document.getElementById('docUploadMsg');
+  var list = document.getElementById('docList');
+  if (!input || !list) return;
+  var docsRef = firebase.database().ref('proyecto/documentos');
+
+  function fmt(n){ return n >= 1048576 ? (n/1048576).toFixed(1)+' MB' : (n/1024).toFixed(0)+' KB'; }
+  function toast(t){ var el=document.getElementById('toast'); /* best-effort */ }
+
+  function renderDocs(data){
+    var arr = Object.entries(data||{}).map(([k,v])=>({k,...v})).sort((a,b)=>(b.ts||0)-(a.ts||0));
+    list.innerHTML='';
+    if(!arr.length){ list.insertAdjacentHTML('beforeend','<li style="color:var(--text-faint);font-style:italic">Aún no hay documentos.</li>'); return; }
+    arr.forEach(function(d){
+      var li=document.createElement('li');
+      var icon = (d.type||'').startsWith('image/') ? '🖼️' : (d.type==='application/pdf' ? '📕' : '📄');
+      li.innerHTML = '<span>'+icon+' '+escapeHtml(d.name)+'</span><span style="color:var(--text-faint);font-size:12px">'+fmt(d.size)+'</span>' +
+        (d.dataUrl ? '<a class="d-link" href="'+d.dataUrl+'" download="'+escapeHtml(d.name)+'">Descargar</a>' : '') +
+        '<button class="d-rm" title="Eliminar">✕</button>';
+      li.querySelector('.d-rm').addEventListener('click', function(){
+        firebase.database().ref('proyecto/documentos/'+d.k).remove().then(function(){ renderDocsRef(); });
+      });
+      list.appendChild(li);
+    });
+  }
+  function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
+
+  var renderDocsRef = function(){ docsRef.once('value', function(snap){ renderDocs(snap.val()); }); };
+  docsRef.on('value', function(snap){ renderDocs(snap.val()); });
+
+  input.addEventListener('change', function(){
+    var files = Array.from(input.files||[]);
+    if(!files.length) return;
+    msg.textContent='Subiendo '+files.length+' documento(s)...';
+    var i=0;
+    function next(){
+      if(i>=files.length){ msg.textContent='✔ Completado'; renderDocsRef(); input.value=''; setTimeout(function(){msg.textContent='';},2500); return; }
+      var f=files[i++];
+      if(f.size>500*1024){ msg.textContent='⚠ '+f.name+' supera 500 KB (RTDB). Solo se guardan metadatos.'; }
+      var reader=new FileReader();
+      reader.onload=function(){
+        var payload={ name:f.name, type:f.type, size:f.size, ts:Date.now() };
+        if(f.size<=500*1024) payload.dataUrl=reader.result;
+        docsRef.push(payload).then(function(){ next(); }).catch(function(e){ msg.textContent='⚠ Error: '+e.message; });
+      };
+      reader.onerror=function(){ msg.textContent='⚠ Error leyendo '+f.name; };
+      reader.readAsDataURL(f);
+    }
+    next();
+  });
+})();
+</script>
+<script>document.body.setAttribute('data-section','inicio');</script>
+<script src="shared-nav.js"></script>
 </body>
 </html>
