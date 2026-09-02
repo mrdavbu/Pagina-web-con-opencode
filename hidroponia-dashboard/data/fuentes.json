@@ -1,0 +1,175 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "fecha": "2026-08-25",
+    "descripcion": "Configuración de sitios para el dashboard de comparación. Cada sitio tiene un 'status' que indica qué tan viable es scrapearlo en tiempo real desde Vercel Functions."
+  },
+  "sitios": [
+    {
+      "id": "mercadolibre-co",
+      "nombre": "MercadoLibre Colombia",
+      "url_base": "https://www.mercadolibre.com.co",
+      "tipo": "marketplace",
+      "status": "limitado",
+      "razon_status": "Protección Datadome activa. Bloquea scraping con login wall. Solo accesible con API oficial (requiere token gratis) o como página de detalle (sin login).",
+      "metodos_disponibles": ["api-oficial", "html-basico-detalle"],
+      "configuracion": {
+        "search_url": "https://listado.mercadolibre.com.co/{query}",
+        "api_oficial": "https://api.mercadolibre.com/sites/MCO/search?q={query}",
+        "requiere_token": false,
+        "selector_detalle": {
+          "titulo": "h1.ui-pdp-title",
+          "precio": "span.andes-money-amount__fraction",
+          "imagen": "img.ui-pdp-image",
+          "descripcion": "div.ui-pdp-description"
+        }
+      },
+      "headers_recomendados": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept-Language": "es-CO,es;q=0.9"
+      },
+      "cobertura": "Nacional",
+      "productos_verificados": 6
+    },
+    {
+      "id": "yaxa",
+      "nombre": "Yaxa Colombia",
+      "url_base": "https://yaxa.co",
+      "tipo": "marketplace",
+      "status": "bloqueado",
+      "razon_status": "Detección anti-bot. Bloquea web scraping directo.",
+      "metodos_disponibles": ["carga-manual", "browser-headless"],
+      "configuracion": {
+        "search_url": "https://yaxa.co/search?q={query}",
+        "selector_detalle": {
+          "titulo": "h1",
+          "precio": "span.price",
+          "sku": "td:contains('SKU')"
+        }
+      },
+      "cobertura": "Nacional con envío gratis",
+      "productos_verificados": 1,
+      "nota": "Yaxa usa Tienda Nube. Los productos se pueden cargar manualmente pegando URL."
+    },
+    {
+      "id": "indulife",
+      "nombre": "INDULIFE (ex El Aeropónico)",
+      "url_base": "https://indulife.com",
+      "tipo": "growshop",
+      "status": "scraping-parcial",
+      "razon_status": "WordPress + WooCommerce. Catálogo público pero requiere manejo de cookies y paginación.",
+      "metodos_disponibles": ["html-scraping", "woocommerce-api"],
+      "configuracion": {
+        "search_url": "https://indulife.com/?s={query}&post_type=product",
+        "shop_url": "https://indulife.com/tienda",
+        "woocommerce_api": "https://indulife.com/wp-json/wc/v3/products",
+        "selector_listado": {
+          "productos": "li.product",
+          "titulo": "h2.woocommerce-loop-product__title",
+          "precio": "span.price",
+          "link": "a.woocommerce-LoopProduct-link"
+        },
+        "selector_detalle": {
+          "titulo": "h1.product_title",
+          "precio": "p.price",
+          "descripcion": "div#tab-description",
+          "sku": "span.sku"
+        }
+      },
+      "cobertura": "Funza, Cundinamarca + envío nacional",
+      "productos_verificados": 0,
+      "nota": "Empresa colombiana especializada. Contacto: ventas@wilkatek.com / +57 300 9988064"
+    },
+    {
+      "id": "homecenter",
+      "nombre": "Homecenter (Sodimac Colombia)",
+      "url_base": "https://www.homecenter.com.co",
+      "tipo": "retail-masivo",
+      "status": "no-scraping",
+      "razon_status": "Renderizado client-side con protección anti-bot. Requiere navegador headless (Playwright = $$).",
+      "metodos_disponibles": ["carga-manual"],
+      "configuracion": {
+        "search_url": "https://www.homecenter.com.co/s search?query={query}",
+        "metodo_alternativo": "Pegar URL del producto y extraer manualmente los 8 campos."
+      },
+      "cobertura": "Nacional (tiendas físicas + online)",
+      "productos_verificados": 0,
+      "nota": "RETAILER MASIVO. No se puede scrapear técnicamente. Se carga manualmente."
+    },
+    {
+      "id": "sodimac",
+      "nombre": "Sodimac Colombia",
+      "url_base": "https://www.sodimac.com.co",
+      "tipo": "retail-masivo",
+      "status": "no-scraping",
+      "razon_status": "Misma razón que Homecenter. Carga JS pesada + bot protection.",
+      "metodos_disponibles": ["carga-manual"],
+      "configuracion": {
+        "search_url": "https://www.sodimac.com.co/sodimac-co/search/?query={query}"
+      },
+      "cobertura": "Nacional",
+      "productos_verificados": 0,
+      "nota": "RETAILER MASIVO. Carga manual."
+    },
+    {
+      "id": "leroy-merlin",
+      "nombre": "Leroy Merlin Colombia",
+      "url_base": "https://www.leroymerlin.com.co",
+      "tipo": "retail-masivo",
+      "status": "no-scraping",
+      "razon_status": "Catálogo limitado de hidroponía. Renderizado JS + protección.",
+      "metodos_disponibles": ["carga-manual"],
+      "configuracion": {
+        "search_url": "https://www.leroymerlin.com.co/search?q={query}"
+      },
+      "cobertura": "Bogotá, Medellín, Cali",
+      "productos_verificados": 0,
+      "nota": "Catálogo pequeño en hidroponía pero incluye sistemas comerciales."
+    },
+    {
+      "id": "pevgrow-internacional",
+      "nombre": "Pevgrow (España - envía a CO)",
+      "url_base": "https://pevgrow.com",
+      "tipo": "growshop-internacional",
+      "status": "scraping-funciona",
+      "razon_status": "WordPress + WooCommerce sin protección anti-bot fuerte. Marca líder europea.",
+      "metodos_disponibles": ["html-scraping"],
+      "configuracion": {
+        "search_url": "https://pevgrow.com/buscar?q={query}",
+        "selector_listado": {
+          "productos": "div.product-miniature",
+          "titulo": "h3.product-title a",
+          "precio": "span.price",
+          "link": "h3.product-title a@href"
+        },
+        "selector_detalle": {
+          "titulo": "h1",
+          "precio": "span.current-price",
+          "descripcion": "div#description"
+        }
+      },
+      "cobertura": "Envía a Colombia 5-7 días",
+      "productos_verificados": 2,
+      "nota": "PRECIOS EN EUR - conversión a COP automática. Marca Terra Aquatica (ex GHE)."
+    },
+    {
+      "id": "productor-ceramico-local",
+      "nombre": "Productor artesanal local (Boyacá)",
+      "url_base": null,
+      "tipo": "artesanal",
+      "status": "manual",
+      "razon_status": "Sin tienda online. Contacto directo con el productor.",
+      "metodos_disponibles": ["carga-manual"],
+      "configuracion": null,
+      "cobertura": "Tunja, Boyacá",
+      "productos_verificados": 1,
+      "nota": "REFERENTE COLOMBIANO. Pieza única artesanal - base de tu propuesta industrializada."
+    }
+  ],
+  "resumen_status": {
+    "scraping-funciona": ["indulife", "pevgrow-internacional"],
+    "scraping-parcial": ["mercadolibre-co", "indulife"],
+    "no-scraping": ["homecenter", "sodimac", "leroy-merlin"],
+    "manual": ["yaxa", "productor-ceramico-local"]
+  }
+}
