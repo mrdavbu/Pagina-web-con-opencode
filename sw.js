@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bitacora-cache-v5';
+const CACHE_NAME = 'bitacora-cache-v6';
 
 self.addEventListener('install', () => {
   self.skipWaiting();
