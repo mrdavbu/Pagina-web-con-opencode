@@ -215,7 +215,7 @@ body { margin: 0; padding: 0; background: var(--bg); overflow-x: hidden; }
 #bitacora-root .img-feature.single .hero-img img { max-height: 440px; }
 #bitacora-root .hero-img:hover img, #bitacora-root .sub-img-wrap:hover img { transform: scale(1.05); filter: saturate(1.2); }
 #bitacora-root .sub-imgs { display:grid; grid-template-columns: repeat(2,1fr); grid-auto-rows: 1fr; gap:12px; }
-#bitacora-root .more-badge { position:absolute; inset:0; background:rgba(255,255,255,0.9); color:#FFF; display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight: 700; backdrop-filter: blur(4px); }
+#bitacora-root .more-badge { position:absolute; inset:0; background:rgba(255,255,255,0.9); color:var(--text); display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk',sans-serif; font-size:24px; font-weight: 700; backdrop-filter: blur(4px); }
 
 #bitacora-root .card-foot { display:flex; justify-content:flex-end; gap: 8px; margin-top: 16px; opacity: 0; transition: opacity 0.3s ease; }
 #bitacora-root .card:hover .card-foot { opacity: 1; }
@@ -239,14 +239,14 @@ body { margin: 0; padding: 0; background: var(--bg); overflow-x: hidden; }
   /* ---------- NAVEGACIÓN DE SECCIONES ---------- */
   .sections-nav{ position:sticky; top:0; z-index:120; background:rgba(11,36,20,0.92); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border-bottom:1px solid #2c9a63; }
   .sections-nav .sn-inner{ max-width:1200px; margin:0 auto; padding:12px 24px; display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
-  .sections-nav .sn-brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff; font-family:'Space Grotesk',sans-serif; }
+  .sections-nav .sn-brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text); font-family:'Space Grotesk',sans-serif; }
   .sections-nav .sn-brand img{ width:38px; height:38px; border-radius:9px; }
   .sections-nav .sn-brand .nb-sub{ display:block; font-size:11px; color:#9ED4A9; font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:0.12em; }
   .sections-nav .sn-brand .nb-name{ font-size:19px; font-weight:700; display:block; line-height:1.1; }
   .sections-nav .sn-bar{ flex:1; min-width:0; }
   .sections-nav .nav-list{ list-style:none; margin:0; padding:0; display:flex; gap:4px; flex-wrap:wrap; }
   .sections-nav .nav-list a{ display:flex; align-items:center; gap:7px; padding:10px 15px; border-radius:10px; color:#CBE8D2; text-decoration:none; font-size:15.5px; font-weight:500; transition:.3s cubic-bezier(.25,.8,.25,1); font-family:'Space Grotesk',sans-serif; border:1px solid transparent; }
-  .sections-nav .nav-list a:hover{ color:#fff; background:rgba(105,240,174,0.2); border-color:rgba(126,231,165,0.5); }
+  .sections-nav .nav-list a:hover{ color:var(--text); background:rgba(46,125,82,0.08); border-color:rgba(46,125,82,0.25); }
   .sections-nav .nav-list li.active a{ color:var(--green); background:rgba(105,240,174,0.2); border-color:var(--green); }
   .sections-nav .nav-list li.active a::after{ content:none; }
   .sections-nav .nav-list .nav-tx{ font-weight:600; }
@@ -259,7 +259,7 @@ body { margin: 0; padding: 0; background: var(--bg); overflow-x: hidden; }
   #bitacora-root .sec-card{ position:relative; background:var(--bg-card); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid var(--line); border-radius:var(--radius); padding:24px 24px 20px; transition:var(--transition); overflow:hidden; }
   #bitacora-root .sec-card:hover{ transform:translateY(-3px); border-color:var(--line-strong); box-shadow:0 12px 30px rgba(0,0,0,0.5); }
   #bitacora-root .sec-card .sec-ic{ font-size:30px; }
-  #bitacora-root .sec-card h4{ margin:0 0 4px; font-size:20px; font-family:'Space Grotesk',sans-serif; color:#fff; letter-spacing:-0.01em; }
+  #bitacora-root .sec-card h4{ margin:0 0 4px; font-size:21px; font-family:'Space Grotesk',sans-serif; color:var(--text); letter-spacing:-0.01em; }
   #bitacora-root .sec-card .sec-desc{ font-size:15.5px; color:var(--text-dim); line-height:1.5; margin:0 0 8px; font-family:'Source Serif 4',serif; }
   #bitacora-root .sec-card .sec-status{ font-family:'IBM Plex Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-faint); }
   #bitacora-root .sec-card .sec-status.done{ color:var(--green); }
@@ -360,7 +360,7 @@ body { margin: 0; padding: 0; background: var(--bg); overflow-x: hidden; }
       <!-- Subir documentos -->
       <div class="sec-section-title">Documentos del proyecto</div>
       <div class="docs-box">
-        <h3 style="margin:0 0 4px; font-size:16px; color:#fff; font-family:'Space Grotesk',sans-serif;">📁 Subir documentos</h3>
+        <h3 style="margin:0 0 4px; font-size:17px; color:var(--text); font-family:'Space Grotesk',sans-serif;">📁 Subir documentos</h3>
         <p style="margin:0 0 8px; font-size:13px; color:var(--text-dim); font-family:'Source Serif 4',serif;">Adjunta PDFs, imágenes o archivos del proyecto. Se guardan en la nube y se comparten en todos tus dispositivos.</p>
         <input type="file" id="docFileInput" multiple>
         <div id="docUploadMsg" style="font-size:12px; color:var(--text-faint); font-family:'IBM Plex Mono',monospace; margin-top:6px;"></div>
