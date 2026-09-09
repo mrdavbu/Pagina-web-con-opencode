@@ -12,18 +12,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
 :root {
-  --bg: #031208;
-  --bg-panel: rgba(12, 34, 20, 0.45);
-  --bg-card: rgba(15, 43, 25, 0.55);
-  --bg-input: rgba(7, 20, 11, 0.6);
-  --line: rgba(126, 231, 165, 0.15);
-  --line-strong: rgba(126, 231, 165, 0.35);
-  --text: #E8F5E9;
-  --text-dim: #A5D6A7;
-  --text-faint: #66BB6A;
+  --bg: #0B2414;
+  --bg-panel: rgba(18, 46, 27, 0.9);
+  --bg-card: rgba(22, 54, 32, 0.92);
+  --bg-input: rgba(11, 32, 20, 0.75);
+  --line: rgba(126, 231, 165, 0.18);
+  --line-strong: rgba(126, 231, 165, 0.4);
+  --text: #F1FAF2;
+  --text-dim: #CBE8D2;
+  --text-faint: #9ED4A9;
   --green: #69F0AE;
   --green-hover: #B9F6CA;
-  --green-soft: rgba(105, 240, 174, 0.15);
+  --green-soft: rgba(105, 240, 174, 0.2);
   --pink: #FF8FD1;
   --pink-soft: rgba(255, 143, 209, 0.12);
   --amber: #FFE57F;
@@ -46,7 +46,7 @@ a:hover { color: var(--green-hover); text-decoration: underline; }
 /* Background topo animado (mismo que la bitácora) */
 .wash { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
 .wash svg { width: 100%; height: 100%; filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.3)); }
-.wash::after { content:''; position:absolute; inset:0; background: radial-gradient(circle at 50% 20%, rgba(3,18,8,0.4) 0%, rgba(2,12,5,0.75) 60%, rgba(1,6,3,0.95) 100%); }
+.wash::after { content:''; position:absolute; inset:0; background: radial-gradient(circle at 50% 20%, rgba(11,36,20,0.3) 0%, rgba(8,27,15,0.55) 60%, rgba(6,21,11,0.75) 100%); }
 .layer-anim { animation: breathe 12s infinite alternate ease-in-out; transform-origin: center; }
 @keyframes breathe { 0% { transform: scale(1) translate(0, 0); } 100% { transform: scale(1.03) translate(-1%, -1%); } }
 
@@ -54,37 +54,37 @@ a:hover { color: var(--green-hover); text-decoration: underline; }
 
 /* Nav back to bitacora */
 .back-bar { display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; padding:12px 20px; background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius); backdrop-filter:blur(8px); }
-.back-bar a { display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:13px; }
+.back-bar a { display:inline-flex; align-items:center; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:14px; }
 .back-bar .breadcrumb { color: var(--text-faint); }
 .back-bar .breadcrumb b { color: var(--green); }
 
 /* HERO */
 .hero { position: relative; padding-bottom: 32px; border-bottom: 1px solid var(--line); margin-bottom: 40px; }
-.eyebrow { color: var(--text-dim); font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; margin: 0 0 16px; display:flex; align-items:center; gap:10px; }
+.eyebrow { color: var(--text-dim); font-size: 15px; letter-spacing: 0.15em; text-transform: uppercase; margin: 0 0 16px; display:flex; align-items:center; gap:10px; }
 .eyebrow .dot { width:8px; height:8px; border-radius:50%; background: var(--green); box-shadow: 0 0 12px var(--green); animation: pulseDot 2s infinite; }
 @keyframes pulseDot { 0% { box-shadow: 0 0 0 0 rgba(105, 240, 174,0.4); } 70% { box-shadow: 0 0 0 10px rgba(105, 240, 174,0); } 100% { box-shadow: 0 0 0 0 rgba(105, 240, 174,0); } }
-h1 { font-size: 42px; font-weight: 700; line-height: 1.1; margin: 0 0 12px; letter-spacing: -0.02em; background: linear-gradient(90deg, #FFF, #69F0AE); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.subtitle { color: var(--text-dim); font-size: 17px; max-width: 75ch; margin: 0 0 32px; font-weight: 400; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+h1 { font-size: 48px; font-weight: 700; line-height: 1.1; margin: 0 0 12px; letter-spacing: -0.02em; background: linear-gradient(90deg, #FFF, #69F0AE); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.subtitle { color: var(--text-dim); font-size: 19px; max-width: 75ch; margin: 0 0 32px; font-weight: 400; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
 
 /* Stats panel */
 .stats { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:16px; padding: 20px 24px; border-radius: var(--radius); background:var(--bg-panel); border:1px solid var(--line); margin-bottom: 32px; }
 .stat { display:flex; flex-direction:column; gap:4px; }
-.stat .num { font-size: 26px; color: var(--green); font-weight:600; text-shadow: 0 0 20px rgba(105, 240, 174,0.3); }
-.stat .lbl { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.stat .num { font-size: 30px; color: var(--green); font-weight:600; text-shadow: 0 0 20px rgba(105, 240, 174,0.3); }
+.stat .lbl { font-size: 13px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
 
 /* Toolbar */
 .toolbar { display:flex; align-items:center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
 .search-box { flex: 1; min-width: 280px; position: relative; }
-.search-box input { width: 100%; padding: 12px 16px 12px 44px; background: var(--bg-input); border: 1px solid var(--line); border-radius: 12px; color: var(--text); font-size: 14px; font-family: 'IBM Plex Mono', monospace; }
+.search-box input { width: 100%; padding: 12px 16px 12px 44px; background: var(--bg-input); border: 1px solid var(--line); border-radius: 12px; color: var(--text); font-size: 15px; font-family: 'IBM Plex Mono', monospace; }
 .search-box input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 3px var(--green-soft); }
 .search-box::before { content:'🔍'; position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:14px; }
 .chips { display:flex; gap:8px; flex-wrap: wrap; }
-.chip { background: var(--bg-card); border:1px solid var(--line); color: var(--text-dim); padding: 8px 14px; border-radius: 999px; font-size:12px; font-weight: 500; letter-spacing:0.02em; transition: var(--transition); cursor: pointer; white-space: nowrap; }
+.chip { background: var(--bg-card); border:1px solid var(--line); color: var(--text-dim); padding: 8px 14px; border-radius: 999px; font-size:13.5px; font-weight: 500; letter-spacing:0.02em; transition: var(--transition); cursor: pointer; white-space: nowrap; }
 .chip:hover { border-color: var(--green); color: var(--green); }
 .chip.active { background: var(--green-soft); border-color: var(--green); color: var(--green); }
 
 /* Action buttons */
-.btn { padding: 10px 18px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg-card); color: var(--text); font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500; cursor: pointer; transition: var(--transition); display:inline-flex; align-items:center; gap:6px; }
+.btn { padding: 10px 18px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg-card); color: var(--text); font-family: 'IBM Plex Mono', monospace; font-size: 14.5px; font-weight: 500; cursor: pointer; transition: var(--transition); display:inline-flex; align-items:center; gap:6px; }
 .btn:hover { border-color: var(--green); color: var(--green); transform: translateY(-1px); }
 .btn-primary { background: var(--green); color: #031208; border-color: var(--green); font-weight: 600; }
 .btn-primary:hover { background: var(--green-hover); color: #031208; }
@@ -93,8 +93,8 @@ h1 { font-size: 42px; font-weight: 700; line-height: 1.1; margin: 0 0 12px; lett
 /* Toolbar secondary row */
 .toolbar-secondary { display:flex; align-items:center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; padding: 16px 20px; background: var(--bg-panel); border: 1px solid var(--line); border-radius: 12px; }
 .source-selector { display:flex; align-items:center; gap:8px; flex-wrap: wrap; }
-.source-selector label { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.1em; margin-right: 8px; }
-.checkbox { display:inline-flex; align-items:center; gap:6px; padding: 6px 12px; background:var(--bg-card); border:1px solid var(--line); border-radius:8px; font-size:12px; cursor:pointer; transition:var(--transition); }
+.source-selector label { font-size: 13px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.1em; margin-right: 8px; }
+.checkbox { display:inline-flex; align-items:center; gap:6px; padding: 6px 12px; background:var(--bg-card); border:1px solid var(--line); border-radius:8px; font-size:13.5px; cursor:pointer; transition:var(--transition); }
 .checkbox:hover { border-color: var(--green); }
 .checkbox input { margin:0; accent-color: var(--green); }
 .checkbox.disabled { opacity: 0.5; cursor: not-allowed; }
@@ -113,13 +113,13 @@ h1 { font-size: 42px; font-weight: 700; line-height: 1.1; margin: 0 0 12px; lett
 .producto-card .thumb img { width:100%; height:100%; object-fit: cover; }
 .producto-card .thumb-fallback { width:100%; height:100%; display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, #eaf6ec, #dcefe3); color:#3b6b4c; font-size:48px; }
 
-.producto-card .nombre { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; line-height: 1.3; color: var(--text); margin: 0; }
-.producto-card .meta-row { display:flex; gap: 8px; flex-wrap: wrap; font-size: 11px; color: var(--text-faint); font-family: 'IBM Plex Mono', monospace; }
-.producto-card .precio { font-size: 22px; color: var(--green); font-weight: 600; font-family: 'Space Grotesk', sans-serif; }
-.producto-card .precio small { font-size: 11px; color: var(--text-faint); font-weight: 400; }
+.producto-card .nombre { font-family: 'Space Grotesk', sans-serif; font-size: 17.5px; font-weight: 600; line-height: 1.3; color: var(--text); margin: 0; }
+.producto-card .meta-row { display:flex; gap: 8px; flex-wrap: wrap; font-size: 12.5px; color: var(--text-faint); font-family: 'IBM Plex Mono', monospace; }
+.producto-card .precio { font-size: 24px; color: var(--green); font-weight: 600; font-family: 'Space Grotesk', sans-serif; }
+.producto-card .precio small { font-size: 13px; color: var(--text-faint); font-weight: 400; }
 
 .producto-card .badges { display:flex; gap:6px; flex-wrap: wrap; }
-.badge { display:inline-flex; align-items:center; gap:4px; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: 0.05em; }
+.badge { display:inline-flex; align-items:center; gap:4px; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: 0.05em; }
 .badge-plastico { background: rgba(255, 138, 128, 0.15); color: var(--red); }
 .badge-ceramica { background: rgba(105, 240, 174, 0.15); color: var(--green); }
 .badge-electrico { background: rgba(255, 229, 127, 0.15); color: var(--amber); }
@@ -129,12 +129,12 @@ h1 { font-size: 42px; font-weight: 700; line-height: 1.1; margin: 0 0 12px; lett
 .badge-modular { background: var(--blue); color: #001a40; }
 .badge-vertical { background: var(--purple); color: #1a0040; }
 
-.producto-card .stats-row { display:grid; grid-template-columns: 1fr 1fr; gap: 8px; padding-top: 8px; border-top: 1px solid var(--line); font-size: 11px; color: var(--text-dim); font-family: 'IBM Plex Mono', monospace; }
+.producto-card .stats-row { display:grid; grid-template-columns: 1fr 1fr; gap: 8px; padding-top: 8px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--text-dim); font-family: 'IBM Plex Mono', monospace; }
 .producto-card .stats-row div { display:flex; flex-direction:column; gap:2px; }
 .producto-card .stats-row .key { color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.05em; }
 .producto-card .stats-row .val { color: var(--text); font-weight: 600; }
 
-.producto-card .fuente-link { font-size: 11px; color: var(--text-faint); text-decoration: none; display:inline-flex; align-items:center; gap:4px; }
+.producto-card .fuente-link { font-size: 13px; color: var(--text-faint); text-decoration: none; display:inline-flex; align-items:center; gap:4px; }
 .producto-card .fuente-link:hover { color: var(--green); }
 
 /* Modal de detalle */
@@ -145,11 +145,11 @@ h1 { font-size: 42px; font-weight: 700; line-height: 1.1; margin: 0 0 12px; lett
 .modal .close-btn { float: right; background: none; border: 1px solid var(--line); color: var(--text); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 18px; }
 .modal .close-btn:hover { border-color: var(--red); color: var(--red); }
 .modal .spec-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; padding: 16px; background: var(--bg-card); border-radius: 10px; }
-.modal .spec-grid .item { font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+.modal .spec-grid .item { font-family: 'IBM Plex Mono', monospace; font-size: 13.5px; }
 .modal .spec-grid .item .k { color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 4px; }
 .modal .spec-grid .item .v { color: var(--text); font-weight: 500; }
 .modal .reviews { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--line); }
-.modal .review { padding: 12px; background: var(--bg-card); border-radius: 8px; margin-bottom: 8px; font-style: italic; font-size: 14px; }
+.modal .review { padding: 12px; background: var(--bg-card); border-radius: 8px; margin-bottom: 8px; font-style: italic; font-size: 15px; }
 
 /* Tabla comparativa */
 .compare-bar { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--bg); border: 2px solid var(--green); border-radius: 999px; padding: 12px 20px; display:flex; align-items:center; gap: 16px; z-index: 50; box-shadow: var(--shadow-lg); backdrop-filter: blur(12px); }
@@ -160,18 +160,18 @@ h1 { font-size: 42px; font-weight: 700; line-height: 1.1; margin: 0 0 12px; lett
 .compare-table-wrap { background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; margin-top: 40px; overflow-x: auto; }
 .compare-table-wrap.hidden { display: none; }
 .compare-table-wrap h3 { color: var(--green); margin: 0 0 16px; }
-.compare-table { width: 100%; border-collapse: collapse; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+.compare-table { width: 100%; border-collapse: collapse; font-family: 'IBM Plex Mono', monospace; font-size: 13.5px; }
 .compare-table th, .compare-table td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: top; }
 .compare-table th { color: var(--green); background: var(--bg-input); position: sticky; top: 0; font-weight: 600; }
 .compare-table tr:hover td { background: var(--bg-input); }
-.compare-table .field-name { color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.05em; font-size: 10px; }
+.compare-table .field-name { color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.05em; font-size: 11px; }
 .compare-table .mejor { color: var(--green); font-weight: 700; }
 .compare-table .peor { color: var(--red); }
 
 /* Panel de exportación a bitácora */
 .export-panel { background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; margin-top: 24px; }
 .export-panel h3 { color: var(--green); margin: 0 0 12px; }
-.export-panel textarea { width: 100%; min-height: 200px; background: var(--bg-input); border: 1px solid var(--line); border-radius: 8px; color: var(--text); padding: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; resize: vertical; }
+.export-panel textarea { width: 100%; min-height: 200px; background: var(--bg-input); border: 1px solid var(--line); border-radius: 8px; color: var(--text); padding: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 14px; resize: vertical; }
 .export-panel .actions { display:flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
 
 /* Loading y estados */
@@ -301,7 +301,7 @@ h1 { font-size: 42px; font-weight: 700; line-height: 1.1; margin: 0 0 12px; lett
   <!-- Panel de exportación -->
   <div class="export-panel hidden" id="exportPanel">
     <h3>📋 Exportar a la bitácora</h3>
-    <p style="color:var(--text-dim); font-size:13px;">Copia este markdown y pégalo en la bitácora como una entrada de la categoría "Investigación".</p>
+    <p style="color:var(--text-dim); font-size:14.5px;">Copia este markdown y pégalo en la bitácora como una entrada de la categoría "Investigación".</p>
     <textarea id="exportTextarea" readonly></textarea>
     <div class="actions">
       <button class="btn btn-primary" id="btnCopyMd">📋 Copiar Markdown</button>
