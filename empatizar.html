@@ -107,15 +107,103 @@
   .bar i{ display:block; height:100%; background:linear-gradient(90deg,var(--green),#7CF1B6); border-radius:3px; }
   .prio{ font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--green); text-transform:uppercase; letter-spacing:.05em; }
 
-  /* interaction map */
-  .imap{ width:100%; height:auto; display:block; margin-top:18px; }
-  .imap-legend{ display:flex; flex-wrap:wrap; gap:12px 24px; margin-top:18px; color:var(--dim); font-size:15.5px; font-family:'Source Serif 4',serif; }
-  .imap-legend .l-seg{ display:inline-flex; align-items:center; gap:9px; }
-  .imap-legend i{ width:36px; height:0; border-radius:2px; }
-  .l-daily i{ border-top:5px solid var(--green); }
-  .l-weekly i{ border-top:3.5px solid #CBE8D2; }
-  .l-occ i{ border-top:2.5px dashed #9ED4A9; }
-  .l-rep i{ border-top:3px dashed var(--terra); }
+  /* ── Mapa de interacciones (infographic) ── */
+  .imap-quote{ background:rgba(105,240,174,0.08); border-left:3px solid var(--green); border-radius:0 12px 12px 0; padding:18px 22px; margin:18px 0 24px; color:var(--text); font-style:italic; font-family:'Source Serif 4',serif; font-size:17px; line-height:1.55; }
+  .imap-insumos{ display:flex; flex-wrap:wrap; gap:10px; margin:0 0 24px; }
+  .insumo{ display:flex; flex-direction:column; align-items:center; gap:4px; padding:10px 12px; background:var(--card); border:1px solid var(--line); border-radius:10px; min-width:82px; text-align:center; }
+  .insumo .icon{ font-size:22px; line-height:1; }
+  .insumo .lbl{ font-size:12.5px; color:var(--dim); font-family:'Space Grotesk',sans-serif; line-height:1.3; }
+
+  .imap-grid{ display:grid; grid-template-columns:220px 1fr 280px; gap:16px; margin-bottom:18px; }
+  @media(max-width:1000px){ .imap-grid{ grid-template-columns:1fr 1fr; } .imap-center{ grid-column:1/-1; } }
+  @media(max-width:680px){ .imap-grid{ grid-template-columns:1fr; } }
+
+  .imap-col{ display:flex; flex-direction:column; gap:14px; }
+  .imap-zone{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 20px; }
+  .imap-zone h4{ margin:0 0 10px; font-size:13px; text-transform:uppercase; letter-spacing:.08em; font-family:'IBM Plex Mono',monospace; color:var(--green); }
+  .imap-zone ul{ list-style:none; margin:0; padding:0; }
+  .imap-zone li{ padding:3px 0 3px 18px; position:relative; color:var(--dim); font-size:14.5px; line-height:1.5; font-family:'Source Serif 4',serif; }
+  .imap-zone li::before{ content:'›'; position:absolute; left:0; color:var(--green); font-weight:700; }
+
+  .escenario{ border:2px solid var(--green); background:rgba(22,54,32,0.95); }
+  .escenario h4{ color:#fff; }
+  .esc-title{ color:var(--text); font-size:16px; font-weight:600; margin:0 0 10px; font-family:'Space Grotesk',sans-serif; }
+  .esc-fn{ color:var(--dim); font-size:14px; margin:0 0 4px; font-family:'Source Serif 4',serif; line-height:1.5; }
+  .esc-fn b{ color:var(--green); }
+
+  .ops{ margin-top:0; }
+  .ops-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:10px; }
+  @media(max-width:680px){ .ops-grid{ grid-template-columns:1fr; } }
+  .ops-phase{ background:rgba(11,36,20,0.5); border:1px solid var(--line); border-radius:10px; padding:14px; }
+  .ops-icon{ font-size:20px; display:block; margin-bottom:4px; }
+  .ops-name{ font-size:13px; font-weight:600; color:var(--text); font-family:'Space Grotesk',sans-serif; display:block; margin-bottom:6px; }
+  .ops-phase ul{ list-style:none; margin:0; padding:0; }
+  .ops-phase li{ padding:2px 0 2px 14px; position:relative; color:var(--dim); font-size:13.5px; font-family:'Source Serif 4',serif; }
+  .ops-phase li::before{ content:'›'; position:absolute; left:0; color:var(--green); }
+
+  .obj-list{ display:flex; flex-direction:column; gap:12px; }
+  .obj{ display:flex; gap:10px; align-items:flex-start; }
+  .obj-icon{ font-size:22px; flex-shrink:0; margin-top:2px; }
+  .obj b{ display:block; color:var(--text); font-size:14px; font-family:'Space Grotesk',sans-serif; margin-bottom:2px; }
+  .obj span{ color:var(--dim); font-size:13px; font-family:'Source Serif 4',serif; line-height:1.4; }
+
+  .rel-2do{ border:1px dashed var(--terra); text-align:center; }
+  .rel-2do h4{ color:var(--terra); }
+  .rel-2do p{ margin:0; color:var(--dim); font-size:14px; font-family:'Source Serif 4',serif; }
+
+  .imap-flow{ display:flex; align-items:center; justify-content:center; gap:10px; padding:10px 0; color:var(--faint); font-size:14px; font-family:'IBM Plex Mono',monospace; text-transform:uppercase; letter-spacing:.06em; }
+  .imap-flow .escenario-label{ color:var(--green); font-weight:600; }
+
+  /* ── Matriz de motivaciones ── */
+  .mot-matrix-wrap{ display:grid; grid-template-columns:60px 1fr; grid-template-rows:1fr 60px; gap:0; margin:20px 0 24px; }
+  .mot-axis-y{ grid-row:1/3; grid-column:1; display:flex; flex-direction:column; align-items:center; justify-content:space-between; padding:10px 0; }
+  .mot-axis-y span{ font-size:12px; color:var(--faint); font-family:'IBM Plex Mono',monospace; }
+  .mot-axis-y .axis-label{ writing-mode:vertical-rl; text-orientation:mixed; transform:rotate(180deg); font-size:14px; color:var(--dim); font-family:'Space Grotesk',sans-serif; font-weight:600; text-align:center; }
+  .mot-axis-y .axis-label small{ font-weight:400; font-size:11px; color:var(--faint); }
+  .mot-axis-x{ grid-row:3; grid-column:2; display:flex; align-items:center; justify-content:space-between; padding:0 10px; }
+  .mot-axis-x span{ font-size:12px; color:var(--faint); font-family:'IBM Plex Mono',monospace; }
+  .mot-axis-x .axis-label{ font-size:14px; color:var(--dim); font-family:'Space Grotesk',sans-serif; font-weight:600; text-align:center; }
+  .mot-axis-x .axis-label small{ font-weight:400; font-size:11px; color:var(--faint); }
+
+  .mot-matrix{ grid-row:1; grid-column:2; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:10px; }
+  .mot-q{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 20px; }
+  .mot-q h4{ margin:0 0 4px; font-size:14px; font-weight:700; font-family:'Space Grotesk',sans-serif; }
+  .mot-sub{ margin:0 0 10px; font-size:12px; color:var(--faint); font-family:'IBM Plex Mono',monospace; }
+  .mot-q ul{ list-style:none; margin:0; padding:0; }
+  .mot-q li{ padding:2px 0 2px 16px; position:relative; color:var(--dim); font-size:14px; line-height:1.5; font-family:'Source Serif 4',serif; }
+  .mot-q li::before{ content:'›'; position:absolute; left:0; font-weight:700; }
+  .mot-quote{ margin:10px 0 0; font-style:italic; color:var(--faint); font-size:13px; font-family:'Source Serif 4',serif; }
+
+  .mot-q.nc{ border-top:3px solid #D08A4F; }
+  .mot-q.nc h4{ color:#D08A4F; }
+  .mot-q.nc li::before{ color:#D08A4F; }
+
+  .mot-q.amp{ border-top:3px solid var(--green); }
+  .mot-q.amp h4{ color:var(--green); }
+  .mot-q.amp li::before{ color:var(--green); }
+
+  .mot-q.des{ border-top:3px solid var(--red); }
+  .mot-q.des h4{ color:var(--red); }
+  .mot-q.des li::before{ color:var(--red); }
+
+  .mot-q.ctrl{ border-top:3px solid var(--blue); }
+  .mot-q.ctrl h4{ color:var(--blue); }
+  .mot-q.ctrl li::before{ color:var(--blue); }
+
+  .mot-conclusion{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px 24px; margin-bottom:20px; }
+  .mot-conclusion h4{ margin:0 0 8px; font-size:15px; color:var(--green); font-family:'Space Grotesk',sans-serif; }
+  .mot-conclusion p{ margin:0; color:var(--dim); font-size:15.5px; line-height:1.6; font-family:'Source Serif 4',serif; }
+  .mot-conclusion b{ color:var(--text); }
+
+  .mot-opps{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
+  @media(max-width:1000px){ .mot-opps{ grid-template-columns:1fr 1fr; } }
+  @media(max-width:680px){ .mot-opps{ grid-template-columns:1fr; } }
+  .mot-opp{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; }
+  .opp-icon{ font-size:20px; display:block; margin-bottom:6px; }
+  .mot-opp b{ display:block; font-size:14px; color:var(--text); font-family:'Space Grotesk',sans-serif; margin-bottom:4px; }
+  .mot-opp p{ margin:0; color:var(--dim); font-size:13.5px; line-height:1.5; font-family:'Source Serif 4',serif; }
+
+  .mot-footer{ background:rgba(105,240,174,0.08); border:1px solid var(--green); border-radius:12px; padding:16px 22px; margin-top:18px; color:var(--dim); font-size:15px; line-height:1.6; font-family:'Source Serif 4',serif; text-align:center; }
 
   /* footer */
   .foot{ margin-top:44px; color:var(--faint); font-size:14px; line-height:1.7; border-top:1px solid var(--line); padding-top:22px; font-family:'IBM Plex Mono',monospace; }
@@ -286,105 +374,248 @@
   <!-- 7. Mapa de interacciones -->
   <div class="card">
     <h2>7 · Mapa de interacciones</h2>
-    <p class="lede">La torre no vive sola: comparte la cocina y el balcón con objetos y hábitos que Camila ya tenía. La torre entra a competir por el mismo lugar que hoy ocupan las bolsas de mercado — ese es literalmente el hábito que reemplaza. El celular y el compost son periféricos, no centrales: el sistema no debería depender de una app ni de gestionar residuos complejos, o se convierte en una tarea más en vez de una menos.</p>
-    <svg class="imap" viewBox="0 0 1100 610" role="img" aria-label="Mapa de interacciones de Camila">
-      <defs>
-        <linearGradient id="gCam" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#1E4A2E"/><stop offset="1" stop-color="#16301F"/>
-        </linearGradient>
-      </defs>
+    <div class="imap-quote">"Cocino casi todos los días y uso hierbas frescas en casi todo — pero entre que se marchitan rápido y que odio botar plástico, termino sin ellas justo cuando las necesito."</div>
 
-      <!-- líneas diarias: continua gruesa -->
-      <line x1="250" y1="171" x2="484" y2="272" stroke="#69F0AE" stroke-width="5"/>
-      <line x1="855" y1="171" x2="616" y2="272" stroke="#69F0AE" stroke-width="5"/>
-      <line x1="204" y1="335" x2="478" y2="307" stroke="#69F0AE" stroke-width="5"/>
+    <h3 style="margin:0 0 12px;color:var(--faint)">Insumos (entradas)</h3>
+    <div class="imap-insumos">
+      <div class="insumo"><span class="icon">💧</span><span class="lbl">Agua</span></div>
+      <div class="insumo"><span class="icon">🌱</span><span class="lbl">Semillas<br>(hierbas)</span></div>
+      <div class="insumo"><span class="icon">🧪</span><span class="lbl">Nutrientes<br>(solución)</span></div>
+      <div class="insumo"><span class="icon">🏺</span><span class="lbl">Módulos<br>cerámicos</span></div>
+      <div class="insumo"><span class="icon">🔧</span><span class="lbl">Herramientas</span></div>
+      <div class="insumo"><span class="icon">☀️</span><span class="lbl">Luz natural</span></div>
+      <div class="insumo"><span class="icon">📦</span><span class="lbl">Materiales<br>y repuestos</span></div>
+    </div>
 
-      <!-- líneas semanales: continua media -->
-      <line x1="907" y1="348" x2="621" y2="310" stroke="#CBE8D2" stroke-width="3.5"/>
-      <line x1="550" y1="496" x2="550" y2="372" stroke="#CBE8D2" stroke-width="3.5"/>
+    <div class="imap-grid">
+      <!-- Columna izquierda -->
+      <div class="imap-col">
+        <div class="imap-zone">
+          <h4>👤 Usuarios secundarios</h4>
+          <ul>
+            <li>Familia / amigos</li>
+            <li>Consumidores</li>
+            <li>Clientes (si vende)</li>
+            <li>Comunidad</li>
+          </ul>
+        </div>
+        <div class="imap-zone">
+          <h4>🏢 Stakeholders</h4>
+          <ul>
+            <li>Proveedores de semillas</li>
+            <li>Artesanos cerámicos</li>
+            <li>Entidades ambientales</li>
+            <li>Entidades sanitarias</li>
+          </ul>
+        </div>
+        <div class="imap-zone">
+          <h4>⚙️ Operaciones secundarias</h4>
+          <ul>
+            <li>Limpieza de módulos</li>
+            <li>Reposición de semillas</li>
+            <li>Observación y registro</li>
+            <li>Manejo de residuos</li>
+          </ul>
+        </div>
+      </div>
 
-      <!-- líneas ocasionales: punteada fina -->
-      <line x1="364" y1="503" x2="501" y2="353" stroke="#9ED4A9" stroke-width="2.5" stroke-dasharray="8 8"/>
-      <line x1="736" y1="503" x2="599" y2="353" stroke="#9ED4A9" stroke-width="2.5" stroke-dasharray="8 8"/>
-      <line x1="550" y1="132" x2="550" y2="228" stroke="#9ED4A9" stroke-width="2.5" stroke-dasharray="8 8"/>
+      <!-- Columna central -->
+      <div class="imap-col imap-center">
+        <div class="imap-zone escenario">
+          <h4>🏠 Escenario de uso</h4>
+          <p class="esc-title">Cultivo y mantenimiento de la torre cerámica hidropónica en la cocina</p>
+          <p class="esc-fn"><b>Función principal:</b> Obtener hierbas frescas de forma práctica, continua y sin electricidad.</p>
+          <p class="esc-fn"><b>Funciones secundarias:</b></p>
+          <ul>
+            <li>Ahorrar dinero en hierbas</li>
+            <li>Reducir residuos plásticos</li>
+            <li>Decorar la cocina</li>
+          </ul>
+        </div>
+        <div class="imap-zone ops">
+          <h4>📋 Operaciones</h4>
+          <div class="ops-grid">
+            <div class="ops-phase">
+              <span class="ops-icon">🪴</span>
+              <span class="ops-name">Preparación</span>
+              <ul>
+                <li>Armar torre</li>
+                <li>Preparar solución</li>
+                <li>Sembrar</li>
+              </ul>
+            </div>
+            <div class="ops-phase">
+              <span class="ops-icon">💧</span>
+              <span class="ops-name">Mantenimiento</span>
+              <ul>
+                <li>Llenar nivel de agua</li>
+                <li>Observar plantas</li>
+                <li>Girar tornillo</li>
+              </ul>
+            </div>
+            <div class="ops-phase">
+              <span class="ops-icon">✂️</span>
+              <span class="ops-name">Cosecha</span>
+              <ul>
+                <li>Recolectar hierbas</li>
+                <li>Lavar y usar</li>
+                <li>Almacenar</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      <!-- interacción futura: Camila → Torre -->
-      <line x1="613" y1="335" x2="830" y2="455" stroke="#69F0AE" stroke-width="2.5" stroke-dasharray="5 7"/>
-      <text x="628" y="420" fill="#9ED4A9" font-family="'Space Grotesk',sans-serif" font-size="13" text-anchor="start" font-style="italic">entrará a la cocina</text>
+      <!-- Columna derecha -->
+      <div class="imap-col">
+        <div class="imap-zone">
+          <h4>🔗 Objetos con los que interactúa</h4>
+          <div class="obj-list">
+            <div class="obj">
+              <span class="obj-icon">🏺</span>
+              <div><b>Torre cerámica</b><span>Apila · Llena · Observa humedad · Ajusta</span></div>
+            </div>
+            <div class="obj">
+              <span class="obj-icon">⚙️</span>
+              <div><b>Tornillo de Arquímedes</b><span>Gira · Eleva agua · Regula flujo</span></div>
+            </div>
+            <div class="obj">
+              <span class="obj-icon">🪟</span>
+              <div><b>Ventana / Balcón</b><span>Ubica torre · Ajusta posición</span></div>
+            </div>
+            <div class="obj">
+              <span class="obj-icon">🌿</span>
+              <div><b>Plantas (cultivo)</b><span>Observa color · Revisar hojas · Evaluar crecimiento</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="imap-zone">
+          <h4>📤 Salidas</h4>
+          <ul>
+            <li>Hierbas frescas cosechadas</li>
+            <li>Residuos vegetales (compost)</li>
+            <li>Módulos cerámicos reutilizables</li>
+            <li>Información visual del cultivo</li>
+          </ul>
+        </div>
+        <div class="imap-zone rel-2do">
+          <h4>🔗 Relación de segundo grado</h4>
+          <p>Módulos cerámicos ↔ Humedad del sustrato</p>
+        </div>
+      </div>
+    </div>
 
-      <!-- reemplazo: Torre → Bolsas de mercado -->
-      <line x1="824" y1="469" x2="601" y2="537" stroke="#D08A4F" stroke-width="3" stroke-dasharray="11 8"/>
-      <g font-family="'IBM Plex Mono',monospace" font-size="12.5" font-weight="500">
-        <rect x="690" y="496" width="92" height="22" rx="11" fill="#2A1608" stroke="#D08A4F"/>
-        <text x="736" y="511" fill="#D08A4F" text-anchor="middle">reemplaza</text>
-      </g>
-
-      <!-- nodo: Camila -->
-      <circle cx="550" cy="300" r="72" fill="url(#gCam)" stroke="#69F0AE" stroke-width="3"/>
-      <circle cx="550" cy="300" r="72" fill="none" stroke="#69F0AE" stroke-width="1" opacity="0.35" stroke-dasharray="3 9"/>
-      <text x="550" y="286" fill="#69F0AE" font-family="'Space Grotesk',sans-serif" font-size="44" font-weight="700" text-anchor="middle">C</text>
-      <text x="550" y="316" fill="#F1FAF2" font-family="'Space Grotesk',sans-serif" font-size="17" font-weight="600" text-anchor="middle">Camila</text>
-      <text x="550" y="336" fill="#CBE8D2" font-family="'Space Grotesk',sans-serif" font-size="12.5" text-anchor="middle">usuaria</text>
-
-      <!-- nodo: Torre (futura) -->
-      <circle cx="875" cy="480" r="52" fill="#1C3A26" stroke="#D08A4F" stroke-width="2" stroke-dasharray="4 5"/>
-      <text x="875" y="466" fill="#D08A4F" font-size="22" text-anchor="middle">🏺</text>
-      <text x="875" y="493" fill="#F1FAF2" font-family="'Space Grotesk',sans-serif" font-size="14" font-weight="600" text-anchor="middle">Torre</text>
-      <text x="875" y="511" fill="#CBE8D2" font-family="'Space Grotesk',sans-serif" font-size="11" text-anchor="middle">futura</text>
-
-      <!-- touchpoints -->
-      <g font-family="'Space Grotesk',sans-serif">
-        <circle cx="550" cy="82" r="50" fill="rgba(22,54,32,0.92)" stroke="rgba(126,231,165,0.4)"/>
-        <text x="550" y="66" fill="#CBE8D2" font-size="23" text-anchor="middle">📱</text>
-        <text x="550" y="98" fill="#F1FAF2" font-size="14.5" font-weight="600" text-anchor="middle">Celular</text>
-        <text x="550" y="115" fill="#9ED4A9" font-size="11" text-anchor="middle">fotos · notas</text>
-
-        <circle cx="200" cy="150" r="54" fill="rgba(22,54,32,0.92)" stroke="rgba(126,231,165,0.4)"/>
-        <text x="200" y="132" fill="#CBE8D2" font-size="24" text-anchor="middle">🌿</text>
-        <text x="200" y="162" fill="#F1FAF2" font-size="14.5" font-weight="600" text-anchor="middle">Ventana cocina</text>
-        <text x="200" y="180" fill="#9ED4A9" font-size="11" text-anchor="middle">luz indirecta</text>
-
-        <circle cx="905" cy="150" r="54" fill="rgba(22,54,32,0.92)" stroke="rgba(126,231,165,0.4)"/>
-        <text x="905" y="132" fill="#CBE8D2" font-size="24" text-anchor="middle">🌤️</text>
-        <text x="905" y="162" fill="#F1FAF2" font-size="14.5" font-weight="600" text-anchor="middle">Balcón pequeño</text>
-        <text x="905" y="180" fill="#9ED4A9" font-size="11" text-anchor="middle">sol parcial</text>
-
-        <circle cx="150" cy="340" r="54" fill="rgba(22,54,32,0.92)" stroke="rgba(126,231,165,0.4)"/>
-        <text x="150" y="322" fill="#CBE8D2" font-size="24" text-anchor="middle">🔪</text>
-        <text x="150" y="352" fill="#F1FAF2" font-size="14.5" font-weight="600" text-anchor="middle">Tabla y cuchillo</text>
-        <text x="150" y="370" fill="#9ED4A9" font-size="11" text-anchor="middle">preparar</text>
-
-        <circle cx="960" cy="355" r="54" fill="rgba(22,54,32,0.92)" stroke="rgba(126,231,165,0.4)"/>
-        <text x="960" y="337" fill="#CBE8D2" font-size="24" text-anchor="middle">📖</text>
-        <text x="960" y="367" fill="#F1FAF2" font-size="14.5" font-weight="600" text-anchor="middle">Recetario / apps</text>
-        <text x="960" y="385" fill="#9ED4A9" font-size="11" text-anchor="middle">cocinar</text>
-
-        <circle cx="330" cy="540" r="50" fill="rgba(22,54,32,0.92)" stroke="rgba(126,231,165,0.4)"/>
-        <text x="330" y="524" fill="#CBE8D2" font-size="23" text-anchor="middle">🪴</text>
-        <text x="330" y="556" fill="#F1FAF2" font-size="14.5" font-weight="600" text-anchor="middle">Otras materas</text>
-
-        <circle cx="770" cy="540" r="50" fill="rgba(22,54,32,0.92)" stroke="rgba(126,231,165,0.4)"/>
-        <text x="770" y="524" fill="#CBE8D2" font-size="23" text-anchor="middle">🗑️</text>
-        <text x="770" y="556" fill="#F1FAF2" font-size="14.5" font-weight="600" text-anchor="middle">Compost</text>
-
-        <circle cx="550" cy="548" r="52" fill="rgba(41,18,8,0.6)" stroke="#D08A4F" stroke-width="2"/>
-        <text x="550" y="530" fill="#D08A4F" font-size="23" text-anchor="middle">🛍️</text>
-        <text x="550" y="560" fill="#F1FAF2" font-size="14.5" font-weight="600" text-anchor="middle">Bolsas de mercado</text>
-        <text x="550" y="578" fill="#D08A4F" font-size="11" font-style="italic" text-anchor="middle">lo que reemplaza</text>
-      </g>
-    </svg>
-
-    <div class="imap-legend">
-      <span class="l-seg l-daily"><i></i> Diaria — continua gruesa</span>
-      <span class="l-seg l-weekly"><i></i> Semanal — continua media</span>
-      <span class="l-seg l-occ"><i></i> Ocasional — punteada fina</span>
-      <span class="l-seg l-rep"><i></i> La torre entra por el lugar de las bolsas de mercado</span>
+    <div class="imap-flow">
+      <span>Insumos</span>
+      <span>→</span>
+      <span class="escenario-label">Escenario de uso</span>
+      <span>→</span>
+      <span>Salidas</span>
     </div>
   </div>
 
+  <!-- 8. Matriz de motivaciones -->
+  <div class="card">
+    <h2>8 · Matriz de motivaciones</h2>
+    <p class="lede">El sistema hidropónico cerámico debe llevar a Camila hacia una "Motivación Amplia", donde su interés personal por cultivar se encuentre con beneficios externos como ahorro, frescura y sostenibilidad.</p>
+
+    <div class="mot-matrix-wrap">
+      <div class="mot-axis-y">
+        <span>Alta</span>
+        <span class="axis-label">Motivación externa<br><small>(Entorno, ahorro, reconocimiento)</small></span>
+        <span>Baja</span>
+      </div>
+      <div class="mot-matrix">
+        <div class="mot-q nc">
+          <h4>Motivación NO CONTROLABLE</h4>
+          <p class="mot-sub">(Interna baja + Externa alta)</p>
+          <ul>
+            <li>Ahorrar dinero en hierbas</li>
+            <li>Cumplir meta de autosuficiencia</li>
+            <li>Reducir plástico</li>
+            <li>Requisitos de sostenibilidad</li>
+          </ul>
+          <p class="mot-quote">"Lo hago porque necesito ahorrar / no desperdiciar."</p>
+        </div>
+        <div class="mot-q amp">
+          <h4>Motivación AMPLIA</h4>
+          <p class="mot-sub">(Interna alta + Externa alta)</p>
+          <ul>
+            <li>Producción constante de hierbas</li>
+            <li>Ahorro de recursos (agua, sin electricidad)</li>
+            <li>Calidad del producto fresco</li>
+            <li>Satisfacción + beneficio externo</li>
+          </ul>
+          <p class="mot-quote">"Me gusta hacerlo y además me genera un beneficio."</p>
+        </div>
+        <div class="mot-q des">
+          <h4>Desmotivación</h4>
+          <p class="mot-sub">(Interna baja + Externa baja)</p>
+          <ul>
+            <li>Demasiado trabajo</li>
+            <li>No ve resultados</li>
+            <li>Plantas mueren</li>
+            <li>Sistema difícil de mantener</li>
+            <li>No comprende el proceso</li>
+          </ul>
+          <p class="mot-quote">"Es demasiado trabajo para lo que obtengo."</p>
+        </div>
+        <div class="mot-q ctrl">
+          <h4>Motivación CONTROLABLE</h4>
+          <p class="mot-sub">(Interna alta + Externa baja)</p>
+          <ul>
+            <li>Interés por cultivar</li>
+            <li>Disfruta las plantas</li>
+            <li>Quiere aprender</li>
+            <li>Valora la sostenibilidad</li>
+            <li>Autonomía sobre su producción</li>
+          </ul>
+          <p class="mot-quote">"Lo hago porque me gusta y quiero aprender."</p>
+        </div>
+      </div>
+      <div class="mot-axis-x">
+        <span>Baja</span>
+        <span class="axis-label">Motivación interna<br><small>(Placer, vocación, valores personales)</small></span>
+        <span>Alta</span>
+      </div>
+    </div>
+
+    <div class="mot-conclusion">
+      <h4>Conclusión de diseño</h4>
+      <p>El sistema hidropónico cerámico debe llevar a Camila hacia una <b>"Motivación Amplia"</b>, donde su interés personal por cultivar se encuentre con beneficios externos como ahorro, frescura y sostenibilidad.</p>
+    </div>
+
+    <h3 style="margin:0 0 14px;color:var(--faint)">Oportunidades de diseño</h3>
+    <div class="mot-opps">
+      <div class="mot-opp">
+        <span class="opp-icon">⚙️</span>
+        <b>1. Facilitar el mantenimiento</b>
+        <p>Reducir tareas repetitivas y complicadas.</p>
+      </div>
+      <div class="mot-opp">
+        <span class="opp-icon">📊</span>
+        <b>2. Dar retroalimentación</b>
+        <p>La arcilla cerámica indica visualmente el nivel de humedad.</p>
+      </div>
+      <div class="mot-opp">
+        <span class="opp-icon">📈</span>
+        <b>3. Mostrar el progreso</b>
+        <p>Visualizar el crecimiento desde la siembra hasta la cosecha.</p>
+      </div>
+      <div class="mot-opp">
+        <span class="opp-icon">🌱</span>
+        <b>4. Mostrar beneficios</b>
+        <p>Hierbas frescas constantes, ahorro de dinero, cero plástico.</p>
+      </div>
+    </div>
+
+    <p class="mot-footer">El objetivo es que la torre se sienta como una aliada en su cocina, le facilite la vida y le permita disfrutar de hierbas frescas, sanas y sostenibles sin depender de electricidad.</p>
+  </div>
+
+  <!-- 9. Rumbo del proyecto -->
   <!-- 8. Rumbo del proyecto -->
   <div class="card">
-    <h2>8 · Rumbo del proyecto</h2>
+    <h2>9 · Rumbo del proyecto</h2>
     <p class="lede">El proyecto se dirige hacia un sistema hidropónico vertical modular en cerámica para cilantro, perejil y albahaca, con tres decisiones ya tomadas:</p>
     <div class="grid3" style="margin-top:14px">
       <div class="mini"><h4>♻️ Sin electricidad</h4><p>Elevación de agua por tornillo de Arquímedes accionado a mano.</p></div>
