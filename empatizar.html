@@ -107,6 +107,16 @@
   .bar i{ display:block; height:100%; background:linear-gradient(90deg,var(--green),#7CF1B6); border-radius:3px; }
   .prio{ font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--green); text-transform:uppercase; letter-spacing:.05em; }
 
+  /* interaction map */
+  .imap{ width:100%; height:auto; display:block; margin-top:18px; }
+  .imap-legend{ display:flex; flex-wrap:wrap; gap:12px 24px; margin-top:18px; color:var(--dim); font-size:15.5px; font-family:'Source Serif 4',serif; }
+  .imap-legend .l-seg{ display:inline-flex; align-items:center; gap:9px; }
+  .imap-legend i{ width:36px; height:0; border-radius:2px; }
+  .l-daily i{ border-top:5px solid var(--green); }
+  .l-weekly i{ border-top:3.5px solid #CBE8D2; }
+  .l-occ i{ border-top:2.5px dashed #9ED4A9; }
+  .l-rep i{ border-top:3px dashed var(--terra); }
+
   /* footer */
   .foot{ margin-top:44px; color:var(--faint); font-size:14px; line-height:1.7; border-top:1px solid var(--line); padding-top:22px; font-family:'IBM Plex Mono',monospace; }
 </style>
@@ -277,17 +287,99 @@
   <div class="card">
     <h2>7 · Mapa de interacciones</h2>
     <p class="lede">La torre no vive sola: comparte la cocina y el balcón con objetos y hábitos que Camila ya tenía. La torre entra a competir por el mismo lugar que hoy ocupan las bolsas de mercado — ese es literalmente el hábito que reemplaza. El celular y el compost son periféricos, no centrales: el sistema no debería depender de una app ni de gestionar residuos complejos, o se convierte en una tarea más en vez de una menos.</p>
-    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
-      <span class="tag">🌿 Ventana de cocina · luz indirecta</span>
-      <span class="tag">🌤️ Balcón pequeño · sol parcial</span>
-      <span class="tag">🔪 Tabla de picar y cuchillo</span>
-      <span class="tag">📖 Recetario / apps de cocina</span>
-      <span class="tag">🛍️ Bolsas de mercado (lo que reemplaza)</span>
-      <span class="tag">🪴 Otras materas de la casa</span>
-      <span class="tag">🗑️ Caneca de compost</span>
-      <span class="tag">📱 Celular (fotos, notas)</span>
+    <svg class="imap" viewBox="0 0 1100 610" role="img" aria-label="Mapa de interacciones de Camila">
+      <defs>
+        <linearGradient id="gCam" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#1E4A2E"/><stop offset="1" stop-color="#16301F"/>
+        </linearGradient>
+      </defs>
+
+      <!-- líneas diarias: continua gruesa -->
+      <line x1="250" y1="171" x2="484" y2="272" stroke="#69F0AE" stroke-width="5"/>
+      <line x1="855" y1="171" x2="616" y2="272" stroke="#69F0AE" stroke-width="5"/>
+      <line x1="204" y1="335" x2="478" y2="307" stroke="#69F0AE" stroke-width="5"/>
+
+      <!-- líneas semanales: continua media -->
+      <line x1="907" y1="348" x2="621" y2="310" stroke="#CBE8D2" stroke-width="3.5"/>
+      <line x1="550" y1="496" x2="550" y2="372" stroke="#CBE8D2" stroke-width="3.5"/>
+
+      <!-- líneas ocasionales: punteada fina -->
+      <line x1="364" y1="503" x2="501" y2="353" stroke="#9ED4A9" stroke-width="2.5" stroke-dasharray="8 8"/>
+      <line x1="736" y1="503" x2="599" y2="353" stroke="#9ED4A9" stroke-width="2.5" stroke-dasharray="8 8"/>
+      <line x1="550" y1="132" x2="550" y2="228" stroke="#9ED4A9" stroke-width="2.5" stroke-dasharray="8 8"/>
+
+      <!-- interacción futura: Camila → Torre -->
+      <line x1="613" y1="335" x2="830" y2="455" stroke="#69F0AE" stroke-width="2.5" stroke-dasharray="5 7"/>
+      <text x="628" y="420" fill="#9ED4A9" font-family="'Space Grotesk',sans-serif" font-size="13" text-anchor="start" font-style="italic">entrará a la cocina</text>
+
+      <!-- reemplazo: Torre → Bolsas de mercado -->
+      <line x1="824" y1="469" x2="601" y2="537" stroke="#D08A4F" stroke-width="3" stroke-dasharray="11 8"/>
+      <g font-family="'IBM Plex Mono',monospace" font-size="12.5" font-weight="500">
+        <rect x="690" y="496" width="92" height="22" rx="11" fill="#2A1608" stroke="#D08A4F"/>
+        <text x="736" y="511" fill="#D08A4F" text-anchor="middle">reemplaza</text>
+      </g>
+
+      <!-- nodo: Camila -->
+      <circle cx="550" cy="300" r="72" fill="url(#gCam)" stroke="#69F0AE" stroke-width="3"/>
+      <circle cx="550" cy="300" r="72" fill="none" stroke="#69F0AE" stroke-width="1" opacity="0.35" stroke-dasharray="3 9"/>
+      <text x="550" y="286" fill="#69F0AE" font-family="'Space Grotesk',sans-serif" font-size="44" font-weight="700" text-anchor="middle">C</text>
+      <text x="550" y="316" fill="#F1FAF2" font-family="'Space Grotesk',sans-serif" font-size="17" font-weight="600" text-anchor="middle">Camila</text>
+      <text x="550" y="336" fill="#CBE8D2" font-family="'Space Grotesk',sans-serif" font-size="12.5" text-anchor="middle">usuaria</text>
+
+      <!-- nodo: Torre (futura) -->
+      <circle cx="875" cy="480" r="52" fill="#1C3A26" stroke="#D08A4F" stroke-width="2" stroke-dasharray="4 5"/>
+      <text x="875" y="466" fill="#D08A4F" font-size="22" text-anchor="middle">🏺</text>
+      <text x="875" y="493" fill="#F1FAF2" font-family="'Space Grotesk',sans-serif" font-size="14" font-weight="600" text-anchor="middle">Torre</text>
+      <text x="875" y="511" fill="#CBE8D2" font-family="'Space Grotesk',sans-serif" font-size="11" text-anchor="middle">futura</text>
+
+      <!-- touchpoints -->
+      <g font-family="'Space Grotesk',sans-serif">
+        <circle cx="550" cy="82" r="50" fill="rgba(22,54,32,0.92)" stroke="rgba(126,231,165,0.4)"/>
+        <text x="550" y="66" fill="#CBE8D2" font-size="23" text-anchor="middle">📱</text>
+        <text x="550" y="98" fill="#F1FAF2" font-size="14.5" font-weight="600" text-anchor="middle">Celular</text>
+        <text x="550" y="115" fill="#9ED4A9" font-size="11" text-anchor="middle">fotos · notas</text>
+
+        <circle cx="200" cy="150" r="54" fill="rgba(22,54,32,0.92)" stroke="rgba(126,231,165,0.4)"/>
+        <text x="200" y="132" fill="#CBE8D2" font-size="24" text-anchor="middle">🌿</text>
+        <text x="200" y="162" fill="#F1FAF2" font-size="14.5" font-weight="600" text-anchor="middle">Ventana cocina</text>
+        <text x="200" y="180" fill="#9ED4A9" font-size="11" text-anchor="middle">luz indirecta</text>
+
+        <circle cx="905" cy="150" r="54" fill="rgba(22,54,32,0.92)" stroke="rgba(126,231,165,0.4)"/>
+        <text x="905" y="132" fill="#CBE8D2" font-size="24" text-anchor="middle">🌤️</text>
+        <text x="905" y="162" fill="#F1FAF2" font-size="14.5" font-weight="600" text-anchor="middle">Balcón pequeño</text>
+        <text x="905" y="180" fill="#9ED4A9" font-size="11" text-anchor="middle">sol parcial</text>
+
+        <circle cx="150" cy="340" r="54" fill="rgba(22,54,32,0.92)" stroke="rgba(126,231,165,0.4)"/>
+        <text x="150" y="322" fill="#CBE8D2" font-size="24" text-anchor="middle">🔪</text>
+        <text x="150" y="352" fill="#F1FAF2" font-size="14.5" font-weight="600" text-anchor="middle">Tabla y cuchillo</text>
+        <text x="150" y="370" fill="#9ED4A9" font-size="11" text-anchor="middle">preparar</text>
+
+        <circle cx="960" cy="355" r="54" fill="rgba(22,54,32,0.92)" stroke="rgba(126,231,165,0.4)"/>
+        <text x="960" y="337" fill="#CBE8D2" font-size="24" text-anchor="middle">📖</text>
+        <text x="960" y="367" fill="#F1FAF2" font-size="14.5" font-weight="600" text-anchor="middle">Recetario / apps</text>
+        <text x="960" y="385" fill="#9ED4A9" font-size="11" text-anchor="middle">cocinar</text>
+
+        <circle cx="330" cy="540" r="50" fill="rgba(22,54,32,0.92)" stroke="rgba(126,231,165,0.4)"/>
+        <text x="330" y="524" fill="#CBE8D2" font-size="23" text-anchor="middle">🪴</text>
+        <text x="330" y="556" fill="#F1FAF2" font-size="14.5" font-weight="600" text-anchor="middle">Otras materas</text>
+
+        <circle cx="770" cy="540" r="50" fill="rgba(22,54,32,0.92)" stroke="rgba(126,231,165,0.4)"/>
+        <text x="770" y="524" fill="#CBE8D2" font-size="23" text-anchor="middle">🗑️</text>
+        <text x="770" y="556" fill="#F1FAF2" font-size="14.5" font-weight="600" text-anchor="middle">Compost</text>
+
+        <circle cx="550" cy="548" r="52" fill="rgba(41,18,8,0.6)" stroke="#D08A4F" stroke-width="2"/>
+        <text x="550" y="530" fill="#D08A4F" font-size="23" text-anchor="middle">🛍️</text>
+        <text x="550" y="560" fill="#F1FAF2" font-size="14.5" font-weight="600" text-anchor="middle">Bolsas de mercado</text>
+        <text x="550" y="578" fill="#D08A4F" font-size="11" font-style="italic" text-anchor="middle">lo que reemplaza</text>
+      </g>
+    </svg>
+
+    <div class="imap-legend">
+      <span class="l-seg l-daily"><i></i> Diaria — continua gruesa</span>
+      <span class="l-seg l-weekly"><i></i> Semanal — continua media</span>
+      <span class="l-seg l-occ"><i></i> Ocasional — punteada fina</span>
+      <span class="l-seg l-rep"><i></i> La torre entra por el lugar de las bolsas de mercado</span>
     </div>
-    <p style="color:var(--faint);font-size:12px;font-family:'IBM Plex Mono',monospace;margin:16px 0 0">Relación diaria (continua y gruesa): ventana, balcón, tabla de cortar. Semanal (continua media): recetario, mercado. Ocasional (punteada fina): materas existentes, compost, celular.</p>
   </div>
 
   <!-- 8. Rumbo del proyecto -->
