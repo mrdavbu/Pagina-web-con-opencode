@@ -9,7 +9,34 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared-nav.css">
 <style>
-
+  .card{ margin-bottom:28px; }
+  .alt-card{ background:rgba(255,255,255,0.97); border:1px solid rgba(46,125,82,0.12); border-radius:16px; padding:28px 30px; margin-bottom:24px; box-shadow:var(--shadow-sm); }
+  .alt-card h3{ font-family:'Space Grotesk',sans-serif; font-size:22px; color:var(--text); margin:0 0 6px; letter-spacing:-.01em; }
+  .alt-card .alt-tag{ font-size:12px; font-weight:700; color:var(--green); background:var(--green-soft); padding:4px 12px; border-radius:999px; display:inline-block; margin-bottom:14px; text-transform:uppercase; letter-spacing:.08em; }
+  .alt-card p{ font-family:'Source Serif 4',serif; font-size:16.5px; line-height:1.6; color:var(--text-dim); margin:0 0 10px; }
+  .alt-card .desc{ font-family:'Source Serif 4',serif; font-size:16.5px; line-height:1.6; color:var(--text-dim); margin:0 0 14px; }
+  .alt-card ul{ margin:8px 0 16px; padding-left:20px; }
+  .alt-card li{ font-family:'Source Serif 4',serif; font-size:15.5px; line-height:1.5; color:var(--text-dim); margin-bottom:6px; }
+  .alt-card li b{ color:var(--text); font-family:'Space Grotesk',sans-serif; }
+  .diagram{ background:rgba(46,125,82,0.04); border:1px solid rgba(46,125,82,0.1); border-radius:12px; padding:18px; margin:14px 0 18px; text-align:center; }
+  .diagram svg{ max-width:100%; height:auto; }
+  .pros-cons{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:14px; }
+  .pros-cons>div{ padding:14px 18px; border-radius:10px; }
+  .pros{ background:rgba(46,125,82,0.06); border:1px solid rgba(46,125,82,0.12); }
+  .cons{ background:rgba(180,60,60,0.05); border:1px solid rgba(180,60,60,0.12); }
+  .pros-cons h4{ font-family:'Space Grotesk',sans-serif; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; margin:0 0 8px; }
+  .pros h4{ color:#2E7D52; }
+  .cons h4{ color:#B43C3C; }
+  .pros-cons li{ font-size:14px; line-height:1.4; color:var(--text-dim); margin-bottom:4px; }
+  .comp-table{ width:100%; border-collapse:collapse; margin-top:14px; }
+  .comp-table th{ font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--green); background:rgba(46,125,82,0.06); padding:10px 14px; text-align:left; border-bottom:2px solid rgba(46,125,82,0.15); }
+  .comp-table td{ font-family:'Source Serif 4',serif; font-size:14.5px; padding:10px 14px; border-bottom:1px solid rgba(46,125,82,0.08); color:var(--text-dim); vertical-align:top; }
+  .comp-table tr:hover td{ background:rgba(46,125,82,0.03); }
+  .comp-table td:first-child{ font-family:'Space Grotesk',sans-serif; font-weight:600; color:var(--text); font-size:14px; }
+  .rec-card{ background:linear-gradient(135deg,rgba(46,125,82,0.08),rgba(46,125,82,0.03)); border:2px solid rgba(46,125,82,0.2); border-radius:14px; padding:24px 28px; margin-top:20px; }
+  .rec-card h3{ font-family:'Space Grotesk',sans-serif; font-size:20px; color:var(--green); margin:0 0 10px; }
+  .rec-card p{ font-family:'Source Serif 4',serif; font-size:16.5px; line-height:1.6; color:var(--text-dim); margin:0; }
+  @media(max-width:700px){ .pros-cons{ grid-template-columns:1fr; } }
 </style>
 </head>
 <body data-section="idear">
@@ -25,14 +52,263 @@
   <div class="page-head">
     <div class="eyebrow"><span class="dot"></span> Sección · Idear</div>
     <h1>Idear</h1>
-    <p>Generar conceptos y alternativas de solución partiendo del problema definido. Esta sección se completará en la siguiente etapa del proyecto.</p>
+    <p>Tres alternativas de prototipo funcional usando macetas de cerámica existentes y sistema de flujo de agua sin electricidad.</p>
   </div>
 
-  <div class="card">
-    <h2>💡 Lluvia de conceptos</h2>
-    <p class="kicker">Por completar</p>
-    <p style="color:var(--text-dim); font-family:'Source Serif 4',serif; font-size:17.5px; line-height:1.6; margin:0;">La forma y disposición de la torre que deja un nivel naturalmente más fresco, y cómo se calibra en la práctica el único punto de porosidad del sistema, quedan abiertos para esta etapa.</p>
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- ALTERNATIVA A -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="alt-card">
+    <span class="alt-tag">Alternativa A</span>
+    <h3>Torre Vertical Apilable</h3>
+    <p class="desc">Tres macetas de cerámica existentes (pequeña, mediana, grande) apiladas verticalmente con un soporte de tubo PVC central. El agua sube manualmente con un tornillo de Arquímedes en la base y cae por gravedad a través de cada nivel.</p>
+
+    <div class="diagram">
+      <svg viewBox="0 0 400 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Reservorio base -->
+        <rect x="120" y="440" width="160" height="60" rx="8" fill="#E0EDE4" stroke="#2E7D52" stroke-width="2"/>
+        <text x="200" y="475" text-anchor="middle" font-family="Space Grotesk" font-size="13" fill="#2E7D52" font-weight="600">Reservorio base</text>
+        <!-- Tornillo de Arquímedes -->
+        <line x1="200" y1="440" x2="200" y2="80" stroke="#2E7D52" stroke-width="3" stroke-dasharray="8 4"/>
+        <circle cx="200" cy="60" r="18" fill="#2E7D52" opacity="0.15" stroke="#2E7D52" stroke-width="2"/>
+        <text x="200" y="64" text-anchor="middle" font-family="Space Grotesk" font-size="10" fill="#2E7D52" font-weight="700">MANUAL</text>
+        <!-- Maceta grande (abajo) -->
+        <path d="M140 380 Q140 340 160 330 L240 330 Q260 340 260 380 L250 400 Q240 410 160 410 Q150 410 140 400 Z" fill="#F5E6D0" stroke="#B8956A" stroke-width="2"/>
+        <ellipse cx="200" cy="330" rx="48" ry="12" fill="#E8D4B8" stroke="#B8956A" stroke-width="1.5"/>
+        <text x="200" cy="370" y="370" text-anchor="middle" font-family="Source Serif 4" font-size="12" fill="#6B4E2E">Cilantro · Nivel 1</text>
+        <!-- Maceta mediana (medio) -->
+        <path d="M155 260 Q155 230 170 222 L230 222 Q245 230 245 260 L238 275 Q232 282 168 282 Q162 282 155 275 Z" fill="#F5E6D0" stroke="#B8956A" stroke-width="2"/>
+        <ellipse cx="200" cy="222" rx="38" ry="10" fill="#E8D4B8" stroke="#B8956A" stroke-width="1.5"/>
+        <text x="200" y="255" text-anchor="middle" font-family="Source Serif 4" font-size="12" fill="#6B4E2E">Perejil · Nivel 2</text>
+        <!-- Maceta pequeña (arriba) -->
+        <path d="M168 160 Q168 138 178 132 L222 132 Q232 138 232 160 L226 172 Q222 178 178 178 Q174 178 168 172 Z" fill="#F5E6D0" stroke="#B8956A" stroke-width="2"/>
+        <ellipse cx="200" cy="132" rx="28" ry="8" fill="#E8D4B8" stroke="#B8956A" stroke-width="1.5"/>
+        <text x="200" y="158" text-anchor="middle" font-family="Source Serif 4" font-size="12" fill="#6B4E2E">Albahaca · Nivel 3</text>
+        <!-- Flechas flujo -->
+        <path d="M185 330 L185 282" stroke="#2E7D52" stroke-width="2" marker-end="url(#arrow)"/>
+        <path d="M215 222 L215 178" stroke="#2E7D52" stroke-width="2" marker-end="url(#arrow)"/>
+        <!-- Etiquetas -->
+        <text x="320" y="155" font-family="Space Grotesk" font-size="11" fill="#888" font-weight="500">← Maceta pequeña</text>
+        <text x="320" y="255" font-family="Space Grotesk" font-size="11" fill="#888" font-weight="500">← Maceta mediana</text>
+        <text x="320" y="375" font-family="Space Grotesk" font-size="11" fill="#888" font-weight="500">← Maceta grande</text>
+        <text x="320" y="465" font-family="Space Grotesk" font-size="11" fill="#888" font-weight="500">← Agua manual</text>
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#2E7D52"/></marker>
+        </defs>
+      </svg>
+    </div>
+
+    <ul>
+      <li><b>Materiales:</b> 3 macetas de cerámica (tamaños varados), tubo PVC 2" central, tornillo de Arquímedes de PVC, esfero de base</li>
+      <li><b>Flujo de agua:</b> Reservorio en base → tornillo manual → maceta superior → cascada por gravedad → reservorio</li>
+      <li><b>Medio de cultivo:</b> Arcilla expandida (LECA) en cada maceta</li>
+      <li><b>Altura total:</b> ~90 cm</li>
+      <li><b>Esfuerzo de construcción:</b> Medio — requiere tallar perforaciones en macetas existentes</li>
+    </ul>
+
+    <div class="pros-cons">
+      <div class="pros">
+        <h4>Ventajas</h4>
+        <ul>
+          <li>Vertical = ahorra espacio en balcón</li>
+          <li>El tornillo de Arquímedes es icónico del proyecto</li>
+          <li>Cada nivel puede tener diferente cultivo</li>
+          <li>Visualmente impactante para la presentación</li>
+        </ul>
+      </div>
+      <div class="cons">
+        <h4>Desventajas</h4>
+        <ul>
+          <li>Requiere perforar macetas de cerámica (riesgo de rotura)</li>
+          <li>Estabilidad vertical — necesita base pesada</li>
+          <li>Tornillo manual puede ser difícil de fabricar con precisión</li>
+        </ul>
+      </div>
+    </div>
   </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- ALTERNATIVA B -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="alt-card">
+    <span class="alt-tag">Alternativa B</span>
+    <h3>Cascada Horizontal con Palanca</h3>
+    <p class="desc">Dos macetas de cerámica existentes dispuestas en escalera sobre una repisa de madera. Una palanca manual en la parte inferior bombea agua al nivel más alto, y el exceso cae por gravedad de una maceta a la otra.</p>
+
+    <div class="diagram">
+      <svg viewBox="0 0 440 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Repisa de madera -->
+        <rect x="30" y="280" width="380" height="12" rx="3" fill="#D4A574" stroke="#B8956A" stroke-width="1.5"/>
+        <!-- Maceta 1 (izq, arriba) -->
+        <rect x="50" y="180" width="120" height="95" rx="6" fill="#F5E6D0" stroke="#B8956A" stroke-width="2"/>
+        <rect x="55" y="170" width="110" height="14" rx="4" fill="#E8D4B8" stroke="#B8956A" stroke-width="1.5"/>
+        <text x="110" y="230" text-anchor="middle" font-family="Source Serif 4" font-size="13" fill="#6B4E2E">Albahaca</text>
+        <!-- Maceta 2 (der, abajo) -->
+        <rect x="220" y="210" width="150" height="65" rx="6" fill="#F5E6D0" stroke="#B8956A" stroke-width="2"/>
+        <rect x="225" y="202" width="140" height="12" rx="4" fill="#E8D4B8" stroke="#B8956A" stroke-width="1.5"/>
+        <text x="295" y="248" text-anchor="middle" font-family="Source Serif 4" font-size="13" fill="#6B4E2E">Cilantro</text>
+        <!-- Canaleta/conector -->
+        <path d="M170 260 Q180 270 220 260" stroke="#2E7D52" stroke-width="2.5" stroke-dasharray="6 3" marker-end="url(#arrow2)"/>
+        <!-- Palanca/bomba -->
+        <rect x="50" y="300" width="80" height="35" rx="6" fill="#2E7D52" opacity="0.12" stroke="#2E7D52" stroke-width="2"/>
+        <text x="90" y="322" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#2E7D52" font-weight="700">PALANCA</text>
+        <!-- Tubo de subida -->
+        <line x1="130" y1="300" x2="110" y2="180" stroke="#2E7D52" stroke-width="2.5" marker-end="url(#arrow2)"/>
+        <!-- Reservorio -->
+        <rect x="200" y="300" width="100" height="40" rx="6" fill="#E0EDE4" stroke="#2E7D52" stroke-width="1.5"/>
+        <text x="250" y="325" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="#2E7D52" font-weight="600">Reservorio</text>
+        <!-- Tubo de retorno -->
+        <path d="M295 300 Q310 290 330 280 Q350 270 350 300" stroke="#888" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <!-- Etiquetas -->
+        <text x="370" y="175" font-family="Space Grotesk" font-size="11" fill="#888" font-weight="500">← Nivel alto</text>
+        <text x="370" y="215" font-family="Space Grotesk" font-size="11" fill="#888" font-weight="500">← Nivel bajo</text>
+        <text x="370" y="320" font-family="Space Grotesk" font-size="11" fill="#888" font-weight="500">← Bomba manual</text>
+        <defs>
+          <marker id="arrow2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#2E7D52"/></marker>
+        </defs>
+      </svg>
+    </div>
+
+    <ul>
+      <li><b>Materiales:</b> 2 macetas de cerámica, repisa/paleta de madera, bomba de palanca manual tipo jardín, tubería flexible</li>
+      <li><b>Flujo de agua:</b> Reservorio → bomba palanca → maceta alta → canaleta → maceta baja → retorno por gravedad</li>
+      <li><b>Medio de cultivo:</b> Arcilla expandida (LECA)</li>
+      <li><b>Esfuerzo de construcción:</b> Bajo — no requiere perforar cerámica</li>
+    </ul>
+
+    <div class="pros-cons">
+      <div class="pros">
+        <h4>Ventajas</h4>
+        <ul>
+          <li>Más fácil de construir — no tallar cerámica</li>
+          <li>Acceso cómodo a cada maceta para cosechar</li>
+          <li>La palanca es fácil de encontrar en ferreterías</li>
+          <li>Estable sobre repisa o mesada</li>
+        </ul>
+      </div>
+      <div class="cons">
+        <h4>Desventajas</h4>
+        <ul>
+          <li>Ocupa más espacio horizontal (ancho)</li>
+          <li>Menos impacto visual que una torre</li>
+          <li>Solo 2 niveles de cultivo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- ALTERNATIVA C -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="alt-card">
+    <span class="alt-tag">Alternativa C</span>
+    <h3>Torre Modulable con Jeringa Manual</h3>
+    <p class="desc">Cuatro macetas pequeñas de cerámica idénticas encajadas verticalmente usando un tubo guía central. Un sistema de jeringa manual de gran capacidad (similar a una jeringa de jardín) bombea agua desde un depósito inferior hacia la maceta más alta.</p>
+
+    <div class="diagram">
+      <svg viewBox="0 0 400 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Depósito inferior -->
+        <rect x="130" y="430" width="140" height="55" rx="8" fill="#E0EDE4" stroke="#2E7D52" stroke-width="2"/>
+        <text x="200" y="462" text-anchor="middle" font-family="Space Grotesk" font-size="12" fill="#2E7D52" font-weight="600">Depósito</text>
+        <!-- Jeringa -->
+        <rect x="280" y="380" width="24" height="80" rx="4" fill="#2E7D52" opacity="0.2" stroke="#2E7D52" stroke-width="2"/>
+        <rect x="275" y="375" width="34" height="12" rx="3" fill="#2E7D52" opacity="0.3" stroke="#2E7D52" stroke-width="1.5"/>
+        <text x="292" y="425" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="#2E7D52" font-weight="700" transform="rotate(90,292,425)">JERINGA</text>
+        <!-- Tubo guía -->
+        <rect x="195" y="60" width="10" height="370" rx="2" fill="#B8956A" opacity="0.4" stroke="#B8956A" stroke-width="1"/>
+        <!-- Maceta 4 (arriba) -->
+        <rect x="160" y="80" width="80" height="65" rx="6" fill="#F5E6D0" stroke="#B8956A" stroke-width="2"/>
+        <rect x="165" y="73" width="70" height="10" rx="3" fill="#E8D4B8" stroke="#B8956A" stroke-width="1"/>
+        <text x="200" y="118" text-anchor="middle" font-family="Source Serif 4" font-size="11" fill="#6B4E2E">Albahaca</text>
+        <!-- Maceta 3 -->
+        <rect x="155" y="175" width="90" height="70" rx="6" fill="#F5E6D0" stroke="#B8956A" stroke-width="2"/>
+        <rect x="160" y="168" width="80" height="10" rx="3" fill="#E8D4B8" stroke="#B8956A" stroke-width="1"/>
+        <text x="200" y="215" text-anchor="middle" font-family="Source Serif 4" font-size="11" fill="#6B4E2E">Perejil</text>
+        <!-- Maceta 2 -->
+        <rect x="150" y="270" width="100" height="75" rx="6" fill="#F5E6D0" stroke="#B8956A" stroke-width="2"/>
+        <rect x="155" y="263" width="90" height="10" rx="3" fill="#E8D4B8" stroke="#B8956A" stroke-width="1"/>
+        <text x="200" y="313" text-anchor="middle" font-family="Source Serif 4" font-size="11" fill="#6B4E2E">Cilantro</text>
+        <!-- Maceta 1 (abajo) -->
+        <rect x="145" y="365" width="110" height="60" rx="6" fill="#F5E6D0" stroke="#B8956A" stroke-width="2"/>
+        <rect x="150" y="358" width="100" height="10" rx="3" fill="#E8D4B8" stroke="#B8956A" stroke-width="1"/>
+        <text x="200" y="400" text-anchor="middle" font-family="Source Serif 4" font-size="11" fill="#6B4E2E">Cilantro</text>
+        <!-- Flechas de flujo -->
+        <path d="M200 430 L200 425" stroke="#2E7D52" stroke-width="2" marker-end="url(#arrow3)"/>
+        <path d="M185 145 L185 175" stroke="#2E7D52" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrow3)"/>
+        <path d="M215 245 L215 270" stroke="#2E7D52" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arrow3)"/>
+        <!-- Conexión jeringa -->
+        <path d="M280 420 L250 420 L250 430" stroke="#2E7D52" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arrow3)"/>
+        <!-- Etiquetas -->
+        <text x="340" y="115" font-family="Space Grotesk" font-size="10" fill="#888" font-weight="500">← 4 módulos</text>
+        <text x="340" y="315" font-family="Space Grotesk" font-size="10" fill="#888" font-weight="500">← Macetas idénticas</text>
+        <text x="340" y="425" font-family="Space Grotesk" font-size="10" fill="#888" font-weight="500">← Bomba jeringa</text>
+        <defs>
+          <marker id="arrow3" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#2E7D52"/></marker>
+        </defs>
+      </svg>
+    </div>
+
+    <ul>
+      <li><b>Materiales:</b> 4 macetas de cerámica idénticas (tamaño uniforme), tubo guía de PVC o madera, jeringa manual de jardín (50-100 ml), depósito inferior</li>
+      <li><b>Flujo de agua:</b> Depósito → jeringa manual → tubo guía → maceta superior → cascada por gravedad → depósito</li>
+      <li><b>Medio de cultivo:</b> Arcilla expandida (LECA)</li>
+      <li><b>Esfuerzo de construcción:</b> Bajo-medio — macetas idénticas facilitan el ensamblaje</li>
+    </ul>
+
+    <div class="pros-cons">
+      <div class="pros">
+        <h4>Ventajas</h4>
+        <ul>
+          <li>Macetas idénticas = más fácil de conseguir y ensamblar</li>
+          <li>Modulable — agregar o quitar niveles fácilmente</li>
+          <li>Jeringa manual es precisa y fácil de usar</li>
+          <li>4 niveles de cultivo = más producción</li>
+          <li>Vertical = ahorra espacio</li>
+        </ul>
+      </div>
+      <div class="cons">
+        <h4>Desventajas</h4>
+        <ul>
+          <li>Requiere macetas exactamente iguales (puede ser difícil encontrar)</li>
+          <li>Jeringa manual puede ser menos icónica que el tornillo</li>
+          <li>Estabilidad depende del tubo guía</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- TABLA COMPARATIVA -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="card">
+    <h2>⚖️ Comparativa de alternativas</h2>
+    <p class="kicker">Criterios clave para la decisión</p>
+    <table class="comp-table">
+      <thead>
+        <tr><th>Criterio</th><th>A: Torre Vertical</th><th>B: Cascada Horizontal</th><th>C: Torre Modulable</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Espacio requerido</td><td>Pequeño (vertical)</td><td>Grande (horizontal)</td><td>Pequeño (vertical)</td></tr>
+        <tr><td>Niveles de cultivo</td><td>3</td><td>2</td><td>4</td></tr>
+        <tr><td>Facilidad de construcción</td><td>Media</td><td>Alta</td><td>Media</td></tr>
+        <tr><td>Riesgo de rotura</td><td>Alto (perforar)</td><td>Bajo</td><td>Medio</td></tr>
+        <tr><td>Impacto visual</td><td>Alto</td><td>Medio</td><td>Alto</td></tr>
+        <tr><td>Tipo de bomba manual</td><td>Tornillo Arquímedes</td><td>Palanca</td><td>Jeringa</td></tr>
+        <tr><td>Costo materiales</td><td>$30-40k COP</td><td>$25-35k COP</td><td>$30-45k COP</td></tr>
+        <tr><td>Tiempo estimado</td><td>4-5 horas</td><td>2-3 horas</td><td>3-4 horas</td></tr>
+        <tr><td>Alinhamiento con visión</td><td>★★★★★</td><td>★★★☆☆</td><td>★★★★☆</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- RECOMENDACIÓN -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="rec-card">
+    <h3>💡 Recomendación: Alternativa A — Torre Vertical Apilable</h3>
+    <p>Para la presentación del viernes, la <b>Alternativa A</b> es la más fuerte porque encarna la visión completa del proyecto: una torre vertical con el tornillo de Arquímedes como mecanismo central. El riesgo de perforar cerámica se mitiga practicando primero en una maceta vieja con una broca de cerámica y lubricante. El impacto visual en el salón será superior y demuestra la escalabilidad del diseño.</p>
+  </div>
+
 </div>
 
 <div class="toast" id="toast"></div>
