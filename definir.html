@@ -11,12 +11,41 @@
 <style>
   .poi{ background:var(--card); border:1px solid var(--line-strong); border-radius:14px; padding:26px 30px; margin-bottom:20px; font-family:'Source Serif 4',serif; font-size:22px; line-height:1.6; color:var(--text); }
   .grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-  @media(max-width:1000px){ .grid3{ grid-template-columns:1fr 1fr; } }
-  @media(max-width:680px){ .grid3{ grid-template-columns:1fr; } }
+  .grid4{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  @media(max-width:1000px){ .grid3,.grid4{ grid-template-columns:1fr 1fr; } }
+  @media(max-width:680px){ .grid3,.grid4{ grid-template-columns:1fr; } }
   .mini{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; }
-  .mini h4{ margin:0 0 8px; font-size:17px; color:var(--terra); font-family:'Space Grotesk',sans-serif; }
+  .mini h4{ margin:0 0 8px; font-size:17px; color:var(--green); font-family:'Space Grotesk',sans-serif; }
   .mini p{ margin:0; color:var(--text-dim); font-size:16.5px; font-family:'Source Serif 4',serif; line-height:1.55; }
+  .mini .num{ font-family:'Space Grotesk',sans-serif; font-size:38px; font-weight:700; color:var(--green); line-height:1; margin-bottom:6px; }
+  .mini .lbl{ font-family:'IBM Plex Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-faint, #879b8c); }
   .highlight{ background:var(--green-soft); border-left:3px solid var(--green); border-radius:0 12px 12px 0; padding:20px 24px; margin-bottom:16px; }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:26px 30px; margin-bottom:24px; box-shadow:var(--shadow-sm); }
+  .tbl-wrap{ overflow-x:auto; }
+  table.tbl{ width:100%; border-collapse:collapse; font-size:13.5px; }
+  .tbl th{ font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--green); background:var(--green-soft); padding:9px 10px; text-align:left; border-bottom:2px solid var(--line-strong); white-space:nowrap; }
+  .tbl td{ padding:8px 10px; border-bottom:1px solid var(--line); color:var(--text-dim); vertical-align:top; font-family:'Source Serif 4',serif; }
+  .tbl td strong{ color:var(--text); font-family:'Space Grotesk',sans-serif; }
+  .tbl tr.phase td{ background:var(--green-soft); font-family:'Space Grotesk',sans-serif; font-weight:700; color:var(--green); letter-spacing:.03em; }
+  .tbl tr.crit td{ background:rgba(46,125,82,0.05); }
+  .tbl tr.no-crit td{ opacity:.8; }
+  td.e{ min-width:44px; }
+  input.ed{ width:100%; min-width:44px; border:1px solid var(--line-strong); border-radius:6px; padding:4px 6px; font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--text); background:rgba(255,255,255,0.9); }
+  input.ed:focus{ outline:none; border-color:var(--green); box-shadow:0 0 0 3px var(--green-soft); }
+  .flow{ display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; font-family:'Space Grotesk',sans-serif; font-weight:700; color:var(--green); font-size:16px; }
+  .flow .arrow{ color:var(--terra,#b8956a); font-weight:400; }
+  .kicker{ font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--text-dim); text-transform:uppercase; letter-spacing:.1em; margin:2px 0 16px; }
+  .toolbar{ display:flex; gap:10px; flex-wrap:wrap; margin:6px 0 20px; }
+  .btn{ font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; padding:9px 18px; border-radius:999px; border:none; cursor:pointer; transition:all .2s; }
+  .btn.primary{ background:var(--green); color:#fff; }
+  .btn.ghost{ background:transparent; border:1px solid var(--line-strong); color:var(--green); }
+  .btn:hover{ transform:translateY(-1px); }
+  .note-list{ margin:0; padding-left:20px; }
+  .note-list li{ font-family:'Source Serif 4',serif; font-size:15.5px; line-height:1.6; color:var(--text-dim); margin-bottom:8px; }
+  .pill{ display:inline-block; padding:3px 10px; border-radius:999px; font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:600; }
+  .pill.alta{ background:rgba(180,60,60,.12); color:#B43C3C; }
+  .pill.media{ background:rgba(200,140,40,.14); color:#A8752A; }
+  .pill.baja{ background:rgba(46,125,82,.12); color:var(--green); }
 </style>
 </head>
 <body data-section="definir">
@@ -32,7 +61,7 @@
   <div class="page-head">
     <div class="eyebrow"><span class="dot"></span> Sección · Definir</div>
     <h1>Definir</h1>
-    <p>Enunciar el problema a partir de lo aprendido en la empatía, con un punto de vista claro que guíe la ideación.</p>
+    <p>Enunciar el problema a partir de lo aprendido en la empatía, con un punto de vista claro que guíe la ideación y la planeación del prototipo.</p>
   </div>
 
   <div class="poi">
@@ -50,9 +79,492 @@
     <div class="mini"><h4>Calor del cilantro</h4><p>¿Cómo podríamos ubicar el módulo de cilantro para que no reciba el calor que sí toleran perejil y albahaca?</p></div>
     <div class="mini"><h4>Gesto de cocina</h4><p>¿Cómo podríamos hacer que cuidar el sistema se sienta como un gesto de cocina, no como una tarea técnica?</p></div>
   </div>
+
+  <!-- ══════════════ INDICADORES ══════════════ -->
+  <div class="card" id="indicadores">
+    <h2 style="margin:0 0 4px;">📊 Indicadores generales</h2>
+    <p class="kicker">Planeación Design Thinking – torre hidropónica de arcilla terracota · WBS · Gantt · FMEA</p>
+    <div class="grid4" id="indicadoresGrid"></div>
+  </div>
+
+  <!-- ══════════════ RESUMEN POR FASE ══════════════ -->
+  <div class="card" id="resumenFase">
+    <h2 style="margin:0 0 4px;">🗺️ Resumen por fase</h2>
+    <p class="kicker">Horas encadenadas · Inicio y fin en horas desde el arranque del proyecto</p>
+    <div class="tbl-wrap">
+      <table class="tbl" id="resumenFaseTabla"></table>
+    </div>
+  </div>
+
+  <!-- ══════════════ RUTA CRÍTICA ══════════════ -->
+  <div class="card" id="topNPR">
+    <h2 style="margin:0 0 4px;">🔥 Riesgos con mayor NPR</h2>
+    <p class="kicker">NPR = Gravedad × Ocurrencia × Detección · Prioridad Alta › 200</p>
+    <div class="tbl-wrap">
+      <table class="tbl" id="topNprTabla"></table>
+    </div>
+    <p style="margin:12px 0 0; font-family:'Source Serif 4',serif; font-size:15px; color:var(--text-dim);">Ruta crítica confirmada en el WBS (holgura 0). Si dos riesgos empatan en NPR, la tabla repite el primero; ver la matriz FMEA completa más abajo.</p>
+  </div>
+
+  <!-- ══════════════ MODELADO DE PROCESOS ══════════════ -->
+  <div class="card" id="modelado">
+    <h2 style="margin:0 0 4px;">🔁 Modelado de procesos</h2>
+    <p class="kicker">Representación visual, actividades, inputs/outputs, métodos, roles y KPI por fase</p>
+    <div class="flow" id="flujoGeneral"></div>
+    <p style="margin:10px 0 0; font-family:'Source Serif 4',serif; font-size:15px; color:var(--text-dim);">↺ Retroalimentación e iteración: los resultados de TESTEAR vuelven a EMPATIZAR / IDEAR / PROTOTIPAR según los hallazgos.</p>
+    <p style="margin:14px 0 6px; font-family:'Space Grotesk',sans-serif; font-weight:700; color:var(--green); font-size:15px;">Subproceso de PROTOTIPAR</p>
+    <div class="flow" id="flujoPrototipar"></div>
+    <div class="tbl-wrap" style="margin-top:18px;">
+      <table class="tbl" id="modeladoTabla"></table>
+    </div>
+  </div>
+
+  <!-- ══════════════ WBS / GANTT ══════════════ -->
+  <div class="card" id="wbs">
+    <h2 style="margin:0 0 4px;">📋 WBS y Diagrama de Gantt</h2>
+    <p class="kicker">Tiempos en horas encadenadas · las esperas de secado y horno cuentan como tiempo corrido · cada columna del Gantt = bloque de 8 h</p>
+    <div class="grid3" style="margin-bottom:8px;" id="wbsTotales"></div>
+    <p class="kicker" style="margin-top:8px;">Leyenda: <span class="pill media">Fase</span> &nbsp;<span class="pill baja">Espera</span> &nbsp;<span class="pill alta">Crítica</span></p>
+    <div class="toolbar">
+      <button class="btn primary" onclick="guardarTodo()">💾 Guardar cambios</button>
+      <button class="btn ghost" onclick="restaurarTodo()">↩ Restaurar</button>
+      <button class="btn ghost" onclick="exportarJSON()">⬇ Exportar JSON</button>
+    </div>
+    <p class="kicker" style="margin-top:8px;">Edita las <strong>Horas</strong> y los <strong>Recursos</strong> de cada actividad; los valores tardíos/holgura se muestran según la planificación original.</p>
+    <div class="tbl-wrap">
+      <table class="tbl" id="wbsTabla"></table>
+    </div>
+    <div class="note-list" style="margin-top:14px;">
+      <p style="margin:0 0 6px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--text-dim); text-transform:uppercase; letter-spacing:.1em;">Notas del WBS</p>
+      <ul class="note-list">
+        <li>Las horas son estimaciones editables; el resto se recalcula solo.</li>
+        <li>Holgura 0 = actividad de la ruta crítica. Las actividades 1.4, 4.5 y 5.1 tienen holgura.</li>
+        <li>Para exportar a GanttProject: crear las 5 fases como tareas resumen, anidar las actividades, ingresar duración en horas, definir predecesoras y asignar recursos.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════════════ RECURSOS ══════════════ -->
+  <div class="card" id="recursos">
+    <h2 style="margin:0 0 4px;">🧰 Recursos del proyecto</h2>
+    <p class="kicker">Recursos de trabajo, materiales y equipos con las actividades del WBS donde se usan</p>
+    <div class="tbl-wrap">
+      <table class="tbl" id="recursosTabla"></table>
+    </div>
+  </div>
+
+  <!-- ══════════════ FMEA ══════════════ -->
+  <div class="card" id="fmea">
+    <h2 style="margin:0 0 4px;">⚠️ Matriz de riesgos — FMEA</h2>
+    <p class="kicker">De la compra de la arcilla al esmaltado · NPR = G × O × D · Prioridad: Alta › 200 · Media 120–200 · Baja ‹ 120</p>
+    <p class="kicker">Edita <strong>G, O, D</strong> y el NPR + prioridad se recalculan automáticamente.</p>
+    <div class="tbl-wrap">
+      <table class="tbl" id="fmeaTabla"></table>
+    </div>
+  </div>
+
+  <!-- ══════════════ ESCALAS ══════════════ -->
+  <div class="card" id="escalas">
+    <h2 style="margin:0 0 4px;">📏 Escalas del FMEA</h2>
+    <p class="kicker">Valores de 1 a 10 para Gravedad (G), Ocurrencia (O) y Detección (D)</p>
+    <div class="grid3">
+      <div class="mini"><h4>Gravedad del efecto (G)</h4><div id="escalaG"></div></div>
+      <div class="mini"><h4>Ocurrencia de la causa (O)</h4><div id="escalaO"></div></div>
+      <div class="mini"><h4>Detección de la falla (D)</h4><div id="escalaD"></div></div>
+    </div>
+    <div class="mini" style="margin-top:14px;"><h4>Prioridad por NPR</h4><ul class="note-list" id="escalaPrioridad"></ul></div>
+  </div>
+
+  <!-- ══════════════ SUPUESTOS ══════════════ -->
+  <div class="card" id="supuestos">
+    <h2 style="margin:0 0 4px;">📝 Supuestos y notas</h2>
+    <ol class="note-list" style="padding-left:20px;" id="supuestosLista"></ol>
+  </div>
+
 </div>
 
 <div class="toast" id="toast"></div>
 <script src="shared-nav.js"></script>
+<script>
+const LS='hydro_definir_v1';
+const LS2='hydro_definir_datos_v1';
+
+const INDICADORES=[
+ ['194','Duración total (h encadenadas)'],
+ ['85','Horas de trabajo'],
+ ['118','Horas de espera (secado y hornos)'],
+ ['33','Actividades en el WBS'],
+ ['34','Riesgos identificados'],
+ ['7','Riesgos de prioridad alta'],
+ ['360','NPR máximo']
+];
+
+const FASES=[
+ ['1','Empatizar','14','0','11'],
+ ['2','Definir','8','11','19'],
+ ['3','Idear','11','19','30'],
+ ['4','Prototipar','157','30','183'],
+ ['5','Testear','13','55','194']
+];
+
+const TOP_NPR=[
+ ['1','B1','Burbujas de aire dentro de la masa','360','Alta'],
+ ['2','C3','Humedad residual al hornear','300','Alta'],
+ ['3','C1','Grietas por secado rápido','280','Alta'],
+ ['4','D1','Calentamiento demasiado rápido al inicio','270','Alta'],
+ ['5','B4','Paredes de espesor desigual o muy gruesas','240','Alta'],
+ ['6','A4','Impurezas (piedritas, cal) en la arcilla','224','Alta'],
+ ['7','B3','Uniones débiles','216','Alta']
+];
+
+const PROCESOS=[
+ ['Empatizar','1.1 – 1.5','Definir usuarios; entrevistar y observar; benchmarking; mapa de empatía','Notas de campo; benchmarking; mapa de empatía','Guía de entrevista; observación; bitácora fotográfica','IN (apoyo: TE, DI)','Entrevistas realizadas / planeadas','100 %'],
+ ['Definir','2.1 – 2.3','Notas de campo; mapa de empatía; benchmarking','Persona; enunciado del problema; lista de requisitos','Mapa de afinidad; plantilla POV','IN, LP','% de requisitos trazables a un hallazgo','100 %'],
+ ['Idear','3.1 – 3.4','Enunciado del problema; requisitos; medidas del horno','Concepto elegido; bocetos acotados','Brainstorming; matriz de decisión','DI (apoyo: MO)','N.º de ideas generadas; puntaje del concepto elegido','≥ 20 ideas'],
+ ['Prototipar · Compra y preparación','4.1 – 4.3','Concepto y medidas; presupuesto','Ficha técnica; lista de verificación; registro de contracción','Compra de arcilla; baldosas de prueba; amasado; barbotina','LP, MO','% de lotes con ficha técnica; desviación de cantidad comprada vs. necesaria','100 %; ≤ 15 %'],
+ ['Prototipar · Construcción','4.4 – 4.9','Bocetos acotados; arcilla preparada; barbotina','Torre y módulos en estado «cuero»','Registro de construcción con fotos; lista de verificación de espesores y uniones','MO, DI','Horas reales vs. estimadas; % de piezas con defecto','Desv. ≤ 20 %; ≤ 10 % defectuosas'],
+ ['Prototipar · Secado y bizcochado','4.10 – 4.12','Piezas en estado «cuero»','Piezas bizcochadas','Registro de secado; curva de horno; conos pirométricos','MO, OP','% de piezas sin grietas ni estallidos tras el bizcochado','≥ 90 %'],
+ ['Prototipar · Esmaltado y quema','4.13 – 4.16','Piezas bizcochadas; esmalte sin plomo; cera','Piezas esmaltadas e inspeccionadas','Ficha de esmalte (capas, espesor); inspección visual y fotográfica','MO, TE','% de piezas sin defectos de esmalte (escurrimiento, craquelado, poros)','≥ 90 %'],
+ ['Testear','5.1 – 5.5','Prototipo terminado; plan de pruebas','Informe de pruebas; lista de mejoras','Fichas de prueba; encuesta','TE, IN','% de pruebas superadas; satisfacción (1–5)','≥ 80 %; ≥ 4']
+];
+
+// [id, fase, actividad, tipo, horas, pred, recursos, it, ft, il, fl, holgura, critica]
+const WBS=[
+ ['1','EMPATIZAR','','','14','','','','0','','11','0','fase'],
+ ['1.1','','Definir usuarios y contexto','Trabajo','2','—','LP, IN','0','2','0','2','0','crit'],
+ ['1.2','','Diseñar guía de entrevista y observación','Trabajo','2','1.1','IN','2','4','2','4','0','crit'],
+ ['1.3','','Entrevistas y observación','Trabajo','4','1.2','IN, TE, Celular / cámara','4','8','4','8','0','crit'],
+ ['1.4','','Benchmarking de torres hidropónicas existentes','Trabajo','3','1.1','DI, IN','2','5','8','11','6','nc'],
+ ['1.5','','Mapa de empatía','Trabajo','3','1.3','IN, DI, Papel y marcadores','8','11','8','11','0','crit'],
+ ['2','DEFINIR','','','8','','','','11','','19','0','fase'],
+ ['2.1','','Síntesis de hallazgos (mapa de afinidad)','Trabajo','3','1.4, 1.5','IN, LP, Papel y marcadores','11','14','11','14','0','crit'],
+ ['2.2','','Persona y enunciado POV','Trabajo','2','2.1','IN','14','16','14','16','0','crit'],
+ ['2.3','','Preguntas «¿Cómo podríamos…?» y requisitos','Trabajo','3','2.2','LP, IN, DI','16','19','16','19','0','crit'],
+ ['3','IDEAR','','','11','','','','19','','30','0','fase'],
+ ['3.1','','Lluvia de ideas','Trabajo','3','2.3','LP, IN, DI, MO, TE','19','22','19','22','0','crit'],
+ ['3.2','','Bocetos de forma y módulos','Trabajo','4','3.1','DI, MO, Papel y marcadores','22','26','22','26','0','crit'],
+ ['3.3','','Selección del concepto (matriz de decisión)','Trabajo','2','3.2','LP, DI','26','28','26','28','0','crit'],
+ ['3.4','','Definir dimensiones, inclinación, espesores y materiales (medir el horno)','Trabajo','2','3.3','DI, MO','28','30','28','30','0','crit'],
+ ['4','PROTOTIPAR','','','157','','','','30','','183','0','fase'],
+ ['4.1','','Compra de arcilla terracota de grano fino (cotizar, ficha técnica, comprar)','Trabajo','3','3.4','LP, DI','30','33','30','33','0','crit'],
+ ['4.2','','Baldosas de prueba (contracción, color, compatibilidad con esmalte)','Trabajo','2','4.1','MO, Arcilla terracota, Rodillo, Reglas guía de espesor, Cortador / estecas','33','35','33','35','0','crit'],
+ ['4.3','','Preparar y amasar la arcilla; elaborar barbotina','Trabajo','2','4.2','MO, Arcilla terracota, Agua, Barbotina','35','37','35','37','0','crit'],
+ ['4.4','','Elaborar placas y cortar piezas','Trabajo','4','4.3','MO, Arcilla terracota, Rodillo, Reglas guía de espesor, Cortador / estecas','37','41','37','41','0','crit'],
+ ['4.5','','Elaborar recipientes / módulos de cultivo','Trabajo','4','4.3','MO, Arcilla terracota, Cortador / estecas','37','41','45','49','8','nc'],
+ ['4.6','','Construir el cuerpo principal (unir con barbotina)','Trabajo','5','4.4','MO, DI, Barbotina, Esponja','41','46','41','46','0','crit'],
+ ['4.7','','Abrir aberturas laterales para los módulos','Trabajo','3','4.6','MO, Cortador / estecas','46','49','46','49','0','crit'],
+ ['4.8','','Integrar módulos y verificar encaje','Trabajo','3','4.5, 4.7','MO, DI','49','52','49','52','0','crit'],
+ ['4.9','','Acabado y corrección de superficies','Trabajo','3','4.8','MO, Esponja, Agua','52','55','52','55','0','crit'],
+ ['4.10','','Secado controlado hasta «hueso seco»','Espera','48','4.9','MO, Plástico de curado, Espacio ventilado','55','103','55','103','0','crit'],
+ ['4.11','','Carga del horno para bizcochado','Trabajo','2','4.10','MO, OP, Horno cerámico, Planchas y soportes, EPP','103','105','103','105','0','crit'],
+ ['4.12','','Ciclo de bizcochado y enfriamiento','Espera','36','4.11','OP, Horno cerámico, Conos pirométricos','105','141','105','141','0','crit'],
+ ['4.13','','Preparar y aplicar esmalte (interior y exterior)','Trabajo','5','4.12','MO, Esmalte sin plomo, Cera repelente, Pinceles, Esponja','141','146','141','146','0','crit'],
+ ['4.14','','Carga del horno para quema de esmalte','Trabajo','2','4.13','MO, OP, Horno cerámico, Planchas y soportes, EPP','146','148','146','148','0','crit'],
+ ['4.15','','Ciclo de quema de esmalte y enfriamiento','Espera','34','4.14','OP, Horno cerámico, Conos pirométricos','148','182','148','182','0','crit'],
+ ['4.16','','Inspección de piezas cocidas','Trabajo','1','4.15','MO, TE, Celular / cámara','182','183','182','183','0','crit'],
+ ['5','TESTEAR','','','13','','','','55','','194','0','fase'],
+ ['5.1','','Plan y fichas de prueba','Trabajo','2','4.9','TE, LP','55','57','181','183','126','nc'],
+ ['5.2','','Prueba de estabilidad y encaje','Trabajo','2','4.16, 5.1','TE, MO','183','185','183','185','0','crit'],
+ ['5.3','','Prueba de humedad / estanqueidad con plantas','Trabajo','3','5.2','TE, Plantas / plántulas, Agua, Recipiente con agua','185','188','185','188','0','crit'],
+ ['5.4','','Retroalimentación de usuarios','Trabajo','3','5.3','IN, TE','188','191','188','191','0','crit'],
+ ['5.5','','Análisis, mejoras e informe final','Trabajo','3','5.4','LP, IN, DI, MO, TE','191','194','191','194','0','crit']
+];
+
+const RECURSOS=[
+ ['LP','Trabajo','Líder de proyecto: coordina, planea y decide','1.1, 2.1, 2.3, 3.1, 3.3, 4.1, 5.1, 5.5'],
+ ['IN','Trabajo','Investigador / UX: entrevistas, síntesis, requisitos','1.1, 1.2, 1.3, 1.4, 1.5, 2.1, 2.2, 2.3, 3.1, 5.4, 5.5'],
+ ['DI','Trabajo','Diseñador: bocetos, medidas y concepto','1.4, 1.5, 2.3, 3.1, 3.2, 3.3, 3.4, 4.1, 4.6, 4.8, 5.5'],
+ ['MO','Trabajo','Modelador / Ceramista: construcción, esmaltado','3.1, 3.2, 3.4, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 4.9, 4.10, 4.11, 4.13, 4.14, 4.16, 5.2, 5.5'],
+ ['TE','Trabajo','Tester / Documentador: pruebas y registros','1.3, 3.1, 4.16, 5.1, 5.2, 5.3, 5.4, 5.5'],
+ ['OP','Trabajo','Operador del horno (taller o persona a cargo)','4.11, 4.12, 4.14, 4.15'],
+ ['Arcilla terracota','Material','Terracota de grano fino ya comprada','4.2, 4.3, 4.4, 4.5'],
+ ['Agua','Material','Para amasado, acabado y pruebas','4.3, 4.9, 5.3'],
+ ['Barbotina','Material','Arcilla líquida para unir piezas','4.3, 4.6'],
+ ['Esmalte sin plomo','Material','Apto para temperatura de cocción y contacto con alimentos','4.13'],
+ ['Cera repelente','Material','Para proteger bases y puntos de apoyo','4.13'],
+ ['Plástico de curado','Material','Secado lento y uniforme','4.10'],
+ ['Papel y marcadores','Material','Mapas, bocetos y síntesis','1.5, 2.1, 3.2'],
+ ['Plantas / plántulas','Material','Para la prueba funcional','5.3'],
+ ['Conos pirométricos','Material','Control de temperatura en el horno','4.12, 4.15'],
+ ['Rodillo','Equipo','Para placas de arcilla','4.2, 4.4'],
+ ['Reglas guía de espesor','Equipo','Espesor uniforme de placas','4.2, 4.4'],
+ ['Cortador / estecas','Equipo','Cortar, retirar material y definir formas','4.4, 4.5, 4.7'],
+ ['Esponja','Equipo','Acabado y limpieza antes de esmaltar','4.6, 4.9, 4.13'],
+ ['Pinceles','Equipo','Aplicación del esmalte','4.13'],
+ ['Horno cerámico','Equipo','Bizcochado y quema de esmalte','4.11, 4.12, 4.14, 4.15'],
+ ['Planchas y soportes de horno','Equipo','Apoyo de las piezas en el horno','4.11, 4.14'],
+ ['EPP','Equipo','Guantes, mascarilla y ventilación','4.11, 4.14'],
+ ['Celular / cámara','Equipo','Registro fotográfico','1.3, 4.16'],
+ ['Espacio ventilado','Equipo','Para el secado','4.10'],
+ ['Recipiente con agua','Equipo','Prueba de humedad','5.3']
+];
+
+// FMEA: [id, etapa, wbs, modo, efecto, causa, g, o, d, deteccion, accion, resp, plazo]
+const FMEA=[
+ ['A1','Compra de arcilla','4.1','Arcilla no apta para cocción en horno (de modelado o autoendurecible)','Piezas se pierden en el horno','Confusión de producto al comprar',10,3,4,'Ficha técnica y etiqueta del producto','Verificar la ficha técnica del lote ya comprado (temperatura de cocción) y confirmar con el proveedor','LP','Antes de 4.3'],
+ ['A2','Compra de arcilla','4.1','Rango de cocción distinto al del horno o del esmalte','Piezas subcocidas o deformadas','No verificar el cono o la temperatura de maduración',8,5,5,'Comparar rango de arcilla, esmalte y horno','Anotar el rango de la arcilla y alinear bizcocho y esmalte a él','MO','4.1'],
+ ['A3','Compra de arcilla','4.1','Cantidad insuficiente o lotes distintos','Retrabajo; diferencias de color y contracción','Cálculo corto de material',6,5,4,'Estimar volumen frente a lo comprado','Comprar 20–30 % extra del mismo lote','LP','4.1'],
+ ['A4','Preparación','4.3','Impurezas (piedritas, cal) en la arcilla','Estallidos o desconchados al cocer','Arcilla sin cernir',8,4,7,'Inspección visual y táctil al amasar','Revisar al amasar, cernir la barbotina y descartar zonas con partículas','MO','4.3'],
+ ['A5','Almacenamiento','4.3','Arcilla reseca o con moho','Pierde plasticidad; se agrieta al trabajar','Bolsa abierta o tiempo de espera',5,5,3,'Revisar la humedad antes de usar','Envolver en plástico húmedo y trabajar pronto','MO','Continuo'],
+ ['B1','Preparación','4.3','Burbujas de aire dentro de la masa','Estallido durante el bizcochado','Amasado insuficiente',9,5,8,'Cortar la masa con alambre para ver burbujas','Amasar con técnica de cabeza de carnero y revisar con alambre','MO','4.3'],
+ ['B2','Preparación','4.3','Barbotina contaminada o demasiado líquida','Uniones débiles','Mezcla con otra arcilla o exceso de agua',6,4,4,'Prueba de consistencia','Hacerla con la misma arcilla, de consistencia espesa tipo crema','MO','4.3'],
+ ['B3','Construcción','4.6','Uniones débiles','Piezas se separan al secar o cocer','Superficies lisas, sin rayar',9,6,4,'Inspección y prueba de tracción suave','Rayar, humedecer y reforzar con rollos de arcilla','MO','4.6'],
+ ['B4','Construcción','4.4','Paredes de espesor desigual o muy gruesas','Grietas, estallidos y secado desigual','Placas sin guías de espesor',8,6,5,'Medir espesor con regla','Usar reglas guía de espesor uniforme y moderado','MO','4.4'],
+ ['B5','Construcción','3.4 / 4.6','Colapso o inclinación excesiva','Torre inestable','Base angosta o peso arriba',9,5,4,'Prueba de estabilidad en húmedo','Definir base y espesor mínimos en el diseño','DI','3.4'],
+ ['B6','Construcción','4.7','Aberturas y módulos no encajan tras la contracción','Retrabajo','Medidas sin considerar la contracción',6,6,3,'Probar encaje en húmedo','Usar la contracción medida en las baldosas de prueba','MO','4.2 y 4.7'],
+ ['B7','Diseño','3.4','Torre más grande que el horno','No se puede cocer completa','No medir la cámara del horno',9,4,3,'Medir cámara del horno','Medir el horno antes de definir medidas; diseñar piezas desmontables si hace falta','DI','3.4'],
+ ['C1','Secado','4.10','Grietas por secado rápido','Pérdida de piezas','Corrientes de aire o sol directo',8,7,5,'Revisión diaria de las piezas','Cubrir con plástico y destaparlo gradualmente','MO','4.10'],
+ ['C2','Secado','4.10','Alabeo o deformación','Piezas que no encajan','Apoyo irregular o secado por un solo lado',6,6,4,'Revisión visual y de encaje','Girar las piezas y secar sobre superficie plana porosa','MO','4.10'],
+ ['C3','Secado','4.10','Humedad residual al hornear','Estallido en el horno','Meter piezas que no están «hueso seco»',10,5,6,'Piezas frías al tacto y de color claro','Esperar más tiempo si hay duda antes de cargar el horno','MO','4.10'],
+ ['D1','Bizcochado','4.12','Calentamiento demasiado rápido al inicio','Estallidos y grietas','Programa de horno agresivo',9,5,6,'Revisar la curva de horno programada','Pedir curva lenta con pausa a baja temperatura para evaporar la humedad','MO / OP','4.11'],
+ ['D2','Bizcochado','4.12','Fisuras por choque térmico','Grietas','Impaciencia o apertura del horno',8,5,5,'Control de temperatura antes de abrir','Abrir solo cuando el horno esté tibio','MO / OP','4.12'],
+ ['D3','Bizcochado','4.12','Temperatura final incorrecta','Piezas subcocidas (frágiles) o sobrecocidas','Mala programación o control',7,4,6,'Conos pirométricos de control','Usar conos pirométricos y revisar la programación','MO / OP','4.11'],
+ ['D4','Bizcochado','4.11','Piezas en contacto o mal apoyadas','Se pegan o se deforman','Carga apretada',7,5,3,'Revisión de la carga','Separar las piezas y apoyarlas sobre planchas','MO','4.11'],
+ ['D5','Bizcochado','4.11','Retraso general','Acceso limitado al horno o fallo del equipo','Horno ajeno, fallas o cola de uso',7,6,3,'Confirmar turno con anticipación','Reservar turno con anticipación y tener una alternativa','LP','Desde 4.1'],
+ ['D6','Bizcochado','4.11 – 4.15','Lesión a personas','Accidente en el horno (quemaduras, polvo, humos)','Falta de protección o ventilación',9,3,4,'Revisión de EPP y ventilación','Usar guantes, mascarilla y ventilación; carga y descarga con el operador','LP','4.11'],
+ ['E1','Esmaltado','4.2 y 4.13','Esmalte incompatible con el rango de cocción o con la arcilla','Burbujas, escurrimiento o esmalte opaco','Esmalte para otra temperatura',8,5,5,'Baldosas de prueba y ficha del fabricante','Comprobarlo en baldosas de prueba y verificar el rango del fabricante','MO','4.2 y 4.13'],
+ ['E2','Esmaltado','4.13','Esmalte con plomo u otros componentes tóxicos','Riesgo para plantas y personas','Esmalte no apto',9,3,7,'Etiqueta y ficha de seguridad','Usar esmalte sin plomo, certificado para contacto con alimentos','DI','4.13'],
+ ['E3','Esmaltado','4.13','Capa muy gruesa o muy fina','Corrimientos o zonas sin cubrir','Aplicación irregular',6,6,4,'Inspección visual de cada capa','Aplicar 2–3 capas medidas y probar en baldosa','MO','4.13'],
+ ['E4','Esmaltado','4.13','Esmalte en la base','Pieza pegada al horno','Falta de cera o de limpieza',8,5,3,'Revisión antes de cargar','Encerar y limpiar la base y los puntos de apoyo','MO','4.13'],
+ ['E5','Esmaltado','4.2 y 4.13','Agrietado del esmalte (craquelado)','Pérdida de impermeabilidad y de aspecto','Diferencia de dilatación entre esmalte y arcilla',6,5,5,'Inspección tras la quema','Probar en baldosa; ajustar esmalte o espesor','MO','4.2 y 4.13'],
+ ['E6','Esmaltado','4.13','Poros (pinholes) o burbujas','Superficie con huecos y filtraciones','Esmaltar sobre polvo o aplicar mal',5,6,4,'Inspección visual','Limpiar la pieza con esponja húmeda antes de esmaltar','MO','4.13'],
+ ['E7','Esmaltado','4.13','Omisión de zonas','Esmalte no cubre el interior de los módulos; filtración y salinidad','Aplicación incompleta del interior',7,5,4,'Revisión interior con linterna','Esmaltar el interior y revisar en la inspección','MO','4.13'],
+ ['E8','Esmaltado','4.13','Pieza rota al esmaltar o manipular el bizcocho','Retrabajo','Bizcocho frágil',6,4,3,'Observación durante la manipulación','Manipular con ambas manos y apoyar sobre superficies acolchadas','MO','4.13'],
+ ['F1','Empatizar','1.3','Muestra insuficiente o sesgada en las entrevistas','Requisitos equivocados','Pocos usuarios o preguntas inducidas',6,5,6,'Revisión de la guía y del n.º de entrevistas','Definir el mínimo de entrevistas y validar la guía','IN','Antes de 1.3'],
+ ['F2','Definir','2.3','Requisitos ambiguos','Retrabajo en Idear y Prototipar','Síntesis débil',7,4,5,'Revisión de requisitos con el equipo','Revisar los requisitos con el equipo y con un usuario','LP','Fin de 2.3'],
+ ['F3','Testear','5.3','Falla en la prueba funcional','Arcilla porosa que se deshace o filtra en la prueba de humedad','Pieza sin esmaltar o con esmalte defectuoso',8,7,3,'Prueba de humedad previa en un módulo','Esmaltar interior y exterior; probar primero con un módulo','DI / TE','Antes de 5.3'],
+ ['F4','Transversal','4.10 – 4.15','Entrega tardía','Retraso por tiempos de espera (secado, hornos)','Subestimar los tiempos de espera',6,6,4,'Seguimiento del cronograma','Iniciar la construcción con holgura y definir plan B de fechas','LP','Al planear'],
+ ['F5','Transversal','Todas','Poca disponibilidad del equipo','Retraso general','Cruce con otras materias',5,5,3,'Calendario compartido','Mantener un calendario compartido y revisarlo cada semana','LP','Semanal']
+];
+
+const ESCALAS_G=[
+ ['1','Sin efecto perceptible'],
+ ['2–3','Menor: retoque o ajuste rápido'],
+ ['4–6','Moderado: retrabajo de una pieza o retraso corto'],
+ ['7–8','Grave: pérdida de piezas, retraso importante o falla funcional'],
+ ['9–10','Crítico: pérdida del prototipo o lesión a personas']
+];
+const ESCALAS_O=[
+ ['1','Remota'],
+ ['2–3','Baja'],
+ ['4–6','Moderada'],
+ ['7–8','Alta'],
+ ['9–10','Muy alta o casi segura']
+];
+const ESCALAS_D=[
+ ['1','Casi seguro se detecta antes de continuar'],
+ ['2–3','Alta probabilidad de detección'],
+ ['4–6','Probabilidad moderada'],
+ ['7–8','Baja: difícil de ver hasta que ocurre'],
+ ['9–10','Casi imposible de detectar antes del efecto']
+];
+
+const SUPUESTOS=[
+ 'Las horas de cada actividad son estimaciones del equipo; edítalas y el cronograma se recalcula.',
+ 'Las horas de ciclo de horno y enfriamiento (36 h y 34 h) son estimadas: confírmalas con quien opere el horno. Los tiempos de secado (48 h) también son estimados y dependen del clima.',
+ 'Las temperaturas de bizcochado y esmalte deben tomarse de la ficha técnica de la arcilla y del esmalte; este documento no fija valores.',
+ 'Las baldosas de prueba (4.2) se hornean junto con las piezas. Si se necesita validar el esmalte antes de esmaltar la torre, hay que prever una quema de prueba adicional.',
+ 'El porcentaje de contracción de la arcilla se mide en las baldosas de prueba y se usa para dimensionar aberturas y módulos.',
+ 'Roles propuestos (LP, IN, DI, MO, TE, OP): ajústalos a las personas reales del equipo.',
+ 'G, O y D del FMEA son juicios razonables del equipo, no mediciones; revísalos con tu experiencia en el taller.',
+ 'La numeración del WBS cambió respecto a versiones anteriores porque se agregaron compra, baldosas, carga de hornos y esmaltado.',
+ 'Los KPI y metas de Modelado de Procesos son sugerencias.',
+ 'Las columnas Inicio/Fin están en horas desde el inicio del proyecto; para fechas reales usa GanttProject con la fecha de arranque.'
+];
+
+function pill(npr){ return npr>200?'<span class="pill alta">Alta</span>':(npr>=120?'<span class="pill media">Media</span>':'<span class="pill baja">Baja</span>'); }
+function pillFrom(npr){ return pill(parseInt(npr)||0); }
+
+function renderIndicadores(){
+  let h='';
+  INDICADORES.forEach(function(i){
+    h+='<div class="mini"><div class="num">'+i[0]+'</div><div class="lbl">'+i[1]+'</div></div>';
+  });
+  document.getElementById('indicadoresGrid').innerHTML=h;
+}
+
+function renderResumenFase(){
+  let h='<tr><th>Fase</th><th>Horas (suma)</th><th>Inicio (h)</th><th>Fin (h)</th></tr>';
+  FASES.forEach(function(f){ h+='<tr><td><strong>'+f[1]+'</strong></td><td>'+f[2]+'</td><td>'+f[3]+'</td><td>'+f[4]+'</td></tr>'; });
+  document.getElementById('resumenFaseTabla').innerHTML=h;
+}
+
+function renderTopNpr(){
+  let h='<tr><th>Pos.</th><th>ID</th><th>Modo de falla</th><th>NPR</th><th>Prioridad</th></tr>';
+  TOP_NPR.forEach(function(r){ h+='<tr><td>'+r[0]+'</td><td><strong>'+r[1]+'</strong></td><td>'+r[2]+'</td><td>'+r[3]+'</td><td>'+r[4]+'</td></tr>'; });
+  document.getElementById('topNprTabla').innerHTML=h;
+}
+
+function renderFlujos(){
+  document.getElementById('flujoGeneral').innerHTML=
+    'EMPATIZAR <span class="arrow">➜</span> DEFINIR <span class="arrow">➜</span> IDEAR <span class="arrow">➜</span> PROTOTIPAR <span class="arrow">➜</span> TESTEAR';
+  document.getElementById('flujoPrototipar').innerHTML=
+    'Compra de arcilla <span class="arrow">➜</span> Baldosas de prueba <span class="arrow">➜</span> Amasado y barbotina <span class="arrow">➜</span> Placas y módulos <span class="arrow">➜</span> Cuerpo principal <span class="arrow">➜</span> Aberturas <span class="arrow">➜</span> Integración de módulos <span class="arrow">➜</span> Acabado <span class="arrow">➜</span> Secado <span class="arrow">➜</span> Bizcochado <span class="arrow">➜</span> Esmaltado <span class="arrow">➜</span> Quema de esmalte <span class="arrow">➜</span> Inspección';
+}
+
+function renderModelado(){
+  let h='<tr><th>Fase</th><th>Procedimientos</th><th>Inputs</th><th>Outputs</th><th>Método / Registro</th><th>Rol responsable</th><th>KPI</th><th>Meta sugerida</th></tr>';
+  PROCESOS.forEach(function(p){
+    h+='<tr><td><strong>'+p[0]+'</strong></td><td>'+p[1]+'</td><td>'+p[2]+'</td><td>'+p[3]+'</td><td>'+p[4]+'</td><td>'+p[5]+'</td><td>'+p[6]+'</td><td><strong>'+p[7]+'</strong></td></tr>';
+  });
+  document.getElementById('modeladoTabla').innerHTML=h;
+}
+
+function addRowHandlers(){}
+
+function renderWbs(){
+  document.getElementById('wbsTotales').innerHTML=
+    '<div class="mini"><div class="num">194</div><div class="lbl">Duración total del cronograma (h)</div></div>'+
+    '<div class="mini"><div class="num">85</div><div class="lbl">Horas de trabajo</div></div>'+
+    '<div class="mini"><div class="num">118</div><div class="lbl">Horas de espera (secado y hornos)</div></div>';
+  let h='<tr><th>ID</th><th>Actividad</th><th>Tipo</th><th>Horas</th><th>Predecesoras</th><th>Recursos asignados</th><th>Inicio temp.</th><th>Fin temp.</th><th>Inicio tardío</th><th>Fin tardío</th><th>Holgura</th><th>Ruta crítica</th></tr>';
+  WBS.forEach(function(r){
+    if(r[12]==='fase'){
+      h+='<tr class="phase"><td><strong>'+r[0]+'</strong></td><td colspan="2">'+r[1]+'</td><td><strong>'+r[4]+' h</strong></td><td></td><td></td><td></td><td></td><td></td><td></td><td>Holgura '+(r[9]||0)+' h</td><td></td></tr>';
+      return;
+    }
+    const cls = r[12]==='crit' ? 'crit' : 'no-crit';
+    const hol = r[11]==='0' ? '<span class="pill alta">0 (crítica)</span>' : '<span class="pill media">'+r[11]+'</span>';
+    h+='<tr class="'+cls+'"><td><strong>'+r[0]+'</strong></td><td>'+r[2]+'</td><td>'+r[3]+'</td><td class="e"><input class="ed" data-save="wbs_h_'+r[0]+'" type="number" min="1" value="'+r[4]+'" oninput="wbsHorasChange(this)"></td><td>'+r[5]+'</td><td><input class="ed" data-save="wbs_r_'+r[0]+'" type="text" value="'+r[6].replace(/"/g,'&quot;')+'" style="min-width:160px;"></td><td>'+r[7]+'</td><td>'+r[8]+'</td><td>'+r[9]+'</td><td>'+r[10]+'</td><td>'+hol+'</td><td>'+(r[12]==='crit'?'Sí':'No')+'</td></tr>';
+  });
+  document.getElementById('wbsTabla').innerHTML=h;
+}
+
+function renderRecursos(){
+  let h='<tr><th>Código / Recurso</th><th>Tipo</th><th>Descripción</th><th>Actividades donde se usa</th></tr>';
+  RECURSOS.forEach(function(r){
+    h+='<tr><td><strong>'+r[0]+'</strong></td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td></tr>';
+  });
+  document.getElementById('recursosTabla').innerHTML=h;
+}
+
+function npr(P){ return {npr:P[6]*P[7]*P[8], prior:pill(P[6]*P[7]*P[8])}; }
+
+function renderFmea(){
+  let h='<tr><th>ID</th><th>Etapa</th><th>WBS</th><th>Modo de falla</th><th>Efecto</th><th>Causa</th><th>G</th><th>O</th><th>D</th><th>NPR</th><th>Prioridad</th><th>Control de detección</th><th>Acción preventiva</th><th>Responsable</th><th>Plazo</th></tr>';
+  FMEA.forEach(function(r){
+    const n=npr(r);
+    h+='<tr data-fmea="'+r[0]+'"><td><strong>'+r[0]+'</strong></td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td>'+r[4]+'</td><td>'+r[5]+'</td>'+
+       '<td class="e"><input class="ed f-g" type="number" min="1" max="10" value="'+r[6]+'"></td>'+
+       '<td class="e"><input class="ed f-o" type="number" min="1" max="10" value="'+r[7]+'"></td>'+
+       '<td class="e"><input class="ed f-d" type="number" min="1" max="10" value="'+r[8]+'"></td>'+
+       '<td><strong class="f-npr">'+n.npr+'</strong></td>'+
+       '<td class="f-pri">'+n.prior+'</td>'+
+       '<td>'+r[9]+'</td><td>'+r[10]+'</td><td>'+r[11]+'</td><td>'+r[12]+'</td></tr>';
+  });
+  document.getElementById('fmeaTabla').innerHTML=h;
+  document.querySelectorAll('#fmeaTabla .f-g,#fmeaTabla .f-o,#fmeaTabla .f-d').forEach(function(inp){
+    inp.addEventListener('input',function(){ fmeaRecalc(inp.closest('tr')); });
+  });
+}
+
+function fmeaRecalc(tr){
+  const g=parseInt((tr.querySelector('.f-g')||{}).value||0)||0;
+  const o=parseInt((tr.querySelector('.f-o')||{}).value||0)||0;
+  const d=parseInt((tr.querySelector('.f-d')||{}).value||0)||0;
+  const total=g*o*d;
+  tr.querySelector('.f-npr').textContent=total;
+  tr.querySelector('.f-pri').innerHTML=pill(total);
+  persist();
+}
+
+function renderEscalas(){
+  function rows(a){ return '<ul class="note-list" style="margin-bottom:4px;">'+a.map(function(x){return '<li><strong style="font-family:Space Grotesk,monospace;color:var(--green);">'+x[0]+'</strong> — '+x[1]+'</li>';}).join('')+'</ul>'; }
+  document.getElementById('escalaG').innerHTML=rows(ESCALAS_G);
+  document.getElementById('escalaO').innerHTML=rows(ESCALAS_O);
+  document.getElementById('escalaD').innerHTML=rows(ESCALAS_D);
+  document.getElementById('escalaPrioridad').innerHTML=
+    '<li><strong style="color:#B43C3C;">Alta</strong> — NPR mayor a 200: acción inmediata.</li>'+
+    '<li><strong style="color:#A8752A;">Media</strong> — NPR de 120 a 200: acción planificada.</li>'+
+    '<li><strong style="color:var(--green);">Baja</strong> — NPR menor a 120: seguimiento.</li>';
+}
+
+function renderSupuestos(){
+  let h='';
+  SUPUESTOS.forEach(function(s,i){ h+='<li>'+s+'</li>'; });
+  document.getElementById('supuestosLista').innerHTML=h;
+}
+
+/* ── Persistencia ── */
+function persist(){
+  const data={};
+  document.querySelectorAll('[data-save]').forEach(function(el){
+    let v;
+    if(el.tagName==='INPUT'){ v=el.value; } else { v=el.textContent; }
+    data[el.getAttribute('data-save')]=v;
+  });
+  // FMEA values
+  document.querySelectorAll('#fmeaTabla tbody tr, #fmeaTabla tr[data-fmea]').forEach(function(tr){
+    const id=tr.getAttribute('data-fmea'); if(!id) return;
+    data['fmea_'+id+'_g']=tr.querySelector('.f-g').value;
+    data['fmea_'+id+'_o']=tr.querySelector('.f-o').value;
+    data['fmea_'+id+'_d']=tr.querySelector('.f-d').value;
+  });
+  try{ localStorage.setItem(LS2,JSON.stringify(data)); }catch(e){}
+}
+
+function guardarTodo(){
+  persist();
+  const t=document.getElementById('toast');
+  if(t){ t.textContent='✅ Cambios guardados'; t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); },2000); }
+}
+
+function wbsHorasChange(inp){
+  persist();
+}
+
+function restaurarTodo(){
+  require2();
+  const t=document.getElementById('toast');
+  if(t){ t.textContent='↩ Valores restaurados a los originales'; t.classList.add('show');
+    setTimeout(function(){ t.classList.remove('show'); },2000); }
+}
+
+function require2(){
+  try{ localStorage.removeItem(LS2); }catch(e){}
+  location.reload();
+}
+
+function exportarJSON(){
+  const data={};
+  const wbs={}, fmea={};
+  document.querySelectorAll('#wbsTabla input[data-save]').forEach(function(el){ wbs[el.getAttribute('data-save')]=el.value; });
+  document.querySelectorAll('#fmeaTabla tr[data-fmea]').forEach(function(tr){
+    const id=tr.getAttribute('data-fmea');
+    fmea[id]={ G:tr.querySelector('.f-g').value,O:tr.querySelector('.f-o').value,D:tr.querySelector('.f-d').value,NPR:tr.querySelector('.f-npr').textContent };
+  });
+  data.wbs=wbs; data.fmea=fmea;
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob); a.download='hydrokultivoz_editable.json'; a.click();
+}
+
+function loadSaved(){
+  let data=null;
+  try{ data=JSON.parse(localStorage.getItem(LS2)||'null'); }catch(e){}
+  if(!data) return;
+  Object.keys(data).forEach(function(k){
+    const el=document.querySelector('[data-save="'+k+'"]');
+    if(el){ if(el.tagName==='INPUT') el.value=data[k]; else el.textContent=data[k]; }
+  });
+  Object.keys(data).forEach(function(k){
+    if(k.indexOf('fmea_')===0){
+      const parts=k.split('_'); const id=parts[1]; const f=parts[2];
+      const tr=document.querySelector('#fmeaTabla tr[data-fmea="'+id+'"]');
+      if(tr){ tr.querySelector('.f-'+f).value=data[k]; }
+    }
+  });
+  document.querySelectorAll('#fmeaTabla tr[data-fmea]').forEach(function(tr){ fmeaRecalc(tr); });
+}
+
+function renderAll(){
+  renderIndicadores(); renderResumenFase(); renderTopNpr(); renderFlujos();
+  renderModelado(); renderWbs(); renderRecursos(); renderFmea();
+  renderEscalas(); renderSupuestos(); loadSaved();
+}
+
+renderAll();
+</script>
 </body>
 </html>
