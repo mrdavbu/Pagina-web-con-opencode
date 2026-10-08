@@ -46,6 +46,15 @@
   .pill.alta{ background:rgba(180,60,60,.12); color:#B43C3C; }
   .pill.media{ background:rgba(200,140,40,.14); color:#A8752A; }
   .pill.baja{ background:rgba(46,125,82,.12); color:var(--green); }
+  .roles{ display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-top:6px; }
+  @media(max-width:1000px){ .roles{ grid-template-columns:repeat(3,1fr); } }
+  @media(max-width:680px){ .roles{ grid-template-columns:1fr; } }
+  .role{ background:var(--card); border:1px solid var(--line-strong); border-radius:14px; padding:20px 16px; text-align:center; transition:transform .2s, box-shadow .2s; }
+  .role:hover{ transform:translateY(-3px); box-shadow:var(--shadow-sm); }
+  .role .ava{ width:58px; height:58px; margin:0 auto 12px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px; color:#fff; background:var(--green); box-shadow:0 4px 12px rgba(46,125,82,.25); }
+  .role .code{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; color:var(--text); margin-bottom:2px; }
+  .role .name{ font-family:'Source Serif 4',serif; font-size:14.5px; font-weight:600; color:var(--green); margin-bottom:8px; }
+  .role .job{ font-family:'Source Serif 4',serif; font-size:13.5px; line-height:1.5; color:var(--text-dim); }
 </style>
 </head>
 <body data-section="definir">
@@ -117,6 +126,13 @@
     <div class="tbl-wrap" style="margin-top:18px;">
       <table class="tbl" id="modeladoTabla"></table>
     </div>
+  </div>
+
+  <!-- ══════════════ EQUIPO DEL PROYECTO ══════════════ -->
+  <div class="card" id="equipo">
+    <h2 style="margin:0 0 4px;">👥 Equipo del proyecto</h2>
+    <p class="kicker">Roles de trabajo · representación visual del equipo de Diseño Estratégico</p>
+    <div class="roles" id="equipoRoles"></div>
   </div>
 
   <!-- ══════════════ WBS / GANTT ══════════════ -->
@@ -375,6 +391,24 @@ const SUPUESTOS=[
 function pill(npr){ return npr>200?'<span class="pill alta">Alta</span>':(npr>=120?'<span class="pill media">Media</span>':'<span class="pill baja">Baja</span>'); }
 function pillFrom(npr){ return pill(parseInt(npr)||0); }
 
+const ROLES=[
+ ['LP','Líder de proyecto','Coordina, planea y decide.','#2E7D52'],
+ ['IN','Investigador / UX','Entrevistas, síntesis de hallazgos y requisitos.','#3E8E7E'],
+ ['DI','Diseñador','Bocetos, medidas, concepto y memoria de diseño.','#4F9E8A'],
+ ['MO','Modelador / Ceramista','Construcción en arcilla y esmaltado.','#B8956A'],
+ ['TE','Tester / Documentador','Pruebas, registros, fotos e informe.','#8A6B4E']
+];
+
+function renderRoles(){
+  let h='';
+  ROLES.forEach(function(r){
+    h+='<div class="role"><div class="ava" style="background:'+r[3]+';">'+r[0]+'</div>'+
+       '<div class="code">'+r[0]+'</div><div class="name">'+r[1]+'</div>'+
+       '<div class="job">'+r[2]+'</div></div>';
+  });
+  document.getElementById('equipoRoles').innerHTML=h;
+}
+
 function renderIndicadores(){
   let h='';
   INDICADORES.forEach(function(i){
@@ -560,7 +594,7 @@ function loadSaved(){
 
 function renderAll(){
   renderIndicadores(); renderResumenFase(); renderTopNpr(); renderFlujos();
-  renderModelado(); renderWbs(); renderRecursos(); renderFmea();
+  renderModelado(); renderRoles(); renderWbs(); renderRecursos(); renderFmea();
   renderEscalas(); renderSupuestos(); loadSaved();
 }
 
