@@ -769,11 +769,12 @@ if ('serviceWorker' in navigator) {
     const days = Math.max(1, Math.floor((new Date() - new Date(config.startDate + 'T00:00:00')) / 86400000) + 1);
     $('#statDay').textContent = days;
     $('#statEntries').textContent = entries.length;
+    const todayIso = new Date().toISOString().slice(0,10);
     if (entries.length){
       const last = entries.reduce((a,b) => new Date(a.date) > new Date(b.date) ? a : b);
-      $('#statLast').textContent = formatDate(last.date);
+      $('#statLast').textContent = formatDate(new Date(last.date) > new Date(todayIso) ? last.date : todayIso);
     } else {
-      $('#statLast').textContent = '—';
+      $('#statLast').textContent = formatDate(todayIso);
     }
 
     renderChart();
