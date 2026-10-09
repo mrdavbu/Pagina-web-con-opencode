@@ -55,6 +55,31 @@
   .role .code{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; color:var(--text); margin-bottom:2px; }
   .role .name{ font-family:'Source Serif 4',serif; font-size:14.5px; font-weight:600; color:var(--green); margin-bottom:8px; }
   .role .job{ font-family:'Source Serif 4',serif; font-size:13.5px; line-height:1.5; color:var(--text-dim); }
+  .sec-title{ font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; color:var(--text); margin:26px 0 4px; letter-spacing:-.01em; }
+  .sec-sub{ font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--text-dim); text-transform:uppercase; letter-spacing:.1em; margin:0 0 14px; }
+  .body-text{ font-family:'Source Serif 4',serif; font-size:16.5px; line-height:1.65; color:var(--text-dim); margin:0 0 12px; }
+  .check-list{ list-style:none; margin:0 0 14px; padding:0; }
+  .check-list li{ font-family:'Source Serif 4',serif; font-size:15.5px; line-height:1.55; color:var(--text-dim); padding:7px 0 7px 28px; position:relative; border-bottom:1px solid var(--line); }
+  .check-list li:last-child{ border-bottom:none; }
+  .check-list li::before{ content:'▸'; position:absolute; left:4px; color:var(--green); font-family:'Space Grotesk',sans-serif; }
+  .dofa{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media(max-width:680px){ .dofa{ grid-template-columns:1fr; } }
+  .dofa-box{ border-radius:14px; padding:20px 22px; }
+  .dofa-box h4{ font-family:'Space Grotesk',sans-serif; font-size:15px; text-transform:uppercase; letter-spacing:.06em; margin:0 0 10px; }
+  .dofa-box ul{ margin:0; padding-left:18px; }
+  .dofa-box li{ font-family:'Source Serif 4',serif; font-size:14.5px; line-height:1.55; color:var(--text-dim); margin-bottom:6px; }
+  .dofa-fort{ background:rgba(46,125,82,.07); border:1px solid rgba(46,125,82,.18); }
+  .dofa-fort h4{ color:var(--green); }
+  .dofa-deb{ background:rgba(180,80,60,.06); border:1px solid rgba(180,80,60,.18); }
+  .dofa-deb h4{ color:#B4503C; }
+  .dofa-opor{ background:rgba(50,120,180,.06); border:1px solid rgba(50,120,180,.18); }
+  .dofa-opor h4{ color:#2E6BA8; }
+  .dofa-amen{ background:rgba(120,70,150,.06); border:1px solid rgba(120,70,150,.18); }
+  .dofa-amen h4{ color:#784B96; }
+  .benefit-table th{ background:var(--green-soft); }
+  .conclusion{ background:linear-gradient(135deg,rgba(46,125,82,.09),rgba(46,125,82,.04)); border:2px solid rgba(46,125,82,.22); border-radius:16px; padding:26px 30px; margin-top:8px; }
+  .conclusion h3{ font-family:'Space Grotesk',sans-serif; font-size:19px; color:var(--green); margin:0 0 10px; }
+  .conclusion p{ font-family:'Source Serif 4',serif; font-size:16.5px; line-height:1.65; color:var(--text-dim); margin:0 0 10px; }
 </style>
 </head>
 <body data-section="definir">
@@ -87,6 +112,125 @@
     <div class="mini"><h4>Frescura sin comprar</h4><p>¿Cómo podríamos ofrecer a Camila cilantro, perejil y albahaca frescos sin comprarlos ni depender de electricidad?</p></div>
     <div class="mini"><h4>Calor del cilantro</h4><p>¿Cómo podríamos ubicar el módulo de cilantro para que no reciba el calor que sí toleran perejil y albahaca?</p></div>
     <div class="mini"><h4>Gesto de cocina</h4><p>¿Cómo podríamos hacer que cuidar el sistema se sienta como un gesto de cocina, no como una tarea técnica?</p></div>
+  </div>
+
+  <!-- ══════════════ DESC. GENERAL ══════════════ -->
+  <div class="card" id="dvh">
+    <h2 style="margin:0 0 4px;">🧭 Torre hidropónica de arcilla</h2>
+    <p class="kicker">Análisis de deseabilidad, viabilidad y factibilidad · evaluación de la oportunidad</p>
+
+    <div class="sec-title">1 · Descripción general del proyecto</div>
+    <div class="sec-sub">La propuesta en una frase</div>
+    <p class="body-text">La torre hidropónica de arcilla es una propuesta de cultivo vertical que integra varios espacios para plantas en una estructura compacta. Combina el aprovechamiento del espacio, la posibilidad de cultivar en el entorno doméstico y el valor estético de la cerámica. Su desarrollo contempla un cuerpo principal, módulos de cultivo y una base/reservorio.</p>
+
+    <div class="sec-title">2 · Deseabilidad: usuario objetivo y necesidades</div>
+    <div class="sec-sub">¿Para quién y para qué?</div>
+    <p class="body-text">El usuario objetivo potencial está compuesto por personas que viven en contextos urbanos, cuentan con espacios limitados y tienen interés en cultivar plantas en casa. También puede resultar pertinente para aficionados a la jardinería y usuarios que buscan objetos domésticos que combinen utilidad y estética. Este segmento es una hipótesis inicial que deberá validarse mediante entrevistas, observación y pruebas con usuarios.</p>
+    <div class="sec-sub">2.1 · Necesidades identificadas</div>
+    <ul class="check-list">
+      <li>Aprovechar balcones, patios, terrazas u otras áreas reducidas mediante una organización vertical del cultivo.</li>
+      <li>Tener varios puntos de cultivo integrados en una sola estructura.</li>
+      <li>Incorporar plantas al entorno cotidiano mediante un producto con presencia visual y acabado cerámico.</li>
+      <li>Interactuar con el crecimiento de plantas comestibles o aromáticas dentro del hogar.</li>
+    </ul>
+    <div class="sec-sub">2.2 · Beneficios potenciales para el usuario</div>
+    <div class="tbl-wrap">
+      <table class="tbl benefit-table">
+        <tr><th>Necesidad</th><th>Beneficio potencial</th></tr>
+        <tr><td>Disponibilidad limitada de espacio</td><td>Concentra distintos puntos de cultivo en una estructura vertical.</td></tr>
+        <tr><td>Organización del cultivo</td><td>Integra los módulos en un solo producto.</td></tr>
+        <tr><td>Interés por la jardinería doméstica</td><td>Permite tener plantas cerca y observar su crecimiento.</td></tr>
+        <tr><td>Preferencia estética</td><td>La arcilla aporta una apariencia natural, artesanal y decorativa.</td></tr>
+      </table>
+    </div>
+    <p class="body-text" style="margin-top:14px;">La deseabilidad se fundamenta, por ahora, en la relación entre estas necesidades y las características previstas. No constituye una comprobación de demanda: debe validarse si los usuarios reconocen el problema, valoran la solución y estarían dispuestos a pagar por ella.</p>
+
+    <div class="sec-title">3 · Viabilidad: oportunidad de mercado y diferenciación</div>
+    <div class="sec-sub">¿Hay lugar para esta propuesta?</div>
+    <p class="body-text">La oportunidad de mercado se ubica en la intersección entre el cultivo doméstico, el aprovechamiento del espacio y el diseño de objetos funcionales. La torre puede diferenciarse no solo por su capacidad de cultivo, sino también por la materialidad cerámica, el acabado artesanal y su integración visual en el hogar.</p>
+    <div class="sec-sub">3.1 · Competencia y productos sustitutos</div>
+    <ul class="check-list">
+      <li>Torres hidropónicas comerciales y sistemas verticales de cultivo.</li>
+      <li>Macetas tradicionales y jardines verticales.</li>
+      <li>Huertas domésticas en recipientes convencionales.</li>
+      <li>Sistemas de cultivo elaborados principalmente en plástico.</li>
+    </ul>
+    <p class="body-text">La diferenciación propuesta es la combinación de cultivo vertical, módulos integrados e identidad material cerámica. Esto podría atraer a usuarios que valoren tanto la función como la apariencia; debe comprobarse comparando alternativas reales y realizando pruebas de preferencia.</p>
+    <div class="sec-sub">3.2 · Factores del entorno que deben evaluarse</div>
+    <ul class="check-list">
+      <li><strong style="color:var(--text); font-family:'Space Grotesk',sans-serif;">Económicos:</strong> costo de materiales, energía de cocción, mano de obra, transporte y precio aceptable para el usuario.</li>
+      <li><strong style="color:var(--text); font-family:'Space Grotesk',sans-serif;">Socioculturales:</strong> interés por el cultivo doméstico, la decoración con plantas y los productos artesanales.</li>
+      <li><strong style="color:var(--text); font-family:'Space Grotesk',sans-serif;">Tecnológicos:</strong> disponibilidad de hornos, herramientas, moldes y soluciones adecuadas para el sistema de riego.</li>
+      <li><strong style="color:var(--text); font-family:'Space Grotesk',sans-serif;">Político-legales y ambientales:</strong> requisitos aplicables al producto, manejo de materiales y prácticas de producción.</li>
+    </ul>
+    <p class="body-text">La viabilidad comercial no puede darse por demostrada sin datos de mercado. Se requiere investigar competidores, precios, preferencias, canales de venta y disposición de pago.</p>
+
+    <div class="sec-title">4 · Factibilidad: desarrollo técnico y producción</div>
+    <div class="sec-sub">¿Se puede construir y producir?</div>
+    <p class="body-text">La fabricación puede organizarse mediante procesos cerámicos conocidos: preparación de la arcilla, modelado, unión de piezas, secado, cocción, acabado y ensamblaje. La estructura puede dividirse en cuerpo principal, módulos de cultivo, base, tapa y elementos del sistema de agua para facilitar su fabricación, revisión y eventual estandarización.</p>
+    <div class="sec-sub">4.1 · Producción por lotes</div>
+    <p class="body-text">Para avanzar hacia una producción de mediana escala, se propone fabricar simultáneamente varios componentes y organizar las tareas en lotes. Mientras unas piezas se secan o están en cocción, pueden prepararse componentes de otro lote. Esta organización podría mejorar el aprovechamiento del tiempo de trabajo y de la capacidad del horno.</p>
+    <div class="highlight">
+      <b style="color:var(--green); font-family:'IBM Plex Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:.08em;">Ejemplo de lote piloto</b>
+      <p style="margin:6px 0 0; color:var(--text-dim); font-family:'Source Serif 4',serif; line-height:1.6; font-size:16px;">Un lote piloto podría contemplar <strong style="color:var(--text);">10 cuerpos, 10 bases y 60 módulos</strong> (si el diseño final utiliza seis módulos por torre). Cifra ilustrativa: debe ajustarse según dimensiones reales, capacidad del horno, tasas de rechazo y demanda esperada.</p>
+    </div>
+    <div class="sec-sub">4.2 · Variables técnicas que deben controlarse</div>
+    <ul class="check-list">
+      <li>Espesor y uniformidad de las paredes.</li>
+      <li>Contracción y deformación durante el secado y la cocción.</li>
+      <li>Humedad residual antes de introducir las piezas al horno.</li>
+      <li>Resistencia de las uniones entre módulos y cuerpo principal.</li>
+      <li>Ajuste de los módulos, estabilidad de la torre y resistencia de la base.</li>
+      <li>Estanqueidad, limpieza y funcionamiento del sistema de agua.</li>
+      <li>Resistencia del acabado a la humedad y facilidad de mantenimiento.</li>
+    </ul>
+
+    <div class="sec-title">5 · Matriz DOFA</div>
+    <div class="sec-sub">Fortalezas · Debilidades · Oportunidades · Amenazas</div>
+    <div class="dofa">
+      <div class="dofa-box dofa-fort"><h4>Fortalezas</h4><ul>
+        <li>Aprovechamiento vertical del espacio.</li>
+        <li>Integra cultivo y función decorativa.</li>
+        <li>Identidad material cerámica y acabado artesanal.</li>
+        <li>Posibilidad de organizar el producto en módulos.</li>
+      </ul></div>
+      <div class="dofa-box dofa-deb"><h4>Debilidades</h4><ul>
+        <li>Peso y fragilidad potencial frente a golpes.</li>
+        <li>Tiempos de secado y cocción.</li>
+        <li>Necesidad de controlar contracción, espesores y uniones.</li>
+        <li>Dependencia de horno y equipo cerámico.</li>
+      </ul></div>
+      <div class="dofa-box dofa-opor"><h4>Oportunidades</h4><ul>
+        <li>Interés potencial por el cultivo doméstico.</li>
+        <li>Integración de plantas en espacios adecuados.</li>
+        <li>Diferenciación por materialidad y estética.</li>
+        <li>Desarrollo de variantes de tamaño o configuración.</li>
+      </ul></div>
+      <div class="dofa-box dofa-amen"><h4>Amenazas</h4><ul>
+        <li>Alternativas plásticas o convencionales de menor precio.</li>
+        <li>Roturas durante almacenamiento y transporte.</li>
+        <li>Variación de costos de energía, esmaltes y materias primas.</li>
+        <li>Percepción de complejidad del cultivo hidropónico.</li>
+      </ul></div>
+    </div>
+
+    <div class="sec-title">6 · Validaciones necesarias antes de escalar</div>
+    <div class="sec-sub">Lo que falta comprobar</div>
+    <ul class="check-list">
+      <li>Realizar pruebas de uso con usuarios del segmento objetivo y registrar dificultades, preferencias y comentarios.</li>
+      <li>Probar estabilidad, resistencia, encaje de módulos y comportamiento frente a la humedad.</li>
+      <li>Medir tiempos reales de fabricación, secado, cocción, acabado y ensamblaje.</li>
+      <li>Registrar piezas defectuosas y calcular la tasa de rechazo por lote.</li>
+      <li>Cotizar materiales, energía, mano de obra, sistema de riego, empaque y transporte.</li>
+      <li>Comparar el costo unitario con el precio que el usuario estaría dispuesto a pagar.</li>
+      <li>Evaluar empaque y transporte para reducir el riesgo de rotura.</li>
+    </ul>
+
+    <div class="conclusion">
+      <h3>7 · Conclusión</h3>
+      <p>La torre hidropónica de arcilla presenta potencial de desarrollo al combinar cultivo vertical, diseño de producto y material cerámico. Su deseabilidad potencial se relaciona con el aprovechamiento del espacio y la integración de cultivo y estética; su viabilidad depende de que exista un segmento de usuarios que valore esta propuesta y acepte su precio; y su factibilidad técnica se apoya en procesos cerámicos conocidos y en la posibilidad de organizar componentes y tareas por lotes.</p>
+      <p>El principal reto para avanzar hacia una producción de mediana escala será estandarizar las piezas y controlar la variabilidad del material, los tiempos de secado y cocción, la resistencia, la tasa de defectos y los costos. La siguiente etapa debe centrarse en validar el prototipo con usuarios y obtener datos técnicos y económicos antes de afirmar que el producto es rentable o que existe una demanda comprobada.</p>
+    </div>
   </div>
 
   <!-- ══════════════ INDICADORES ══════════════ -->
