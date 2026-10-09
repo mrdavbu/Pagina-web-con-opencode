@@ -233,22 +233,6 @@
     </div>
   </div>
 
-  <!-- ══════════════ INDICADORES ══════════════ -->
-  <div class="card" id="indicadores">
-    <h2 style="margin:0 0 4px;">📊 Indicadores generales</h2>
-    <p class="kicker">Planeación Design Thinking – torre hidropónica de arcilla terracota · WBS · Gantt · FMEA</p>
-    <div class="grid4" id="indicadoresGrid"></div>
-  </div>
-
-  <!-- ══════════════ RESUMEN POR FASE ══════════════ -->
-  <div class="card" id="resumenFase">
-    <h2 style="margin:0 0 4px;">🗺️ Resumen por fase</h2>
-    <p class="kicker">Horas encadenadas · Inicio y fin en horas desde el arranque del proyecto</p>
-    <div class="tbl-wrap">
-      <table class="tbl" id="resumenFaseTabla"></table>
-    </div>
-  </div>
-
   <!-- ══════════════ RUTA CRÍTICA ══════════════ -->
   <div class="card" id="topNPR">
     <h2 style="margin:0 0 4px;">🔥 Riesgos con mayor NPR</h2>
@@ -348,24 +332,6 @@
 <script>
 const LS='hydro_definir_v1';
 const LS2='hydro_definir_datos_v1';
-
-const INDICADORES=[
- ['194','Duración total (h encadenadas)'],
- ['85','Horas de trabajo'],
- ['118','Horas de espera (secado y hornos)'],
- ['33','Actividades en el WBS'],
- ['34','Riesgos identificados'],
- ['7','Riesgos de prioridad alta'],
- ['360','NPR máximo']
-];
-
-const FASES=[
- ['1','Empatizar','14','0','11'],
- ['2','Definir','8','11','19'],
- ['3','Idear','11','19','30'],
- ['4','Prototipar','157','30','183'],
- ['5','Testear','13','55','194']
-];
 
 const TOP_NPR=[
  ['1','B1','Burbujas de aire dentro de la masa','360','Alta'],
@@ -553,20 +519,6 @@ function renderRoles(){
   document.getElementById('equipoRoles').innerHTML=h;
 }
 
-function renderIndicadores(){
-  let h='';
-  INDICADORES.forEach(function(i){
-    h+='<div class="mini"><div class="num">'+i[0]+'</div><div class="lbl">'+i[1]+'</div></div>';
-  });
-  document.getElementById('indicadoresGrid').innerHTML=h;
-}
-
-function renderResumenFase(){
-  let h='<tr><th>Fase</th><th>Horas (suma)</th><th>Inicio (h)</th><th>Fin (h)</th></tr>';
-  FASES.forEach(function(f){ h+='<tr><td><strong>'+f[1]+'</strong></td><td>'+f[2]+'</td><td>'+f[3]+'</td><td>'+f[4]+'</td></tr>'; });
-  document.getElementById('resumenFaseTabla').innerHTML=h;
-}
-
 function renderTopNpr(){
   let h='<tr><th>Pos.</th><th>ID</th><th>Modo de falla</th><th>NPR</th><th>Prioridad</th></tr>';
   TOP_NPR.forEach(function(r){ h+='<tr><td>'+r[0]+'</td><td><strong>'+r[1]+'</strong></td><td>'+r[2]+'</td><td>'+r[3]+'</td><td>'+r[4]+'</td></tr>'; });
@@ -737,7 +689,7 @@ function loadSaved(){
 }
 
 function renderAll(){
-  renderIndicadores(); renderResumenFase(); renderTopNpr(); renderFlujos();
+  renderTopNpr(); renderFlujos();
   renderModelado(); renderRoles(); renderWbs(); renderRecursos(); renderFmea();
   renderEscalas(); renderSupuestos(); loadSaved();
 }
