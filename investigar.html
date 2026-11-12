@@ -107,29 +107,8 @@
     <!-- ===================================================================
          ACCESO A DASHBOARDS ESPECIALIZADOS
          =================================================================== -->
-    <section class="grid-2 reveal-on-scroll" style="margin-bottom: 36px;" id="dashboards-hub" data-anchor-title="Dashboards Especializados">
-      <div class="card card-green" style="margin-bottom: 0;">
-        <span class="card-kicker">Mapeo de Productos Comerciales</span>
-        <h3 class="card-title">📊 Dashboard Comparativo de Mercado</h3>
-        <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.55;">
-          Base de datos de más de 15 productos reales disponibles en Colombia (Mercado Libre, Indulife, etc.) con precios en COP, materiales, consumo de energía y capacidad de plantas.
-        </p>
-        <div style="margin-top:auto; display:flex; gap:10px; flex-wrap:wrap; padding-top:14px;">
-          <a class="btn btn-primary btn-sm" href="hidroponia-dashboard/dashboard.html" target="_blank">Abrir Dashboard de Mercado →</a>
-          <a class="btn btn-outline btn-sm" href="comparador.html" target="_blank">Comparador de Hidrocultivos</a>
-        </div>
-      </div>
-
-      <div class="card card-terra" style="margin-bottom: 0;">
-        <span class="card-kicker">Benchmarking Internacional de Diseño</span>
-        <h3 class="card-title">🎨 Dashboard de Referentes de Diseño</h3>
-        <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.55;">
-          Proyectos premiados en Red Dot, iF Design Award y publicaciones de Behance. Análisis morfológico, elecciones de material, acabados cerámicos y bibliografía técnica.
-        </p>
-        <div style="margin-top:auto; display:flex; gap:10px; flex-wrap:wrap; padding-top:14px;">
-          <a class="btn btn-terracotta btn-sm" href="dashboard-diseno.html" target="_blank">Abrir Dashboard de Diseño →</a>
-        </div>
-      </div>
+    <section class="reveal-on-scroll" style="margin-bottom: 36px;" id="dashboards-hub" data-anchor-title="Dashboards Especializados">
+      <div data-dashboard-embed></div>
     </section>
 
     <!-- ===================================================================
@@ -407,5 +386,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
+<script src="dashboard-embed.js"></script>
 </body>
 </html>

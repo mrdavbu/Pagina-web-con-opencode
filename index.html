@@ -242,11 +242,11 @@ body { margin: 0; padding: 0; background: var(--bg); overflow-x: hidden; }
           <div class="stat"><span class="num" id="statDay">—</span><span class="lbl">Día de proyecto</span></div>
           <div class="stat"><span class="num" id="statEntries">0</span><span class="lbl">Entradas</span></div>
           <div class="stat"><span class="num" id="statLast">—</span><span class="lbl">Última actualización</span></div>
-          <a class="stat" href="hidroponia-dashboard/dashboard.html" target="_blank" style="align-items:center; text-decoration:none; color:var(--green); gap:4px; cursor:pointer;">
+          <a class="stat" href="#dashboards" data-dbe-tab="mercado" style="align-items:center; text-decoration:none; color:var(--green); gap:4px; cursor:pointer;">
             <span class="num" style="font-size:14px;">📊</span>
             <span class="lbl" style="font-size:12px; text-transform:none;">Dashboard comparativo</span>
           </a>
-          <a class="stat" href="comparador.html" target="_blank" style="align-items:center; text-decoration:none; color:var(--terra); gap:4px; cursor:pointer;">
+          <a class="stat" href="#dashboards" data-dbe-tab="comparador" style="align-items:center; text-decoration:none; color:var(--terra); gap:4px; cursor:pointer;">
             <span class="num" style="font-size:14px;">🔬</span>
             <span class="lbl" style="font-size:12px; text-transform:none;">Comparador de hidrocultivos</span>
           </a>
@@ -264,6 +264,10 @@ body { margin: 0; padding: 0; background: var(--bg); overflow-x: hidden; }
           <div class="cat-bars" id="catBarsArea"></div>
         </div>
       </div>
+
+      <!-- Dashboards incrustados -->
+      <div class="heat-title" id="dashboards" style="margin:8px 0 12px;">Dashboards interactivos</div>
+      <div data-dashboard-embed></div>
 
       <div class="view-switch" id="viewSwitch"></div>
 
@@ -1063,5 +1067,6 @@ if ('serviceWorker' in navigator) {
   subscribeRealtime();
 })();
 </script>
+<script src="dashboard-embed.js"></script>
 </body>
 </html>
