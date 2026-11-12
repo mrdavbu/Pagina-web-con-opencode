@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Visión del Producto · HydroKultivoz · UIS: Elevator pitch, objetivos SMART, presupuesto estimado, modelo de negocio, roadmap y glosario técnico filtrable.">
+<title>Visión del Producto · HydroKultivoz · UIS</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/design-system.css">
+<link rel="stylesheet" href="shared-nav.css">
+
+<style>
+/* Estilos específicos de Visión */
+.pitch-banner {
+  background: linear-gradient(135deg, rgba(46, 125, 82, 0.1) 0%, rgba(200, 90, 58, 0.1) 100%);
+  border: 2px solid var(--border-terra);
+  border-radius: var(--radius-xl);
+  padding: 36px 40px;
+  margin-bottom: 32px;
+}
+.pitch-quote {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.35;
+  margin: 0;
+}
+
+/* Canvas de modelo de negocio simplificado */
+.bmc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 20px 0;
+}
+@media (max-width: 900px) {
+  .bmc-grid { grid-template-columns: 1fr; }
+}
+.bmc-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+}
+.bmc-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--terra-600);
+  margin-bottom: 8px;
+}
+
+/* Glosario filtrable */
+.glossary-search-box {
+  width: 100%;
+  max-width: 380px;
+  margin-bottom: 20px;
+}
+.glossary-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+.glossary-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  transition: all var(--transition-fast);
+}
+.glossary-term {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--green-600);
+  margin-bottom: 4px;
+}
+.glossary-category {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 8px;
+  display: block;
+}
+.glossary-def {
+  font-size: 0.88rem;
+  color: var(--text-body);
+  line-height: 1.5;
+  margin: 0;
+}
+</style>
+</head>
+
+<body data-section="vision">
+
+<main class="page-wrapper" id="main-content">
+  <div class="container">
+
+    <!-- Encabezado de la página -->
+    <header class="page-header reveal-on-scroll">
+      <div class="eyebrow">
+        <span class="dot"></span> Sección · Visión · UIS
+      </div>
+      <h1>Visión Estratégica del Producto</h1>
+      <p class="page-lead">
+        Horizonte del proyecto: propuesta de valor en una frase, objetivos SMART, modelo de negocio preliminar, presupuesto estimado, roadmap de escalado y glosario técnico interactivo.
+      </p>
+      
+      <!-- Mini-navegación de anclas -->
+      <div data-mini-nav></div>
+    </header>
+
+    <!-- ===================================================================
+         1. EL PROYECTO EN UNA FRASE (ELEVATOR PITCH)
+         =================================================================== -->
+    <section class="pitch-banner reveal-on-scroll" id="pitch" data-anchor-title="Elevator Pitch">
+      <span class="card-kicker">Elevator Pitch · Tesis Central</span>
+      <p class="pitch-quote">
+        «HydroKultivoz es una torre vertical de cultivo en arcilla artesanal que devuelve a las cocinas urbanas el placer de cortar cilantro, perejil y albahaca vivos, funcionando 100% por física pasiva sin plástico, sin cables y sin ruido.»
+      </p>
+    </section>
+
+    <!-- ===================================================================
+         2. OBJETIVOS SMART DEL PROYECTO
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="objetivos-smart" data-anchor-title="Objetivos SMART">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Metas Estratégicas</span>
+          <h2 class="card-title">🎯 Objetivos SMART (Criterios Claros y Medibles)</h2>
+        </div>
+        <span class="badge-status status-completa">Metas Delimitadas</span>
+      </div>
+
+      <div class="grid-2">
+        <div style="background:var(--bg-surface); padding:20px; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+          <strong style="color:var(--green-600); font-family:var(--font-display);">S · Específico (Specific)</strong>
+          <p style="font-size:0.86rem; color:var(--text-body); margin:6px 0 0; line-height:1.55;">
+            Diseñar y prototipar una torre cerámica de cultivo hidropónico pasivo vertical para 3 especies de hierbas culinarias adaptada al espacio de cocina de Camila.
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface); padding:20px; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+          <strong style="color:var(--terra-600); font-family:var(--font-display);">M · Medible (Measurable)</strong>
+          <p style="font-size:0.86rem; color:var(--text-body); margin:6px 0 0; line-height:1.55;">
+            Lograr autonomía de riego ≥ 7 días, 0% de plásticos en contacto con agua, consumo eléctrico de 0 W y satisfacción de usuario ≥ 4.5/5.
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface); padding:20px; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+          <strong style="color:var(--status-advanced); font-family:var(--font-display);">A · Alcanzable (Achievable)</strong>
+          <p style="font-size:0.86rem; color:var(--text-body); margin:6px 0 0; line-height:1.55;">
+            Fabricable con técnicas alfareras artesanales y horneable en el horno cerámico existente en la Escuela de Diseño Industrial de la UIS.
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface); padding:20px; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+          <strong style="color:var(--warning); font-family:var(--font-display);">R · Relevante & T · Temporal (Time-bound)</strong>
+          <p style="font-size:0.86rem; color:var(--text-body); margin:6px 0 0; line-height:1.55;">
+            Resuelve el desperdicio doméstico de hierbas y se concluye con validación de prototipo 1:1 antes del 5 de diciembre de 2026.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         3. PRESUPUESTO ESTIMADO DE PROTOTIPADO Y LOTE INICIAL
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="presupuesto-estimado" data-anchor-title="Presupuesto">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Estimación de Costos (COP)</span>
+          <h2 class="card-title">💰 Presupuesto Estimado de Prototipado y Lote</h2>
+        </div>
+        <span class="badge-por-completar">Precios por confirmar</span>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Rubro / Concepto</th>
+              <th>Costo Prototipo 1:1</th>
+              <th>Costo Lote (10 uds)</th>
+              <th>Observación Técnica</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Arcilla terracota seleccionada (25 kg)</td>
+              <td>$ 35.000 COP</td>
+              <td>$ 220.000 COP</td>
+              <td>Arcilla local santandereana de grano fino</td>
+            </tr>
+            <tr>
+              <td>Quema de bizcochado y curva de horno</td>
+              <td>$ 45.000 COP</td>
+              <td>$ 180.000 COP</td>
+              <td>Horno eléctrico taller UIS / taller aliado</td>
+            </tr>
+            <tr>
+              <td>Sustratos minerales inertes (perlita + grava)</td>
+              <td>$ 18.000 COP</td>
+              <td>$ 80.000 COP</td>
+              <td>Sacos para llenado de cuencos</td>
+            </tr>
+            <tr>
+              <td>Esmaltes cerámicos libres de plomo</td>
+              <td>$ 25.000 COP</td>
+              <td>$ 90.000 COP</td>
+              <td>Aplicación en reservorio interior</td>
+            </tr>
+            <tr>
+              <td>Semillas y esquejes iniciales (cilantro/albahaca)</td>
+              <td>$ 15.000 COP</td>
+              <td>$ 60.000 COP</td>
+              <td>Plántulas madre para aclimatación</td>
+            </tr>
+            <tr style="background:var(--bg-highlight); font-weight:700;">
+              <td>TOTAL ESTIMADO DIRECTO</td>
+              <td><strong style="color:var(--green-600);">$ 138.000 COP</strong></td>
+              <td><strong style="color:var(--green-600);">$ 630.000 COP ($ 63.000 / ud)</strong></td>
+              <td>Precio objetivo de venta estimado: $ 160.000 COP</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         4. MODELO DE NEGOCIO PRELIMINAR (CANVAS SIMPLIFICADO)
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="modelo-negocio" data-anchor-title="Modelo de Negocio">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Factibilidad Comercial</span>
+          <h2 class="card-title">📊 Modelo de Negocio Preliminar</h2>
+        </div>
+        <span class="badge-status status-avanzada">Estructurado</span>
+      </div>
+
+      <div class="bmc-grid">
+        <div class="bmc-card">
+          <div class="bmc-title">Segmentos de Clientes</div>
+          <p style="font-size:0.85rem; color:var(--text-body); margin:0;">
+            Profesionales urbanos que cocinan en casa, amantes de la gastronomía fresca, el interiorismo y la sostenibilidad sin plástico.
+          </p>
+        </div>
+
+        <div class="bmc-card">
+          <div class="bmc-title">Canales de Distribución</div>
+          <p style="font-size:0.85rem; color:var(--text-body); margin:0;">
+            Venta directa digital (e-commerce propio), ferias de diseño local santandereano y tiendas concepto de gastronomía y hogar.
+          </p>
+        </div>
+
+        <div class="bmc-card">
+          <div class="bmc-title">Fuentes de Ingresos</div>
+          <p style="font-size:0.85rem; color:var(--text-body); margin:0;">
+            Venta de la torre cerámica completa (Kit inicial) + venta recurrente de kits de recarga de semillas orgánicas y nutrientes minerales.
+          </p>
+        </div>
+
+        <div class="bmc-card">
+          <div class="bmc-title">Socios Clave</div>
+          <p style="font-size:0.85rem; color:var(--text-body); margin:0;">
+            Talleres artesanales cerámicos de Santander, viveros locales de plántulas aromáticas y Escuela de Diseño Industrial UIS.
+          </p>
+        </div>
+
+        <div class="bmc-card">
+          <div class="bmc-title">Actividades Clave</div>
+          <p style="font-size:0.85rem; color:var(--text-body); margin:0;">
+            Control de calidad de porosidad, estandarización de moldes de yeso, ensamble, empaque de cartón reciclable y soporte al usuario.
+          </p>
+        </div>
+
+        <div class="bmc-card">
+          <div class="bmc-title">Estructura de Costos</div>
+          <p style="font-size:0.85rem; color:var(--text-body); margin:0;">
+            Arcilla, energía de quema en horno, mano de obra artesanal, sustratos y empaque biodegradable anti-impacto.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         5. ROADMAP DE ITERACIONES FUTURAS
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="roadmap-futuro" data-anchor-title="Roadmap Futuro">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Evolución de Producto</span>
+          <h2 class="card-title">🗺️ Roadmap de Iteraciones Futuras</h2>
+        </div>
+        <span class="badge-status status-en-curso">Roadmap Trazado</span>
+      </div>
+
+      <div class="grid-3">
+        <div style="background:var(--bg-surface); padding:20px; border-radius:var(--radius-sm); border-top:3px solid var(--terra-600);">
+          <strong style="color:var(--terra-600); font-family:var(--font-display);">Versión 1.0 (Actual UIS)</strong>
+          <p style="font-size:0.84rem; color:var(--text-body); margin:6px 0 0; line-height:1.55;">
+            Torre monocuerpo de arcilla bizcochada artesanal para 3 hierbas (cilantro, perejil, albahaca) con reservorio basal y recarga manual semanal.
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface); padding:20px; border-radius:var(--radius-sm); border-top:3px solid var(--green-600);">
+          <strong style="color:var(--green-600); font-family:var(--font-display);">Versión 2.0 (Lote Semi-Industrial)</strong>
+          <p style="font-size:0.84rem; color:var(--text-body); margin:6px 0 0; line-height:1.55;">
+            Estandarización por colada en moldes de yeso, flotador de corcho para indicación de nivel y acabado exterior con engobes de colores de tierra.
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface); padding:20px; border-radius:var(--radius-sm); border-top:3px solid var(--status-advanced);">
+          <strong style="color:var(--status-advanced); font-family:var(--font-display);">Versión 3.0 (Familia de Productos)</strong>
+          <p style="font-size:0.84rem; color:var(--text-body); margin:6px 0 0; line-height:1.55;">
+            Línea complementaria para orégano, romero y tomillo; versión mural suspendida para paredes de cocina y empaque regalo en fibra de fique.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         6. GLOSARIO TÉCNICO FILTRABLE CON BUSCADOR
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="glosario-tecnico" data-anchor-title="Glosario Técnico">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Terminología Hidropónica y Cerámica</span>
+          <h2 class="card-title">📖 Glosario Técnico del Proyecto</h2>
+        </div>
+        <span class="badge-status status-completa">Buscador en Vivo</span>
+      </div>
+
+      <input type="text" class="search glossary-search-box" id="glossarySearch" placeholder="Buscar término (ej. capilaridad, pH, bizcochado)...">
+
+      <div class="glossary-list" id="glossaryContainer">
+        <!-- Términos inyectados / filtrados -->
+        <div class="glossary-card" data-term="capilaridad hidroponia fisica">
+          <span class="glossary-category">Principio Físico</span>
+          <h4 class="glossary-term">Capilaridad</h4>
+          <p class="glossary-def">Propiedad de los líquidos para ascender por tubos o microporos de un material contra la gravedad, clave para alimentar las raíces a través de la arcilla.</p>
+        </div>
+
+        <div class="glossary-card" data-term="bizcochado ceramica coccion">
+          <span class="glossary-category">Proceso Cerámico</span>
+          <h4 class="glossary-term">Bizcochado</h4>
+          <p class="glossary-def">Primera cocción de la arcilla (típicamente a 980 °C) que consolida la resistencia mecánica de la pieza manteniendo la microporosidad abierta.</p>
+        </div>
+
+        <div class="glossary-card" data-term="barbotina union arcilla">
+          <span class="glossary-category">Material Cerámico</span>
+          <h4 class="glossary-term">Barbotina</h4>
+          <p class="glossary-def">Mezcla líquida o cremosa de arcilla y agua utilizada como adhesivo natural para soldar cuencos y placas en estado cuero.</p>
+        </div>
+
+        <div class="glossary-card" data-term="conductividad ec nutrientes">
+          <span class="glossary-category">Cultivo Hidropónico</span>
+          <h4 class="glossary-term">EC (Conductividad Eléctrica)</h4>
+          <p class="glossary-def">Medida de la concentración de sales y minerales disueltos en el agua nutritiva, expresada en mS/cm (óptimo 1.2 a 1.6 para hierbas aromáticas).</p>
+        </div>
+
+        <div class="glossary-card" data-term="ph acidez alcalinidad cultivo">
+          <span class="glossary-category">Cultivo Hidropónico</span>
+          <h4 class="glossary-term">pH</h4>
+          <p class="glossary-def">Escala que mide la acidez o alcalinidad del agua. Para cilantro, perejil y albahaca debe mantenerse entre 5.8 y 6.5 para óptima absorción.</p>
+        </div>
+
+        <div class="glossary-card" data-term="sustrato inerte perlita cascarilla">
+          <span class="glossary-category">Cultivo Hidropónico</span>
+          <h4 class="glossary-term">Sustrato Inerte</h4>
+          <p class="glossary-def">Material estéril (como perlita o piedra pómez) que no aporta nutrientes por sí mismo, sino que sostiene físicamente la planta y oxigena las raíces.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script src="js/design-system.js"></script>
+
+<!-- Script de filtrado en tiempo real del glosario -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var searchInput = document.getElementById('glossarySearch');
+  var cards = document.querySelectorAll('.glossary-card');
+
+  if (searchInput) {
+    searchInput.addEventListener('input', function (e) {
+      var query = e.target.value.toLowerCase().trim();
+      cards.forEach(function (card) {
+        var text = (card.getAttribute('data-term') + ' ' + card.textContent).toLowerCase();
+        if (!query || text.indexOf(query) !== -1) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  }
+});
+</script>
+
+</body>
+</html>

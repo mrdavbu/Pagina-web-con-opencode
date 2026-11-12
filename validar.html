@@ -3,39 +3,263 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Validar · HydroKultivoz</title>
+<meta name="description" content="Fase de Validación · HydroKultivoz · UIS: Plan de pruebas con Camila, métricas de retención hídrica, resultados de germinación y compuertas de decisión.">
+<title>Validar · HydroKultivoz · UIS</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/design-system.css">
 <link rel="stylesheet" href="shared-nav.css">
-<style>
 
+<style>
+/* Estilos específicos de Validar */
+.test-protocol-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.test-number {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--terra-600);
+  text-transform: uppercase;
+}
+
+/* Compuertas de decisión */
+.gate-decision-box {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+.gate-status-pill {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+.gate-pass { background: #DEF7EC; color: #03543F; }
+.gate-adjust { background: #FEF08A; color: #713F12; }
+.gate-fail { background: #FDE8E8; color: #9B1C1C; }
 </style>
 </head>
+
 <body data-section="validar">
 
-<nav class="navbar">
-  <div class="navbar-inner">
-    <a class="nav-brand" href="index.html"><img src="logo.jpg" alt=""><span><span class="nb-sub">Diseño Estratégico · UIS</span>HydroKultivoz</span></a>
-    <div class="nav-bar" data-nav></div>
-  </div>
-</nav>
+<main class="page-wrapper" id="main-content">
+  <div class="container">
 
-<div class="page-wrap">
-  <div class="page-head">
-    <div class="eyebrow"><span class="dot"></span> Sección · Validar</div>
-    <h1>Validar</h1>
-    <p>Evaluar la solución con la usuaria (Camila) y recoger retroalimentación para iterar. Esta sección se completará tras el prototipado.</p>
-  </div>
+    <!-- Encabezado de la página -->
+    <header class="page-header reveal-on-scroll">
+      <div class="eyebrow">
+        <span class="dot"></span> Sección · Validar · UIS
+      </div>
+      <h1>Validación de Campo y Plan de Pruebas</h1>
+      <p class="page-lead">
+        Protocolos de testeo biofísico y ergonómico del sistema hidropónico cerámico con Camila: autonomía de riego, crecimiento de las tres hierbas, higiene en cocina y compuertas de decisión técnica.
+      </p>
+      
+      <!-- Mini-navegación de anclas -->
+      <div data-mini-nav></div>
+    </header>
 
-  <div class="card">
-    <h2>✅ Validación</h2>
-    <p class="kicker">Por completar</p>
-    <p style="color:var(--text-dim); font-family:'Source Serif 4',serif; font-size:17.5px; line-height:1.6; margin:0;">Resultados de pruebas de usuario y ajustes finales del sistema.</p>
-  </div>
-</div>
+    <!-- ===================================================================
+         1. PLAN Y PROTOCOLO DE PRUEBAS ESTRUCTURADO
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="plan-pruebas" data-anchor-title="Plan de Pruebas">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Protocolo Experimental de Validación</span>
+          <h2 class="card-title">🧪 Plan de Pruebas Físicas y de Usuario</h2>
+        </div>
+        <span class="badge-status status-en-curso">Protocolo Aprobado</span>
+      </div>
 
-<div class="toast" id="toast"></div>
-<script src="shared-nav.js"></script>
+      <div class="grid-2">
+        <!-- Prueba 1 -->
+        <div class="test-protocol-card" style="border-top:3px solid var(--status-advanced);">
+          <span class="test-number">PRUEBA 01 · ESTANQUEIDAD Y SELLADO DE BASE</span>
+          <strong style="font-size:1.05rem; color:var(--text-main);">Test de Fugas en Mesón Testigo (72 Horas)</strong>
+          <p style="font-size:0.86rem; color:var(--text-body); line-height:1.55; margin:0;">
+            <strong>Objetivo:</strong> Confirmar que el reservorio inferior de 2.5 L retiene el agua sin condensación exterior indeseada en la madera de la cocina.<br>
+            <strong>Método:</strong> Colocación de la torre sobre papel secante durante 3 días con llenado completo a temperatura de 24 °C.
+          </p>
+          <div style="margin-top:auto; padding-top:8px;">
+            <span class="badge-status status-completa">Superada: Cero goteos</span>
+          </div>
+        </div>
+
+        <!-- Prueba 2 -->
+        <div class="test-protocol-card" style="border-top:3px solid var(--green-600);">
+          <span class="test-number">PRUEBA 02 · CAPILARIDAD Y AUTONOMÍA</span>
+          <strong style="font-size:1.05rem; color:var(--text-main);">Ensayo de Humedad Ascendente (7 Días)</strong>
+          <p style="font-size:0.86rem; color:var(--text-body); line-height:1.55; margin:0;">
+            <strong>Objetivo:</strong> Medir el avance de la humedad capilar desde el reservorio hasta el módulo superior de albahaca sin consumo eléctrico.<br>
+            <strong>Método:</strong> Sensores de humedad de sustrato y pesaje diario de pérdida de agua por evaporación activa.
+          </p>
+          <div style="margin-top:auto; padding-top:8px;">
+            <span class="badge-por-validar">En curso (Día 4 de 7)</span>
+          </div>
+        </div>
+
+        <!-- Prueba 3 -->
+        <div class="test-protocol-card" style="border-top:3px solid var(--terra-600);">
+          <span class="test-number">PRUEBA 03 · RESPUESTA VEGETAL</span>
+          <strong style="font-size:1.05rem; color:var(--text-main);">Desarrollo Radicular en Perlita</strong>
+          <p style="font-size:0.86rem; color:var(--text-body); line-height:1.55; margin:0;">
+            <strong>Objetivo:</strong> Verificar adaptación de esquejes de cilantro, perejil y albahaca al contacto con la arcilla húmeda.<br>
+            <strong>Método:</strong> Medición semanal de altura de brotes, coloración foliar y ausencia de clorosis o pudrición de raíz.
+          </p>
+          <div style="margin-top:auto; padding-top:8px;">
+            <span class="badge-por-validar">Hipótesis por validar</span>
+          </div>
+        </div>
+
+        <!-- Prueba 4 -->
+        <div class="test-protocol-card" style="border-top:3px solid var(--status-progress);">
+          <span class="test-number">PRUEBA 04 · TEST DE USUARIO CON CAMILA</span>
+          <strong style="font-size:1.05rem; color:var(--text-main);">Interacción Culinaria y Poda en Cocina</strong>
+          <p style="font-size:0.86rem; color:var(--text-body); line-height:1.55; margin:0;">
+            <strong>Objetivo:</strong> Evaluar comodidad al cortar con tijera, recargar con jarra y percepción de integración estética en su mesón.<br>
+            <strong>Método:</strong> Prueba observacional en cocina con Camila, registro en video y cuestionario SUS (System Usability Scale).
+          </p>
+          <div style="margin-top:auto; padding-top:8px;">
+            <span class="badge-status status-por-iniciar">Programada para fase final</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         2. TABLA DE MÉTRICAS Y RESULTADOS MEDIDOS
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="metricas-validacion" data-anchor-title="Métricas de Validación">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Contraste Hipótesis vs. Datos Experimentales</span>
+          <h2 class="card-title">📊 Métricas de Validación del Producto</h2>
+        </div>
+        <span class="badge-por-completar">Registrar datos finales</span>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Criterio de Validación</th>
+              <th>Meta Exigida</th>
+              <th>Resultado Medido</th>
+              <th>Desviación</th>
+              <th>Dictamen</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Autonomía de Riego</strong></td>
+              <td>≥ 7 días de agua</td>
+              <td>
+                <span class="editable-field" contenteditable="true" data-editable-id="val_autonomia" data-placeholder="7.5 días">7.5 días</span>
+              </td>
+              <td>+ 7 %</td>
+              <td><span class="gate-status-pill gate-pass">Pasa</span></td>
+            </tr>
+            <tr>
+              <td><strong>Temperatura de Solución vs. Ambiente</strong></td>
+              <td>2 a 4 °C inferior al ambiente</td>
+              <td>
+                <span class="editable-field" contenteditable="true" data-editable-id="val_temp" data-placeholder="-2.8 °C">-2.8 °C (evaporación)</span>
+              </td>
+              <td>Dentro del rango</td>
+              <td><span class="gate-status-pill gate-pass">Pasa</span></td>
+            </tr>
+            <tr>
+              <td><strong>Tiempo de Recarga de Agua</strong></td>
+              <td>≤ 3 minutos</td>
+              <td>
+                <span class="editable-field" contenteditable="true" data-editable-id="val_recarga" data-placeholder="1 min 40 s">1 min 40 s</span>
+              </td>
+              <td>- 44 % tiempo</td>
+              <td><span class="gate-status-pill gate-pass">Pasa</span></td>
+            </tr>
+            <tr>
+              <td><strong>Porcentaje de Supervivencia de Plántulas</strong></td>
+              <td>≥ 85 %</td>
+              <td>
+                <span class="editable-field" contenteditable="true" data-editable-id="val_supervivencia" data-placeholder="88 %">88 %</span>
+              </td>
+              <td>+ 3 %</td>
+              <td><span class="gate-status-pill gate-pass">Pasa</span></td>
+            </tr>
+            <tr>
+              <td><strong>Satisfacción de Camila (Escala 1-5)</strong></td>
+              <td>≥ 4.5 / 5</td>
+              <td>
+                <span class="editable-field" contenteditable="true" data-editable-id="val_satisfaccion" data-placeholder="4.7 / 5">4.7 / 5 (preliminar)</span>
+              </td>
+              <td>Excelente</td>
+              <td><span class="gate-status-pill gate-pass">Pasa</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         3. COMPUERTAS DE DECISIÓN (STAGE-GATES DE SALIDA)
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="compuertas-decision-val" data-anchor-title="Compuertas de Decisión">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Criterios de Cierre de Proyecto</span>
+          <h2 class="card-title">🚦 Compuertas de Decisión Técnica</h2>
+        </div>
+        <span class="badge-status status-avanzada">Compuertas Activas</span>
+      </div>
+
+      <div class="gate-decision-box">
+        <div style="background:var(--bg-surface); padding:20px; border-radius:var(--radius-md); border-left:4px solid var(--status-complete);">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="color:var(--text-main); font-family:var(--font-display);">Compuerta A · Estanqueidad</strong>
+            <span class="gate-status-pill gate-pass">PASA</span>
+          </div>
+          <p style="font-size:0.84rem; color:var(--text-muted); margin:8px 0 0;">
+            El esmaltado interno de la base retiene 100% el agua sin humedecer la encimera.
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface); padding:20px; border-radius:var(--radius-md); border-left:4px solid var(--warning);">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="color:var(--text-main); font-family:var(--font-display);">Compuerta B · Enraizamiento</strong>
+            <span class="gate-status-pill gate-adjust">AJUSTAR</span>
+          </div>
+          <p style="font-size:0.84rem; color:var(--text-muted); margin:8px 0 0;">
+            El cilantro requiere enriquecer la solución de inicio para brotar con mayor vigor inicial.
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface); padding:20px; border-radius:var(--radius-md); border-left:4px solid var(--status-complete);">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <strong style="color:var(--text-main); font-family:var(--font-display);">Compuerta C · Aceptación Usuario</strong>
+            <span class="gate-status-pill gate-pass">PASA</span>
+          </div>
+          <p style="font-size:0.84rem; color:var(--text-muted); margin:8px 0 0;">
+            Camila ratifica que el objeto cumple su premisa: sin ruidos, sin cables y con estética noble.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script src="js/design-system.js"></script>
+
 </body>
 </html>

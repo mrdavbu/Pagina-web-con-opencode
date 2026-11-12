@@ -3,94 +3,429 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Idear · HydroKultivoz</title>
+<meta name="description" content="Fase de Ideación · HydroKultivoz · UIS: Alternativas de concepto, matriz de selección ponderada, galería de bocetos y proceso de construcción en arcilla.">
+<title>Idear · HydroKultivoz · UIS</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/design-system.css">
 <link rel="stylesheet" href="shared-nav.css">
+
 <style>
-  .card{ margin-bottom:28px; }
-  .build-card{ background:rgba(255,255,255,0.97); border:1px solid rgba(46,125,82,0.12); border-radius:16px; padding:28px 30px; box-shadow:var(--shadow-sm); }
-  .build-step{ display:flex; gap:18px; padding:20px 0; border-bottom:1px solid rgba(46,125,82,0.08); }
-  .build-step:last-child{ border-bottom:none; padding-bottom:4px; }
-  .build-num{ flex:0 0 52px; height:52px; border-radius:12px; background:var(--green); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px; box-shadow:0 4px 12px rgba(46,125,82,0.2); }
-  .build-step h3{ font-family:'Space Grotesk',sans-serif; font-size:19px; color:var(--text); margin:0 0 6px; letter-spacing:-.01em; }
-  .build-step p{ font-family:'Source Serif 4',serif; font-size:16px; line-height:1.6; color:var(--text-dim); margin:0; }
-  @media(max-width:600px){ .build-step{ flex-direction:column; gap:10px; } .build-num{ flex:0 0 44px; height:44px; font-size:17px; } }
+/* Estilos específicos de Idear */
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin: 20px 0;
+}
+.concept-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform var(--transition-base), border-color var(--transition-base);
+}
+.concept-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--green-600);
+}
+.concept-card.selected {
+  border-color: var(--green-600);
+  background: var(--bg-highlight);
+  box-shadow: 0 0 0 2px var(--green-600);
+}
+
+/* Galería de bocetos interactiva */
+.sketches-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+.sketch-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.sketch-item:hover {
+  transform: scale(1.02);
+  border-color: var(--terra-600);
+}
+.sketch-img-wrap {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: var(--bg-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.sketch-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.sketch-info {
+  padding: 12px 14px;
+}
+.sketch-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0 0 4px 0;
+}
+.sketch-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Pasos de construcción artesanal */
+.build-step {
+  display: flex;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.build-step:last-child {
+  border-bottom: none;
+}
+.build-num {
+  flex: 0 0 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  background: var(--terra-600);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  box-shadow: 0 4px 12px rgba(200, 90, 58, 0.25);
+}
 </style>
 </head>
+
 <body data-section="idear">
 
-<nav class="navbar">
-  <div class="navbar-inner">
-    <a class="nav-brand" href="index.html"><img src="logo.jpg" alt=""><span><span class="nb-sub">Diseño Estratégico · UIS</span>HydroKultivoz</span></a>
-    <div class="nav-bar" data-nav></div>
+<main class="page-wrapper" id="main-content">
+  <div class="container">
+
+    <!-- Encabezado de la página -->
+    <header class="page-header reveal-on-scroll">
+      <div class="eyebrow">
+        <span class="dot"></span> Sección · Idear · UIS
+      </div>
+      <h1>Ideación, Conceptos y Modelado en Arcilla</h1>
+      <p class="page-lead">
+        Exploración de alternativas morfológicas, selección ponderada del concepto definitivo, banco de bocetos y las 6 etapas de construcción manual de la torre de arcilla.
+      </p>
+      
+      <!-- Mini-navegación de anclas -->
+      <div data-mini-nav></div>
+    </header>
+
+    <!-- ===================================================================
+         1. ALTERNATIVAS DE CONCEPTO
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="alternativas-concepto" data-anchor-title="Alternativas de Concepto">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Divergencia Morfológica</span>
+          <h2 class="card-title">💡 Tres Alternativas de Concepto</h2>
+        </div>
+        <span class="badge-status status-completa">Concepto Ganador Seleccionado</span>
+      </div>
+
+      <div class="concept-grid">
+        <!-- Concepto A -->
+        <div class="concept-card selected">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span class="badge-status status-completa">Seleccionado</span>
+            <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--green-600);">Puntaje: 92/100</span>
+          </div>
+          <h3 style="font-size:1.15rem; color:var(--text-main); margin:4px 0 8px;">Concepto A: Monolito Cónico con Cuencos Esculpidos</h3>
+          <p style="font-size:0.86rem; color:var(--text-body); line-height:1.55; margin:0 0 14px;">
+            Cuerpo cónico continuo de arcilla con tres bolsillos integrados con barbotina. Flujo gravitacional interno directo desde la tapa y evaporación homogénea en toda la superficie.
+          </p>
+          <div style="margin-top:auto; font-size:0.82rem; color:var(--text-muted); border-top:1px dashed var(--border-subtle); padding-top:10px;">
+            <strong>Ventaja:</strong> Estructura robusta, sin fugas entre junturas y alta inercia térmica.<br>
+            <strong>Desafío:</strong> Requiere controlar espesor uniforme al unir las placas.
+          </div>
+        </div>
+
+        <!-- Concepto B -->
+        <div class="concept-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span class="badge-status status-por-iniciar">Descartado</span>
+            <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-faint);">Puntaje: 74/100</span>
+          </div>
+          <h3 style="font-size:1.15rem; color:var(--text-main); margin:4px 0 8px;">Concepto B: Torre de Anillos Modulares Apilables</h3>
+          <p style="font-size:0.86rem; color:var(--text-body); line-height:1.55; margin:0 0 14px;">
+            Tres módulos cilíndricos independientes encajados por pestaña macho-hembra. Cada anillo aloja una hierba específica.
+          </p>
+          <div style="margin-top:auto; font-size:0.82rem; color:var(--text-muted); border-top:1px dashed var(--border-subtle); padding-top:10px;">
+            <strong>Ventaja:</strong> Fácil limpieza individual de cada cuenco.<br>
+            <strong>Desafío:</strong> Riesgo crítico de filtración en las uniones por contracción diferencial en el horno.
+          </div>
+        </div>
+
+        <!-- Concepto C -->
+        <div class="concept-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <span class="badge-status status-por-iniciar">Descartado</span>
+            <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-faint);">Puntaje: 68/100</span>
+          </div>
+          <h3 style="font-size:1.15rem; color:var(--text-main); margin:4px 0 8px;">Concepto C: Columna Hexagonal con Ménsulas</h3>
+          <p style="font-size:0.86rem; color:var(--text-body); line-height:1.55; margin:0 0 14px;">
+            Prisma facetado de seis caras con pequeñas bandejas suspendidas para raíces en capilaridad por mecha.
+          </p>
+          <div style="margin-top:auto; font-size:0.82rem; color:var(--text-muted); border-top:1px dashed var(--border-subtle); padding-top:10px;">
+            <strong>Ventaja:</strong> Geometría moderna y facetada.<br>
+            <strong>Desafío:</strong> Aristas propensas a agrietarse en el secado cerámico y alto riesgo de rotura.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         2. MATRIZ DE SELECCIÓN CON CRITERIOS PONDERADOS
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="matriz-seleccion" data-anchor-title="Matriz de Selección">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Evaluación de Concepto (Matriz Pugh Ponderada)</span>
+          <h2 class="card-title">⚖️ Matriz de Decisión de Concepto</h2>
+        </div>
+        <span class="badge-status status-completa">Decisión Validada</span>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Criterio de Evaluación</th>
+              <th>Peso (%)</th>
+              <th>Concepto A: Monolito Cónico</th>
+              <th>Concepto B: Módulos Apilables</th>
+              <th>Concepto C: Columna Hexagonal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Factibilidad cerámica (cero fisuras al secar)</td>
+              <td><strong>25%</strong></td>
+              <td><span style="color:var(--green-600); font-weight:700;">9 / 10</span> (2.25)</td>
+              <td>6 / 10 (1.50)</td>
+              <td>5 / 10 (1.25)</td>
+            </tr>
+            <tr>
+              <td>Estanqueidad del reservorio (cero fugas de agua)</td>
+              <td><strong>25%</strong></td>
+              <td><span style="color:var(--green-600); font-weight:700;">10 / 10</span> (2.50)</td>
+              <td>6 / 10 (1.50)</td>
+              <td>7 / 10 (1.75)</td>
+            </tr>
+            <tr>
+              <td>Ergonomía de cosecha de tijera para Camila</td>
+              <td><strong>20%</strong></td>
+              <td><span style="color:var(--green-600); font-weight:700;">9 / 10</span> (1.80)</td>
+              <td>8 / 10 (1.60)</td>
+              <td>7 / 10 (1.40)</td>
+            </tr>
+            <tr>
+              <td>Estética y calidez de diseño en cocina urbana</td>
+              <td><strong>15%</strong></td>
+              <td><span style="color:var(--green-600); font-weight:700;">9 / 10</span> (1.35)</td>
+              <td>7 / 10 (1.05)</td>
+              <td>8 / 10 (1.20)</td>
+            </tr>
+            <tr>
+              <td>Dimensionamiento compatible con el horno UIS</td>
+              <td><strong>15%</strong></td>
+              <td><span style="color:var(--green-600); font-weight:700;">9 / 10</span> (1.35)</td>
+              <td>9 / 10 (1.35)</td>
+              <td>8 / 10 (1.20)</td>
+            </tr>
+            <tr style="background:var(--bg-highlight); font-weight:700;">
+              <td>PUNTAJE PONDERADO TOTAL</td>
+              <td>100%</td>
+              <td><strong style="font-size:1.15rem; color:var(--green-600);">9.25 / 10 (GANADOR)</strong></td>
+              <td>7.00 / 10</td>
+              <td>6.80 / 10</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         3. GALERÍA DE BOCETOS CONCEPTUALES
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="galeria-bocetos" data-anchor-title="Galería de Bocetos">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Exploración Formal y Morfológica</span>
+          <h2 class="card-title">✏️ Galería de Bocetos del Proyecto</h2>
+        </div>
+        <span class="badge-por-completar">Subir nuevos bocetos</span>
+      </div>
+
+      <p style="color:var(--text-muted); font-size:0.92rem;">
+        Bocetos analíticos de forma, inclinación de cuencos y distribución vertical del cultivo:
+      </p>
+
+      <div class="sketches-gallery">
+        <!-- Boceto 1 -->
+        <div class="sketch-item">
+          <div class="sketch-img-wrap">
+            <!-- Representación vectorial estilizada de boceto técnico -->
+            <svg viewBox="0 0 200 150" width="100%" height="100%" style="background:#FFFDF9;">
+              <rect width="200" height="150" fill="#FFFDF9"/>
+              <path d="M 60,130 L 70,30 L 130,30 L 140,130 Z" fill="none" stroke="#A84B31" stroke-width="2" stroke-dasharray="2,2"/>
+              <path d="M 50,130 C 50,140 150,140 150,130 Z" fill="none" stroke="#A84B31" stroke-width="2"/>
+              <ellipse cx="80" cy="65" rx="14" ry="10" fill="none" stroke="#2E7D52" stroke-width="2"/>
+              <ellipse cx="120" cy="95" rx="14" ry="10" fill="none" stroke="#2E7D52" stroke-width="2"/>
+              <text x="100" y="145" font-family="'IBM Plex Mono', monospace" font-size="9" fill="#753320" text-anchor="middle">Boceto 01 · Proporción</text>
+            </svg>
+          </div>
+          <div class="sketch-info">
+            <h4 class="sketch-title">Boceto 01 · Estudio de Silueta</h4>
+            <p class="sketch-desc">Relación de esbeltez (altura 40 cm vs diámetro base 20 cm) para evitar vuelco.</p>
+          </div>
+        </div>
+
+        <!-- Boceto 2 -->
+        <div class="sketch-item">
+          <div class="sketch-img-wrap">
+            <svg viewBox="0 0 200 150" width="100%" height="100%" style="background:#FFFDF9;">
+              <rect width="200" height="150" fill="#FFFDF9"/>
+              <path d="M 40,75 C 60,30 140,30 160,75 C 140,120 60,120 40,75 Z" fill="none" stroke="#A84B31" stroke-width="2"/>
+              <path d="M 70,75 C 80,50 120,50 130,75" fill="none" stroke="#2E7D52" stroke-width="1.5"/>
+              <text x="100" y="145" font-family="'IBM Plex Mono', monospace" font-size="9" fill="#753320" text-anchor="middle">Boceto 02 · Cuenco</text>
+            </svg>
+          </div>
+          <div class="sketch-info">
+            <h4 class="sketch-title">Boceto 02 · Inclinación de Cuencos</h4>
+            <p class="sketch-desc">Ángulo de 35° hacia arriba para contener el sustrato inerte y facilitar la poda con tijera.</p>
+          </div>
+        </div>
+
+        <!-- Boceto 3 -->
+        <div class="sketch-item">
+          <div class="sketch-img-wrap">
+            <svg viewBox="0 0 200 150" width="100%" height="100%" style="background:#FFFDF9;">
+              <rect width="200" height="150" fill="#FFFDF9"/>
+              <line x1="30" y1="120" x2="170" y2="120" stroke="#753320" stroke-width="2"/>
+              <path d="M 80,120 Q 100,50 120,120" fill="none" stroke="#2563EB" stroke-width="2"/>
+              <circle cx="100" cy="50" r="10" fill="none" stroke="#2563EB" stroke-width="1.5"/>
+              <text x="100" y="145" font-family="'IBM Plex Mono', monospace" font-size="9" fill="#753320" text-anchor="middle">Boceto 03 · Tapa y Recarga</text>
+            </svg>
+          </div>
+          <div class="sketch-info">
+            <h4 class="sketch-title">Boceto 03 · Tapa de Cierre Cerámica</h4>
+            <p class="sketch-desc">Mecanismo de boca ancha para verter agua con jarra de cocina sin derramar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         4. PROCESO REAL DE CONSTRUCCIÓN MANUAL EN ARCILLA (6 ETAPAS)
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="construccion-arcilla" data-anchor-title="Construcción en Arcilla">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Fabricación Cerámica en Taller</span>
+          <h2 class="card-title">🏺 Proceso de Construcción Manual en Arcilla (6 Etapas)</h2>
+        </div>
+        <span class="badge-status status-en-curso">Etapa de Taller</span>
+      </div>
+
+      <p style="color:var(--text-muted); font-size:0.92rem; margin-bottom:20px;">
+        Protocolo técnico paso a paso para la conformación del cuerpo cerámico y módulos hidropónicos:
+      </p>
+
+      <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:24px 28px;">
+        
+        <div class="build-step">
+          <div class="build-num">1</div>
+          <div>
+            <h3 style="font-size:1.1rem; color:var(--text-main); margin:0 0 6px;">Preparación y Amasado del Material</h3>
+            <p style="font-size:0.92rem; line-height:1.6; color:var(--text-body); margin:0;">
+              El proceso comenzó con la preparación y acondicionamiento de la arcilla terracota, amasándola con la técnica de «cabeza de carnero» para eliminar burbujas de aire y conseguir una masa homogénea y maleable. Se elaboró también barbotina líquida filtrada para utilizar como adhesivo de unión entre piezas.
+            </p>
+          </div>
+        </div>
+
+        <div class="build-step">
+          <div class="build-num">2</div>
+          <div>
+            <h3 style="font-size:1.1rem; color:var(--text-main); margin:0 0 6px;">Elaboración de Placas y Piezas</h3>
+            <p style="font-size:0.92rem; line-height:1.6; color:var(--text-body); margin:0;">
+              Se estiraron placas de arcilla sobre tela utilizando reglas guía de 10 mm de espesor para garantizar un grosor uniforme. Con cortadores de alambre y plantillas de cartón se cortaron las secciones del cuerpo cónico y las piezas de los cuencos de cultivo.
+            </p>
+          </div>
+        </div>
+
+        <div class="build-step">
+          <div class="build-num">3</div>
+          <div>
+            <h3 style="font-size:1.1rem; color:var(--text-main); margin:0 0 6px;">Construcción del Cuerpo Principal</h3>
+            <p style="font-size:0.92rem; line-height:1.6; color:var(--text-body); margin:0;">
+              A partir de las placas se levantó la estructura vertical cónica sobre una base circular reforzada. Las uniones fueron rayadas profundamente en cruz, humedecidas con barbotina y reforzadas internamente con pequeños rollos de arcilla para evitar fisuras por tracción.
+            </p>
+          </div>
+        </div>
+
+        <div class="build-step">
+          <div class="build-num">4</div>
+          <div>
+            <h3 style="font-size:1.1rem; color:var(--text-main); margin:0 0 6px;">Incorporación de las Aberturas de Cultivo</h3>
+            <p style="font-size:0.92rem; line-height:1.6; color:var(--text-body); margin:0;">
+              Una vez la estructura alcanzó estado «cuero blando», se calaron las tres ventanas en espiral (superior para albahaca, media para perejil, baja para cilantro). Se calcularon 3 mm adicionales por margen de contracción cerámica para que los cuencos encajen con holgura controlada.
+            </p>
+          </div>
+        </div>
+
+        <div class="build-step">
+          <div class="build-num">5</div>
+          <div>
+            <h3 style="font-size:1.1rem; color:var(--text-main); margin:0 0 6px;">Integración de los Módulos de Cultivo</h3>
+            <p style="font-size:0.92rem; line-height:1.6; color:var(--text-body); margin:0;">
+              Los recipientes individuales se fusionaron a las aberturas del cuerpo principal con barbotina espesa. Se inclinaron 35° hacia arriba y se verificó que la pendiente interna drene cualquier exceso hídrico de vuelta al núcleo de la torre.
+            </p>
+          </div>
+        </div>
+
+        <div class="build-step">
+          <div class="build-num">6</div>
+          <div>
+            <h3 style="font-size:1.1rem; color:var(--text-main); margin:0 0 6px;">Acabado, Esponjado y Secado Lento</h3>
+            <p style="font-size:0.92rem; line-height:1.6; color:var(--text-body); margin:0;">
+              Se repasaron las superficies con esponja húmeda para suavizar rebabas y pulir la textura microporosa. La torre fue envuelta en plástico durante 5 días para un secado gradual y homogéneo antes del bizcochado en el horno a 980 °C.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
   </div>
-</nav>
+</main>
 
-<div class="page-wrap">
-  <div class="page-head">
-    <div class="eyebrow"><span class="dot"></span> Sección · Idear</div>
-    <h1>Idear</h1>
-    <p>Prototipo de la torre hidropónica construida manualmente en arcilla, con sistema de flujo de agua sin electricidad.</p>
-  </div>
+<script src="js/design-system.js"></script>
 
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- PROCESO DE CONSTRUCCIÓN -->
-  <!-- ═══════════════════════════════════════════ -->
-  <div class="card">
-    <h2>🏺 Proceso de construcción</h2>
-    <p class="kicker">Elaboración manual de la torre en arcilla — 6 etapas</p>
-  </div>
-
-  <div class="build-card">
-    <div class="build-step">
-      <div class="build-num">1</div>
-      <div>
-        <h3>Preparación del material</h3>
-        <p>El proceso comenzó con la preparación y acondicionamiento de la arcilla, amasándola para eliminar irregularidades y conseguir una masa homogénea y maleable. También se preparó una pequeña cantidad de arcilla más líquida, utilizada posteriormente como unión entre las diferentes piezas.</p>
-      </div>
-    </div>
-    <div class="build-step">
-      <div class="build-num">2</div>
-      <div>
-        <h3>Elaboración de las piezas</h3>
-        <p>Se realizaron manualmente las diferentes partes que conforman la torre, utilizando herramientas sencillas para cortar, retirar material y definir las formas. Se trabajaron principalmente placas de arcilla para generar el cuerpo estructural y piezas independientes destinadas a funcionar como recipientes o módulos de cultivo.</p>
-      </div>
-    </div>
-    <div class="build-step">
-      <div class="build-num">3</div>
-      <div>
-        <h3>Construcción del cuerpo principal</h3>
-        <p>A partir de las placas de arcilla se comenzó a levantar la estructura vertical de la torre. Las piezas fueron unidas progresivamente, procurando mantener una forma estable y una inclinación adecuada. Durante este proceso se reforzaron las uniones agregando arcilla y utilizando barbotina para mejorar la adherencia entre las superficies.</p>
-      </div>
-    </div>
-    <div class="build-step">
-      <div class="build-num">4</div>
-      <div>
-        <h3>Incorporación de los espacios de cultivo</h3>
-        <p>Una vez definida la estructura principal, se realizaron las aberturas laterales destinadas a recibir los recipientes de cultivo. Estas aperturas fueron trabajadas directamente sobre la arcilla, retirando material y ajustando los bordes para permitir que los módulos pudieran introducirse y mantenerse sujetos a la estructura.</p>
-      </div>
-    </div>
-    <div class="build-step">
-      <div class="build-num">5</div>
-      <div>
-        <h3>Integración de los módulos</h3>
-        <p>Los recipientes individuales se ubicaron en diferentes puntos de la torre, buscando generar una distribución vertical de los espacios de cultivo. Esta configuración permite aprovechar la altura de la estructura y organizar varias plantas en un espacio reducido, característica fundamental de una torre hidropónica.</p>
-      </div>
-    </div>
-    <div class="build-step">
-      <div class="build-num">6</div>
-      <div>
-        <h3>Acabado y corrección de superficies</h3>
-        <p>Finalmente, se realizaron trabajos de acabado sobre la arcilla, suavizando bordes, corrigiendo imperfecciones y reforzando algunas zonas de unión. Se utilizaron herramientas manuales y agua para facilitar el modelado y conseguir superficies más uniformes.</p>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<div class="toast" id="toast"></div>
-<script src="shared-nav.js"></script>
 </body>
 </html>

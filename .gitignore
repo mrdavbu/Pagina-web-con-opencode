@@ -1,0 +1,6 @@
+node_modules/
+_temp_products.json
+package-lock.json
+hidroponia-dashboard/
+references/
+.vscode/

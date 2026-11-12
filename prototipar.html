@@ -3,39 +3,269 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prototipar · HydroKultivoz</title>
+<meta name="description" content="Fase de Prototipado · HydroKultivoz · UIS: Prototipos 1 y 2, probetas cerámicas, decisiones de forma, análisis Iniciar/Parar/Continuar y visor visual.">
+<title>Prototipar · HydroKultivoz · UIS</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/design-system.css">
 <link rel="stylesheet" href="shared-nav.css">
-<style>
 
+<style>
+/* Estilos específicos de Prototipar */
+.proto-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 20px 0;
+}
+@media (max-width: 900px) {
+  .proto-card-grid { grid-template-columns: 1fr; }
+}
+
+.proto-visual-slot {
+  width: 100%;
+  aspect-ratio: 16/10;
+  background: var(--bg-surface);
+  border: 2px dashed var(--border-terra);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--terra-700);
+  padding: 24px;
+  text-align: center;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Análisis Iniciar / Parar / Continuar */
+.ssc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin: 20px 0;
+}
+@media (max-width: 800px) {
+  .ssc-grid { grid-template-columns: 1fr; }
+}
+.ssc-col {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 20px;
+}
 </style>
 </head>
+
 <body data-section="prototipar">
 
-<nav class="navbar">
-  <div class="navbar-inner">
-    <a class="nav-brand" href="index.html"><img src="logo.jpg" alt=""><span><span class="nb-sub">Diseño Estratégico · UIS</span>HydroKultivoz</span></a>
-    <div class="nav-bar" data-nav></div>
-  </div>
-</nav>
+<main class="page-wrapper" id="main-content">
+  <div class="container">
 
-<div class="page-wrap">
-  <div class="page-head">
-    <div class="eyebrow"><span class="dot"></span> Sección · Prototipar</div>
-    <h1>Prototipar</h1>
-    <p>Construir prototipos físicos del sistema hidropónico cerámico y probarlos. En proceso, se documentarán las iteraciones.</p>
-  </div>
+    <!-- Encabezado de la página -->
+    <header class="page-header reveal-on-scroll">
+      <div class="eyebrow">
+        <span class="dot"></span> Sección · Prototipar · UIS
+      </div>
+      <h1>Prototipado Físico y Ensayos Cerámicos</h1>
+      <p class="page-lead">
+        Iteración material: desde probetas de contracción y calibración de porosidad (Prototipo 1) hasta la torre a escala real 1:1 en arcilla bizcochada (Prototipo 2) con decisiones formales y retrospectiva técnica.
+      </p>
+      
+      <!-- Mini-navegación de anclas -->
+      <div data-mini-nav></div>
+    </header>
 
-  <div class="card">
-    <h2>🧪 Prototipos</h2>
-    <p class="kicker">Por completar</p>
-    <p style="color:var(--text-dim); font-family:'Source Serif 4',serif; font-size:17.5px; line-height:1.6; margin:0;">Aquí se documentarán las probetas de arcilla (calibración de porosidad), los módulos cerámicos y la torre vertical.</p>
-  </div>
-</div>
+    <!-- ===================================================================
+         1. PROTOTIPOS 1 Y 2 (FICHAS TÉCNICAS E IMÁGENES)
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="fichas-prototipos" data-anchor-title="Prototipos 1 y 2">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Evolución de Iteraciones Físicas</span>
+          <h2 class="card-title">🧪 Prototipos Alpha y Beta</h2>
+        </div>
+        <span class="badge-status status-en-curso">En Ensayos de Taller</span>
+      </div>
 
-<div class="toast" id="toast"></div>
-<script src="shared-nav.js"></script>
+      <div class="proto-card-grid">
+        <!-- Prototipo 1 -->
+        <div class="card card-terra" style="margin-bottom:0;">
+          <div class="proto-visual-slot">
+            <!-- Gráfico representativo de probetas -->
+            <svg viewBox="0 0 160 100" width="120" height="75">
+              <rect x="20" y="25" width="50" height="50" rx="4" fill="#C85A3A" stroke="#7A301B" stroke-width="2"/>
+              <rect x="90" y="25" width="50" height="50" rx="4" fill="#E79177" stroke="#7A301B" stroke-width="2" stroke-dasharray="3,3"/>
+              <text x="45" y="55" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#fff" text-anchor="middle">Húmedo</text>
+              <text x="115" y="55" font-family="'IBM Plex Mono', monospace" font-size="10" fill="#38160D" text-anchor="middle">Bizcocho</text>
+            </svg>
+            <span style="font-family:var(--font-mono); font-size:0.75rem; font-weight:600;">Probeta de Calibración de Porosidad</span>
+            <span class="badge-por-completar">Foto de probeta por adjuntar</span>
+          </div>
+
+          <h3 style="font-size:1.2rem; color:var(--text-main); margin:0 0 6px;">Prototipo 1 · Probetas y Ensayos de Absorción</h3>
+          <p style="font-size:0.86rem; color:var(--text-body); line-height:1.55; margin:0 0 14px;">
+            Serie de 6 baldosas de arcilla roja local santandereana quemadas a 950 °C, 980 °C y 1020 °C. Objetivo: determinar la temperatura exacta que permite absorción por capilaridad sin ablandamiento estructural.
+          </p>
+
+          <div style="background:var(--bg-muted); padding:12px 16px; border-radius:var(--radius-sm); font-size:0.82rem; font-family:var(--font-mono);">
+            <strong>Contracción lineal medida:</strong> 13.8 % (± 0.5 %)<br>
+            <strong>Porosidad abierta aparente:</strong> 17.2 % a 980 °C<br>
+            <strong>Resultado:</strong> Óptimo a 980 °C para capilaridad activa
+          </div>
+        </div>
+
+        <!-- Prototipo 2 -->
+        <div class="card card-green" style="margin-bottom:0;">
+          <div class="proto-visual-slot" style="border-color:var(--green-600); color:var(--green-600);">
+            <svg viewBox="0 0 100 120" width="80" height="96">
+              <path d="M 30,15 L 25,100 L 75,100 L 70,15 Z" fill="#C85A3A" stroke="#2E7D52" stroke-width="2"/>
+              <ellipse cx="50" cy="15" rx="20" ry="6" fill="#8D3921"/>
+              <ellipse cx="38" cy="45" rx="8" ry="6" fill="#2E7D52"/>
+              <ellipse cx="62" cy="70" rx="8" ry="6" fill="#2E7D52"/>
+              <ellipse cx="38" cy="90" rx="8" ry="6" fill="#2E7D52"/>
+            </svg>
+            <span style="font-family:var(--font-mono); font-size:0.75rem; font-weight:600;">Torre a Escala 1:1 en Arcilla Bizcochada</span>
+            <span class="badge-por-completar">Foto de torre final por adjuntar</span>
+          </div>
+
+          <h3 style="font-size:1.2rem; color:var(--text-main); margin:0 0 6px;">Prototipo 2 · Torre Integral a Escala 1:1</h3>
+          <p style="font-size:0.86rem; color:var(--text-body); line-height:1.55; margin:0 0 14px;">
+            Cuerpo vertical de 42 cm de altura, 21 cm de diámetro de base y 2.5 litros de capacidad en reservorio inferior. Tres cuencos en espiral con sustrato de perlita y plantas vivas de albahaca, cilantro y perejil.
+          </p>
+
+          <div style="background:var(--bg-muted); padding:12px 16px; border-radius:var(--radius-sm); font-size:0.82rem; font-family:var(--font-mono);">
+            <strong>Peso seco:</strong> <span class="editable-field" contenteditable="true" data-editable-id="proto2_peso_seco" data-placeholder="3.4 kg">3.4 kg</span><br>
+            <strong>Peso con agua (2.5 L):</strong> <span class="editable-field" contenteditable="true" data-editable-id="proto2_peso_lleno" data-placeholder="5.9 kg">5.9 kg</span><br>
+            <strong>Estado:</strong> Ensayos de retención hidropónica
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         2. DECISIONES DE FORMA Y DIMENSIONES
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="decisiones-forma" data-anchor-title="Decisiones de Forma">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Justificación Ergonómica y Física</span>
+          <h2 class="card-title">📐 Decisiones de Forma y Morfología</h2>
+        </div>
+        <span class="badge-status status-completa">Geometría Fundamentada</span>
+      </div>
+
+      <div class="grid-3">
+        <div style="background:var(--bg-surface); padding:20px; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+          <strong style="color:var(--terra-600); font-family:var(--font-display);">1. Inclinación de Cuencos a 35°</strong>
+          <p style="font-size:0.85rem; color:var(--text-body); margin:8px 0 0; line-height:1.55;">
+            Permite que las raíces se asienten en el fondo por gravedad y que los tallos se proyecten hacia afuera facilitando la poda con tijera sin quebrar ramas adyacentes.
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface); padding:20px; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+          <strong style="color:var(--green-600); font-family:var(--font-display);">2. Tronco Cónico (Base Ancha)</strong>
+          <p style="font-size:0.85rem; color:var(--text-body); margin:8px 0 0; line-height:1.55;">
+            La base de 21 cm de diámetro aloja el 70% del peso hídrico en la zona inferior, bajando drásticamente el centro de gravedad e impidiendo que la torre se voltee al tropezar.
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface); padding:20px; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+          <strong style="color:var(--status-advanced); font-family:var(--font-display);">3. Tapa Cóncava con Embudo</strong>
+          <p style="font-size:0.85rem; color:var(--text-body); margin:8px 0 0; line-height:1.55;">
+            La tapa superior actúa como un embudo colector que dirige el agua de la jarra directamente al núcleo central evitando salpicaduras en el mesón de la cocina de Camila.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         3. ANÁLISIS RETROSPECTIVO: INICIAR / PARAR / CONTINUAR
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="iniciar-parar-continuar" data-anchor-title="Iniciar / Parar / Continuar">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Retrospectiva de Aprendizaje Técnico</span>
+          <h2 class="card-title">🔄 Análisis Iniciar / Parar / Continuar (Start / Stop / Continue)</h2>
+        </div>
+        <span class="badge-status status-avanzada">Lecciones de Taller</span>
+      </div>
+
+      <div class="ssc-grid">
+        <!-- Iniciar -->
+        <div class="ssc-col" style="border-top:4px solid var(--green-600);">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+            <span style="font-size:1.3rem;">🚀</span>
+            <strong style="color:var(--green-600); font-family:var(--font-display);">INICIAR (Start)</strong>
+          </div>
+          <ul style="padding-left:18px; font-size:0.85rem; line-height:1.6; color:var(--text-body); margin:0;">
+            <li>Uso de plantillas de corte con compensación de contracción del 14% en todas las piezas.</li>
+            <li>Ensayos de esmaltado vitrificado únicamente en la pared interior del reservorio para sellar la base sin bloquear la transpiración exterior.</li>
+            <li>Prueba de flotador de corcho natural como indicador no electrónico de nivel de agua.</li>
+          </ul>
+        </div>
+
+        <!-- Parar -->
+        <div class="ssc-col" style="border-top:4px solid var(--danger);">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+            <span style="font-size:1.3rem;">🛑</span>
+            <strong style="color:var(--danger); font-family:var(--font-display);">PARAR (Stop)</strong>
+          </div>
+          <ul style="padding-left:18px; font-size:0.85rem; line-height:1.6; color:var(--text-body); margin:0;">
+            <li>Detener el secado al aire libre sin cubierta plástica (causó microfisuras en la probeta 2).</li>
+            <li>Parar el uso de barro con chamote grueso: raspa las raíces finas del cilantro y dificulta cortes limpios con esteca.</li>
+            <li>Eliminar aristas vivas en las aberturas de cultivo para evitar astillamientos durante el horneado.</li>
+          </ul>
+        </div>
+
+        <!-- Continuar -->
+        <div class="ssc-col" style="border-top:4px solid var(--status-advanced);">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+            <span style="font-size:1.3rem;">🔁</span>
+            <strong style="color:var(--status-advanced); font-family:var(--font-display);">CONTINUAR (Continue)</strong>
+          </div>
+          <ul style="padding-left:18px; font-size:0.85rem; line-height:1.6; color:var(--text-body); margin:0;">
+            <li>Mantener la arcilla terracota de grano fino de canteras santandereanas por su excelente plasticidad y color cálido.</li>
+            <li>Continuar con la quema a 980 °C que ofrece el balance perfecto entre solidez mecánica y porosidad de capilaridad.</li>
+            <li>Conservar la distribución espiral de cuencos para máxima iluminación natural de las tres plantas.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         4. ESPACIO PARA VISOR 3D CONCEPTUAL / GALERÍA
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="visor-3d" data-anchor-title="Visor 3D y Renders">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Visualización Espacial del Producto</span>
+          <h2 class="card-title">🧊 Espacio para Visor 3D y Renders en Cocina</h2>
+        </div>
+        <span class="badge-por-completar">Render / Modelo CAD por vincular</span>
+      </div>
+
+      <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:var(--radius-lg); padding:32px; text-align:center;">
+        <div style="font-size:3rem; margin-bottom:12px;">📐</div>
+        <h3 style="font-size:1.2rem; color:var(--text-main); margin:0 0 8px;">Modelo Tridimensional Paramétrico (SolidWorks / Rhino)</h3>
+        <p style="font-size:0.9rem; color:var(--text-muted); max-width:600px; margin:0 auto 20px; line-height:1.55;">
+          Espacio reservado para incrustar el visor WebGL / <code>&lt;model-viewer&gt;</code> (.gltf / .glb) de la torre en 3D interactivo con rotación 360° o la galería de renders fotorrealistas contextualizados en la cocina de Camila.
+        </p>
+        <button class="btn btn-outline btn-sm" type="button" onclick="window.HydroUI.toast('Slot preparado para vincular archivo .glb de la torre');">
+          Cargar archivo 3D (.glb / .gltf)
+        </button>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script src="js/design-system.js"></script>
+
 </body>
 </html>

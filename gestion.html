@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Gestión del Proyecto · HydroKultivoz · UIS: WBS interactivo, FMEA con recálculo de NPR, SIPOC, Gantt, matriz RACI, recursos y uso de IA.">
+<title>Gestión del Proyecto · HydroKultivoz · UIS</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/design-system.css">
+<link rel="stylesheet" href="shared-nav.css">
+
+<style>
+/* Estilos específicos de Gestión */
+.mgmt-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px 20px;
+  margin-bottom: 24px;
+}
+.f-g, .f-o, .f-d {
+  width: 50px !important;
+  text-align: center;
+}
+.f-wbs {
+  width: 60px !important;
+  text-align: center;
+}
+.crit {
+  background: rgba(194, 59, 34, 0.08) !important;
+  font-weight: 600;
+}
+.no-crit {
+  color: var(--text-body);
+}
+
+/* Grilla de roles RACI */
+.roles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+.role-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+}
+.role-code {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--green-600);
+}
+
+/* Compuertas de decisión */
+.gates-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+.gate-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  position: relative;
+}
+.gate-tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--terra-600);
+}
+</style>
+</head>
+
+<body data-section="gestion">
+
+<main class="page-wrapper" id="main-content">
+  <div class="container">
+
+    <!-- Encabezado de página -->
+    <header class="page-header reveal-on-scroll">
+      <div class="eyebrow">
+        <span class="dot"></span> Sección · Gestión · UIS
+      </div>
+      <h1>Gestión Estratégica del Proyecto</h1>
+      <p class="page-lead">
+        Planificación operativa del desarrollo de la torre: compuertas de decisión, SIPOC, WBS editable, matriz FMEA con recálculo dinámico de NPR, asignación de responsabilidades y uso ético de IA.
+      </p>
+      
+      <!-- Mini-navegación de anclas -->
+      <div data-mini-nav></div>
+    </header>
+
+    <!-- Barra de acciones y persistencia -->
+    <div class="mgmt-toolbar reveal-on-scroll">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-family:var(--font-mono); font-size:0.85rem; font-weight:600; color:var(--text-main);">
+          Almacenamiento Local (Auto-guardado):
+        </span>
+        <span class="badge-status status-completa" id="saveIndicator">Sincronizado</span>
+      </div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn btn-primary btn-sm" onclick="guardarTodo()" type="button">💾 Guardar Cambios</button>
+        <button class="btn btn-outline btn-sm" onclick="exportarJSON()" type="button">📥 Exportar JSON</button>
+        <button class="btn btn-outline btn-sm" onclick="restaurarTodo()" type="button" style="color:var(--danger); border-color:var(--danger);">🔄 Restablecer Valores</button>
+      </div>
+    </div>
+
+    <!-- ===================================================================
+         1. FLUJO DEL PROCESO Y COMPUERTAS DE DECISIÓN (GATES)
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="compuertas-decision" data-anchor-title="Compuertas de Decisión">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Metodología Stage-Gate</span>
+          <h2 class="card-title">🚪 Flujo del Proceso y Compuertas de Decisión</h2>
+        </div>
+        <span class="badge-status status-avanzada">Compuertas Definidas</span>
+      </div>
+
+      <div class="gates-flow">
+        <div class="gate-card" style="border-top:3px solid var(--green-600);">
+          <span class="gate-tag">GATE 1 · EMPATÍA</span>
+          <strong style="display:block; font-size:0.92rem; margin:4px 0;">Criterio de Paso:</strong>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin:0;">
+            Validar al menos 3 dolores críticos con Camila y confirmar que rechaza cables y plásticos.
+          </p>
+        </div>
+        <div class="gate-card" style="border-top:3px solid var(--terra-600);">
+          <span class="gate-tag">GATE 2 · CONCEPTO</span>
+          <strong style="display:block; font-size:0.92rem; margin:4px 0;">Criterio de Paso:</strong>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin:0;">
+            Selección en matriz multicriterio con puntaje ponderado &gt; 80% y dimensiones compatibles con el horno.
+          </p>
+        </div>
+        <div class="gate-card" style="border-top:3px solid var(--status-progress);">
+          <span class="gate-tag">GATE 3 · BIZCOCHADO</span>
+          <strong style="display:block; font-size:0.92rem; margin:4px 0;">Criterio de Paso:</strong>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin:0;">
+            Cero grietas estructurales tras secado lento y bizcochado a 980 °C en el horno de la escuela.
+          </p>
+        </div>
+        <div class="gate-card" style="border-top:3px solid var(--status-advanced);">
+          <span class="gate-tag">GATE 4 · CAPILARIDAD</span>
+          <strong style="display:block; font-size:0.92rem; margin:4px 0;">Criterio de Paso:</strong>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin:0;">
+            Humedad continua en módulos durante 72 horas continuas sin fuga de agua por la base.
+          </p>
+        </div>
+        <div class="gate-card" style="border-top:3px solid var(--danger);">
+          <span class="gate-tag">GATE 5 · USUARIO</span>
+          <strong style="display:block; font-size:0.92rem; margin:4px 0;">Criterio de Paso:</strong>
+          <p style="font-size:0.82rem; color:var(--text-muted); margin:0;">
+            Prueba de cosecha de hierbas con Camila con satisfacción de ergonomía y uso ≥ 4.5/5.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         2. MODELADO DE PROCESOS / SIPOC
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="modelado-sipoc" data-anchor-title="SIPOC y Procesos">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Mapeo Operativo SIPOC</span>
+          <h2 class="card-title">🔄 SIPOC y Modelado de Procesos</h2>
+        </div>
+        <span class="badge-status status-completa">5 Fases Mapeadas</span>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table" id="procesoTable">
+          <!-- Generado por renderFlujos() -->
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         3. WBS (WORK BREAKDOWN STRUCTURE) EDITABLE
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="tabla-wbs" data-anchor-title="WBS del Proyecto">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Estructura de Desglose del Trabajo</span>
+          <h2 class="card-title">📋 WBS y Horas Estimadas</h2>
+        </div>
+        <span class="badge-status status-completa">Ruta Crítica Calculada</span>
+      </div>
+
+      <p style="color:var(--text-muted); font-size:0.92rem;">
+        Puedes modificar las horas estimadas de cada tarea directamente en la tabla; se guardarán en tu navegador y recalcularán los subtotales:
+      </p>
+
+      <div class="table-responsive">
+        <table class="data-table" id="wbsTable">
+          <!-- Generado por renderWbs() -->
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         4. MATRIZ DE RIESGOS FMEA CON RECÁLCULO DINÁMICO
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="matriz-fmea" data-anchor-title="Matriz FMEA">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Análisis de Modos y Efectos de Falla</span>
+          <h2 class="card-title">⚠️ Matriz FMEA (Fallas de Proceso Cerámico)</h2>
+        </div>
+        <span class="badge-status status-completa">NPR Automático</span>
+      </div>
+
+      <p style="color:var(--text-muted); font-size:0.92rem;">
+        Modifica los valores de <strong>G (Gravedad 1-10)</strong>, <strong>O (Ocurrencia 1-10)</strong> y <strong>D (Detección 1-10)</strong>. El <strong>NPR (G × O × D)</strong> y la <strong>Prioridad (Alta/Media/Baja)</strong> se actualizan al instante.
+      </p>
+
+      <div class="table-responsive">
+        <table class="data-table" id="fmeaTable">
+          <!-- Generado por renderFmea() -->
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         5. ESCALAS DEL FMEA
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="escalas-fmea" data-anchor-title="Escalas FMEA">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Criterios de Puntuación FMEA</span>
+          <h2 class="card-title">📏 Escalas FMEA: Gravedad, Ocurrencia y Detección</h2>
+        </div>
+      </div>
+
+      <div class="grid-3" id="escalasGrid">
+        <!-- Generado por renderEscalas() -->
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         6. EQUIPO DEL PROYECTO (MATRIZ RACI / ROLES)
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="equipo-roles" data-anchor-title="Equipo y Roles">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Asignación de Responsabilidades</span>
+          <h2 class="card-title">👥 Equipo del Proyecto y Códigos de Rol</h2>
+        </div>
+        <span class="badge-por-completar">Asignar nombres</span>
+      </div>
+
+      <div class="roles-grid" id="rolesGrid">
+        <!-- Generado por renderRoles() -->
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         7. RECURSOS DEL PROYECTO
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="recursos-proyecto" data-anchor-title="Recursos">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Infraestructura, Materiales y Herramientas</span>
+          <h2 class="card-title">🧰 Recursos del Proyecto</h2>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table" id="recursosTable">
+          <!-- Generado por renderRecursos() -->
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         8. HERRAMIENTAS Y USO ÉTICO DE INTELIGENCIA ARTIFICIAL
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="herramientas-ia" data-anchor-title="Herramientas e IA">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Transparencia y Metodología Digital</span>
+          <h2 class="card-title">🤖 Uso de Herramientas Digitales e Inteligencia Artificial</h2>
+        </div>
+        <span class="badge-status status-completa">Declaración Ética</span>
+      </div>
+
+      <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.6;">
+        En consonancia con las buenas prácticas académicas de la UIS, declaramos las herramientas y modelos de asistencia utilizados durante el ciclo de vida de este proyecto de diseño:
+      </p>
+
+      <div class="grid-3">
+        <div style="background:var(--bg-surface); padding:18px; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+          <strong style="color:var(--green-600); font-family:var(--font-display);">IA para Síntesis e Ideación</strong>
+          <p style="font-size:0.85rem; color:var(--text-body); margin:8px 0 0;">
+            Uso de modelos LLM (Gemini / Antigravity) para estructurar el árbol de problemas, generar variaciones de preguntas HMW y refinar el modelo FMEA.
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface); padding:18px; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+          <strong style="color:var(--terra-600); font-family:var(--font-display);">CAD y Modelado Tridimensional</strong>
+          <p style="font-size:0.85rem; color:var(--text-body); margin:8px 0 0;">
+            Rhinoceros y SolidWorks para el modelado paramétrico de tolerancias de contracción cerámica (12-14%) y volumetría de módulos.
+          </p>
+        </div>
+
+        <div style="background:var(--bg-surface); padding:18px; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">
+          <strong style="color:var(--status-advanced); font-family:var(--font-display);">Desarrollo Web y Dashboards</strong>
+          <p style="font-size:0.85rem; color:var(--text-body); margin:8px 0 0;">
+            HTML5 semántico, CSS moderno con variables fluidas, Chart.js para sensores y Firebase Realtime Database para sincronización colaborativa.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script src="js/design-system.js"></script>
+
+<!-- ===================================================================
+     SCRIPTS DE CÁLCULO WBS, FMEA Y PERSISTENCIA (CONSERVADOS Y MEJORADOS)
+     =================================================================== -->
+<script>
+const LS2 = 'hydro_definir_datos_v1';
+
+const PROCESOS = [
+  ['Empatizar', '1.1 – 1.5', 'Pauta de entrevista, contexto de Camila', 'Perfil de usuario y mapa de empatía', 'Entrevistas, fotos', 'IN, LP', 'Validación de hipótesis', '100 % de hallazgos verificados'],
+  ['Definir', '2.1 – 2.3', 'Hallazgos de empatía', 'POV, preguntas HMW y especificaciones', 'Matriz de requerimientos', 'LP, DI', 'Claridad de alcance', 'Aprobación unánime del equipo'],
+  ['Idear', '3.1 – 3.4', 'Especificaciones y límites', 'Bocetos, matriz de decisión, concepto', 'Fichas de concepto y planos', 'DI, MO', 'Variedad de alternativas', '≥ 3 conceptos evaluados'],
+  ['Prototipar · Construcción', '4.4 – 4.9', 'Bocetos; arcilla roja; barbotina', 'Torre y módulos en estado cuero', 'Registro fotográfico de ensamble', 'MO, DI', 'Horas reales vs. estimadas', 'Desviación ≤ 20 %'],
+  ['Prototipar · Bizcochado', '4.10 – 4.12', 'Piezas en estado hueso seco', 'Torre bizcochada sin fisuras', 'Curva de temperatura en horno', 'MO, OP', 'Piezas sin grietas', '≥ 90 %'],
+  ['Validar y Probar', '5.1 – 5.5', 'Prototipo cerámico; solución nutritiva', 'Informe de flujo y retroalimentación Camila', 'Fichas de prueba con cilantro y albahaca', 'TE, IN', 'Supervivencia de plántulas', '≥ 80 %']
+];
+
+const WBS = [
+  ['1', 'EMPATIZAR', '', '', '14', '', '', '0', '11', '0', '11', '0', 'fase'],
+  ['1.1', '', 'Definir usuarios y contexto de cocina', 'Trabajo', '2', '—', 'LP, IN', '0', '2', '0', '2', '0', 'crit'],
+  ['1.2', '', 'Diseñar guía de entrevista a Camila', 'Trabajo', '2', '1.1', 'IN', '2', '4', '2', '4', '0', 'crit'],
+  ['1.3', '', 'Entrevistas y observación etnográfica', 'Trabajo', '4', '1.2', 'IN, TE', '4', '8', '4', '8', '0', 'crit'],
+  ['1.4', '', 'Benchmarking de hidrocultivos de mercado', 'Trabajo', '3', '1.1', 'DI, IN', '2', '5', '8', '11', '6', 'nc'],
+  ['1.5', '', 'Mapa de empatía y síntesis', 'Trabajo', '3', '1.3', 'IN, DI', '8', '11', '8', '11', '0', 'crit'],
+  ['2', 'DEFINIR', '', '', '8', '', '', '11', '19', '11', '19', '0', 'fase'],
+  ['2.1', '', 'Síntesis de hallazgos y mapa de afinidad', 'Trabajo', '3', '1.4, 1.5', 'IN, LP', '11', '14', '11', '14', '0', 'crit'],
+  ['2.2', '', 'Punto de vista (POV) y arquetipo', 'Trabajo', '2', '2.1', 'IN', '14', '16', '14', '16', '0', 'crit'],
+  ['2.3', '', 'Preguntas HMW y matriz MoSCoW', 'Trabajo', '3', '2.2', 'LP, IN, DI', '16', '19', '16', '19', '0', 'crit'],
+  ['3', 'IDEAR', '', '', '11', '', '', '19', '30', '19', '30', '0', 'fase'],
+  ['3.1', '', 'Lluvia de ideas y alternativas morfológicas', 'Trabajo', '3', '2.3', 'LP, IN, DI, MO', '19', '22', '19', '22', '0', 'crit'],
+  ['3.2', '', 'Bocetos acotados y modelado de módulos', 'Trabajo', '4', '3.1', 'DI, MO', '22', '26', '22', '26', '0', 'crit'],
+  ['3.3', '', 'Selección de concepto en matriz ponderada', 'Trabajo', '2', '3.2', 'LP, DI', '26', '28', '26', '28', '0', 'crit'],
+  ['3.4', '', 'Dimensionamiento y verificación con horno', 'Trabajo', '2', '3.3', 'DI, MO', '28', '30', '28', '30', '0', 'crit'],
+  ['4', 'PROTOTIPAR', '', '', '157', '', '', '30', '183', '30', '183', '0', 'fase'],
+  ['4.1', '', 'Compra de arcilla terracota de grano fino', 'Trabajo', '3', '3.4', 'LP, DI', '30', '33', '30', '33', '0', 'crit'],
+  ['4.2', '', 'Baldosas de prueba (contracción y porosidad)', 'Trabajo', '2', '4.1', 'MO', '33', '35', '33', '35', '0', 'crit'],
+  ['4.3', '', 'Amasado y preparación de barbotina', 'Trabajo', '2', '4.2', 'MO', '35', '37', '35', '37', '0', 'crit'],
+  ['4.4', '', 'Elaboración de placas y corte de piezas', 'Trabajo', '4', '4.3', 'MO', '37', '41', '37', '41', '0', 'crit'],
+  ['4.5', '', 'Modelado de cuencos de cultivo', 'Trabajo', '4', '4.3', 'MO', '37', '41', '45', '49', '8', 'nc'],
+  ['4.6', '', 'Construcción del cuerpo vertical de la torre', 'Trabajo', '5', '4.4', 'MO, DI', '41', '46', '41', '46', '0', 'crit'],
+  ['4.7', '', 'Apertura lateral para inserción de módulos', 'Trabajo', '3', '4.6', 'MO', '46', '49', '46', '49', '0', 'crit'],
+  ['4.8', '', 'Integración y ensamble con barbotina', 'Trabajo', '3', '4.5, 4.7', 'MO, DI', '49', '52', '49', '52', '0', 'crit'],
+  ['4.9', '', 'Acabado, esponjado y corrección de uniones', 'Trabajo', '3', '4.8', 'MO', '52', '55', '52', '55', '0', 'crit'],
+  ['4.10', '', 'Secado lento bajo plástico (hueso seco)', 'Espera', '48', '4.9', 'MO', '55', '103', '55', '103', '0', 'crit'],
+  ['4.11', '', 'Carga y estiba en horno cerámico', 'Trabajo', '2', '4.10', 'MO, OP', '103', '105', '103', '105', '0', 'crit'],
+  ['4.12', '', 'Ciclo de bizcochado (980 °C) y enfriamiento', 'Espera', '36', '4.11', 'OP', '105', '141', '105', '141', '0', 'crit'],
+  ['4.13', '', 'Esmaltado interior de reservorio e inspección', 'Trabajo', '3', '4.12', 'MO', '141', '144', '141', '144', '0', 'crit'],
+  ['5', 'VALIDAR', '', '', '16', '', '', '144', '160', '144', '160', '0', 'fase'],
+  ['5.1', '', 'Prueba de estanqueidad y capilaridad (72h)', 'Trabajo', '4', '4.13', 'TE', '144', '148', '144', '148', '0', 'crit'],
+  ['5.2', '', 'Siembra de cilantro, albahaca y perejil', 'Trabajo', '4', '5.1', 'TE, LP', '148', '152', '148', '152', '0', 'crit'],
+  ['5.3', '', 'Prueba culinaria y retroalimentación con Camila', 'Trabajo', '4', '5.2', 'IN, DI', '152', '156', '152', '156', '0', 'crit'],
+  ['5.4', '', 'Informe final y sustentación UIS', 'Trabajo', '4', '5.3', 'LP, IN, DI, MO, TE', '156', '160', '156', '160', '0', 'crit']
+];
+
+const FMEA = [
+  ['B1', 'Preparación', '4.3', 'Burbujas de aire en la masa', 'Estallido en horno', 'Amasado insuficiente', 9, 5, 8, 'Inspección con alambre de corte', 'Amasar con técnica cabeza de carnero', 'MO', '4.3'],
+  ['B3', 'Construcción', '4.6', 'Uniones débiles entre módulos', 'Desprendimiento al secar', 'Superficies lisas sin rayar', 9, 6, 4, 'Prueba de tracción en cuero', 'Rayar profundo y usar barbotina espesa', 'MO', '4.6'],
+  ['B4', 'Construcción', '4.4', 'Espesor desigual de paredes', 'Fisuras por tensión térmica', 'Placas sin reglas de espesor', 8, 6, 5, 'Calibrador de espesores', 'Usar reglas guía de 10 mm exactos', 'MO', '4.4'],
+  ['B5', 'Diseño', '3.4', 'Vuelco o inestabilidad de torre', 'Caída y rotura en cocina', 'Base angosta para altura', 9, 5, 4, 'Plano inclinado a 25°', 'Diámetro de base ≥ 20 cm y masa abajo', 'DI', '3.4'],
+  ['B6', 'Construcción', '4.7', 'Módulos no encajan tras quema', 'Piezas inutilizables', 'No calcular contracción (14%)', 7, 6, 4, 'Plantillas con factor 1.14', 'Modelar con escala de contracción medida', 'MO', '4.2 y 4.7'],
+  ['B7', 'Diseño', '3.4', 'Torre más alta que el horno', 'Imposible cocer completa', 'No medir la cámara del horno', 9, 4, 3, 'Medición física del horno', 'Diseño modular desmontable si supera 45cm', 'DI', '3.4'],
+  ['C1', 'Secado', '4.10', 'Grietas por secado acelerado', 'Pérdida total de la torre', 'Corrientes de aire o sol', 8, 7, 5, 'Control visual diario', 'Secado tapado con plástico microperforado', 'MO', '4.10'],
+  ['C3', 'Secado', '4.10', 'Humedad residual al entrar al horno', 'Explosión violenta en quema', 'Piezas frías no hueso seco', 10, 5, 6, 'Pesaje hasta peso constante', 'Esperar 48h extra ante cualquier duda', 'MO', '4.10'],
+  ['D1', 'Bizcochado', '4.12', 'Rampa térmica rápida al inicio', 'Rotura por choque de vapor', 'Curva de horno agresiva', 9, 5, 6, 'Programador del horno', 'Subir a 100 °C/hora hasta los 600 °C', 'OP', '4.11'],
+  ['D5', 'Bizcochado', '4.11', 'Horno ocupado o en falla', 'Retraso crítico de entrega', 'Cola de quema en escuela', 7, 6, 3, 'Reserva previa de turno', 'Reservar turno con 15 días de anticipación', 'LP', 'Desde 4.1']
+];
+
+const ESCALAS_G = [
+  ['10', 'Peligro catastrófico: explosión en horno o rotura con heridos.'],
+  ['9', 'Fallo total irreparable del prototipo cerámico.'],
+  ['7-8', 'Pieza con fisura visible; requiere retrabajo mayor.'],
+  ['4-6', 'Defecto estético menor que no impide la retención de agua.'],
+  ['1-3', 'Imperfección mínima corregible con lija fina.']
+];
+
+const ESCALAS_O = [
+  ['9-10', 'Casi seguro (probabilidad > 50 % sin controles).'],
+  ['7-8', 'Alta frecuencia en talleres cerámicos artesanales.'],
+  ['4-6', 'Moderada; ocurre ocasionalmente en piezas complejas.'],
+  ['2-3', 'Baja; proceso controlado con guías y plantillas.'],
+  ['1', 'Casi imposible o evento extraordinario.']
+];
+
+const ESCALAS_D = [
+  ['9-10', 'Indetectable hasta después de la quema final.'],
+  ['7-8', 'Difícil de notar visualmente en estado húmedo.'],
+  ['4-6', 'Detectable mediante inspección táctil o calibrador.'],
+  ['2-3', 'Fácilmente visible durante el ensamble o amasado.'],
+  ['1', 'Detección automática o inmediata al tocar la arcilla.']
+];
+
+const ROLES = [
+  ['LP', 'Líder de Proyecto', 'Coordina cronograma, compras y comunicación'],
+  ['IN', 'Investigador', 'Conduce entrevistas a Camila y pruebas de mercado'],
+  ['DI', 'Diseñador Industrial', 'Bocetos, planos, tolerancia de contracción y ergonomía'],
+  ['MO', 'Modelador Cerámico', 'Amasado, conformado de placas, torneado y quemas'],
+  ['TE', 'Tester / Validador', 'Mide pH, capilaridad y retención con plántulas'],
+  ['OP', 'Operador de Horno', 'Controla curvas de cocción y seguridad del horno']
+];
+
+const RECURSOS = [
+  ['R1', 'Arcilla Terracota', 'Bolsa de 25 kg de arcilla roja local santandereana de grano fino.'],
+  ['R2', 'Herramientas de Modelado', 'Estecas de madera, cortador de alambre, rodillo de madera y esponjas.'],
+  ['R3', 'Reglas Guía de Espesor', 'Listones de madera de 10 mm y 12 mm para uniformidad de placas.'],
+  ['R4', 'Horno Cerámico Eléctrico', 'Horno de la Escuela de Diseño Industrial UIS (cámara de 40×40×50 cm).'],
+  ['R5', 'Sustratos Minerales', 'Perlita expandida, grava fina y cascarilla de arroz esterilizada.'],
+  ['R6', 'Medidores de Cultivo', 'Medidor digital de pH y conductividad eléctrica (EC) para soluciones.']
+];
+
+function pill(npr){
+  return npr > 200 ? '<span class="pill pill-alta">Alta (' + npr + ')</span>' :
+        (npr >= 120 ? '<span class="pill pill-media">Media (' + npr + ')</span>' :
+         '<span class="pill pill-baja">Baja (' + npr + ')</span>');
+}
+
+function renderFlujos(){
+  var t = document.getElementById('procesoTable');
+  if (!t) return;
+  var h = '<thead><tr><th>Fase</th><th>WBS</th><th>Inputs</th><th>Outputs</th><th>Registro / Método</th><th>Responsable</th><th>KPI</th><th>Meta</th></tr></thead><tbody>';
+  PROCESOS.forEach(function(r){
+    h += '<tr><td><strong>' + r[0] + '</strong></td><td><code>' + r[1] + '</code></td><td>' + r[2] + '</td><td>' + r[3] + '</td><td>' + r[4] + '</td><td><span class="role-code">' + r[5] + '</span></td><td>' + r[6] + '</td><td><strong>' + r[7] + '</strong></td></tr>';
+  });
+  h += '</tbody>';
+  t.innerHTML = h;
+}
+
+function renderWbs(){
+  var t = document.getElementById('wbsTable');
+  if (!t) return;
+  var h = '<thead><tr><th>ID</th><th>Actividad</th><th>Tipo</th><th>Horas Est.</th><th>Predecesoras</th><th>Recursos</th><th>Ruta Crítica</th></tr></thead><tbody>';
+  WBS.forEach(function(r){
+    var isFase = r[12] === 'fase';
+    var isCrit = r[12] === 'crit';
+    var cls = isCrit ? 'crit' : '';
+    var horasHtml = isFase ? '<strong>' + r[4] + ' h</strong>' :
+      '<input type="number" class="f-wbs" data-wbs="' + r[0] + '" value="' + r[4] + '" min="1" max="200" onchange="wbsHorasChange(this)">';
+    var badgeCrit = isCrit ? '<span class="pill pill-alta">Crítica</span>' : (isFase ? '—' : '<span class="pill pill-baja">Normal</span>');
+    h += '<tr class="' + cls + '">' +
+      '<td><code>' + r[0] + '</code></td>' +
+      '<td>' + (isFase ? '<strong>' + r[1] + '</strong>' : r[2]) + '</td>' +
+      '<td>' + (isFase ? 'Fase' : r[3]) + '</td>' +
+      '<td>' + horasHtml + '</td>' +
+      '<td>' + (r[5] || '—') + '</td>' +
+      '<td>' + (r[6] || '—') + '</td>' +
+      '<td>' + badgeCrit + '</td>' +
+    '</tr>';
+  });
+  h += '</tbody>';
+  t.innerHTML = h;
+}
+
+function renderFmea(){
+  var t = document.getElementById('fmeaTable');
+  if (!t) return;
+  var h = '<thead><tr><th>ID</th><th>Etapa</th><th>Modo de Falla</th><th>Efecto Potencial</th><th>Causa Raíz</th><th>G</th><th>O</th><th>D</th><th>NPR</th><th>Prioridad</th><th>Acción Preventiva</th><th>Resp.</th></tr></thead><tbody>';
+  FMEA.forEach(function(r){
+    var nprVal = r[6] * r[7] * r[8];
+    h += '<tr data-fmea="' + r[0] + '">' +
+      '<td><code>' + r[0] + '</code></td>' +
+      '<td>' + r[1] + '</td>' +
+      '<td><strong>' + r[3] + '</strong></td>' +
+      '<td>' + r[4] + '</td>' +
+      '<td>' + r[5] + '</td>' +
+      '<td><input type="number" class="f-g" min="1" max="10" value="' + r[6] + '" onchange="fmeaRecalc(this.closest(\'tr\'))"></td>' +
+      '<td><input type="number" class="f-o" min="1" max="10" value="' + r[7] + '" onchange="fmeaRecalc(this.closest(\'tr\'))"></td>' +
+      '<td><input type="number" class="f-d" min="1" max="10" value="' + r[8] + '" onchange="fmeaRecalc(this.closest(\'tr\'))"></td>' +
+      '<td class="f-npr" style="font-family:var(--font-mono); font-weight:700;">' + nprVal + '</td>' +
+      '<td class="f-prior">' + pill(nprVal) + '</td>' +
+      '<td style="font-size:0.85rem;">' + r[10] + '</td>' +
+      '<td><span class="role-code">' + r[11] + '</span></td>' +
+    '</tr>';
+  });
+  h += '</tbody>';
+  t.innerHTML = h;
+}
+
+function fmeaRecalc(tr){
+  if (!tr) return;
+  var g = parseInt((tr.querySelector('.f-g') || {}).value || 0, 10) || 0;
+  var o = parseInt((tr.querySelector('.f-o') || {}).value || 0, 10) || 0;
+  var d = parseInt((tr.querySelector('.f-d') || {}).value || 0, 10) || 0;
+  var total = g * o * d;
+  var nprCell = tr.querySelector('.f-npr');
+  var priorCell = tr.querySelector('.f-prior');
+  if (nprCell) nprCell.textContent = total;
+  if (priorCell) priorCell.innerHTML = pill(total);
+  persistData();
+}
+
+function wbsHorasChange(inp){
+  persistData();
+}
+
+function renderEscalas(){
+  var g = document.getElementById('escalasGrid');
+  if (!g) return;
+  function makeCol(title, color, rows){
+    return '<div style="background:var(--bg-surface); padding:16px; border-radius:var(--radius-sm); border:1px solid var(--border-subtle);">' +
+      '<h4 style="color:' + color + '; margin-top:0; font-family:var(--font-display);">' + title + '</h4>' +
+      '<ul style="padding-left:16px; margin:0; font-size:0.85rem; line-height:1.55; color:var(--text-body);">' +
+        rows.map(function(x){ return '<li><strong>' + x[0] + ':</strong> ' + x[1] + '</li>'; }).join('') +
+      '</ul>' +
+    '</div>';
+  }
+  g.innerHTML =
+    makeCol('Gravedad (G)', 'var(--danger)', ESCALAS_G) +
+    makeCol('Ocurrencia (O)', 'var(--terra-600)', ESCALAS_O) +
+    makeCol('Detección (D)', 'var(--green-600)', ESCALAS_D);
+}
+
+function renderRoles(){
+  var g = document.getElementById('rolesGrid');
+  if (!g) return;
+  g.innerHTML = ROLES.map(function(r){
+    return '<div class="role-box">' +
+      '<div class="role-code">' + r[0] + '</div>' +
+      '<strong style="display:block; font-size:0.95rem; margin:2px 0 4px; color:var(--text-main);">' + r[1] + '</strong>' +
+      '<p style="font-size:0.82rem; color:var(--text-muted); margin:0;">' + r[2] + '</p>' +
+    '</div>';
+  }).join('');
+}
+
+function renderRecursos(){
+  var t = document.getElementById('recursosTable');
+  if (!t) return;
+  var h = '<thead><tr><th>Código</th><th>Recurso</th><th>Descripción y Utilización</th></tr></thead><tbody>';
+  RECURSOS.forEach(function(r){
+    h += '<tr><td><code>' + r[0] + '</code></td><td><strong>' + r[1] + '</strong></td><td>' + r[2] + '</td></tr>';
+  });
+  h += '</tbody>';
+  t.innerHTML = h;
+}
+
+// Persistencia en localStorage con clave compartida LS2
+function persistData(){
+  var data = {};
+  document.querySelectorAll('#wbsTable input.f-wbs').forEach(function(inp){
+    var id = inp.getAttribute('data-wbs');
+    if (id) data['wbs_' + id] = inp.value;
+  });
+  document.querySelectorAll('#fmeaTable tr[data-fmea]').forEach(function(tr){
+    var id = tr.getAttribute('data-fmea');
+    if (!id) return;
+    data['fmea_' + id + '_g'] = tr.querySelector('.f-g').value;
+    data['fmea_' + id + '_o'] = tr.querySelector('.f-o').value;
+    data['fmea_' + id + '_d'] = tr.querySelector('.f-d').value;
+  });
+  try {
+    localStorage.setItem(LS2, JSON.stringify(data));
+    var ind = document.getElementById('saveIndicator');
+    if (ind) ind.textContent = 'Guardado ' + new Date().toLocaleTimeString();
+  } catch(e){}
+}
+
+function loadSavedData(){
+  var data = null;
+  try {
+    data = JSON.parse(localStorage.getItem(LS2) || 'null');
+  } catch(e){}
+  if (!data) return;
+
+  Object.keys(data).forEach(function(k){
+    if (k.startsWith('wbs_')){
+      var id = k.replace('wbs_', '');
+      var inp = document.querySelector('input.f-wbs[data-wbs="' + id + '"]');
+      if (inp) inp.value = data[k];
+    } else if (k.startsWith('fmea_')){
+      var parts = k.split('_');
+      var id = parts[1];
+      var field = parts[2];
+      var tr = document.querySelector('tr[data-fmea="' + id + '"]');
+      if (tr && field){
+        var inp = tr.querySelector('.f-' + field);
+        if (inp) inp.value = data[k];
+      }
+    }
+  });
+
+  document.querySelectorAll('#fmeaTable tr[data-fmea]').forEach(function(tr){
+    fmeaRecalc(tr);
+  });
+}
+
+function guardarTodo(){
+  persistData();
+  if (window.HydroUI && window.HydroUI.toast) {
+    window.HydroUI.toast('Todos los cambios de WBS y FMEA han sido guardados');
+  }
+}
+
+function restaurarTodo(){
+  if (!confirm('¿Deseas restablecer los valores de WBS y FMEA a sus valores predeterminados?')) return;
+  try {
+    localStorage.removeItem(LS2);
+  } catch(e){}
+  location.reload();
+}
+
+function exportarJSON(){
+  var data = {};
+  try {
+    data = JSON.parse(localStorage.getItem(LS2) || '{}');
+  } catch(e){}
+  var blob = new Blob([JSON.stringify({ project: 'HydroKultivoz UIS', data: data }, null, 2)], { type: 'application/json' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'hydrokultivoz_gestion_wbs_fmea.json';
+  a.click();
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  renderFlujos();
+  renderWbs();
+  renderFmea();
+  renderEscalas();
+  renderRoles();
+  renderRecursos();
+  loadSavedData();
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Lista de Verificación de Entregables · Diseño Estratégico · UIS: Checklist interactivo de requerimientos del curso con enlaces y estados.">
+<title>Entregables del Curso · HydroKultivoz · UIS</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/design-system.css">
+<link rel="stylesheet" href="shared-nav.css">
+
+<style>
+/* Estilos específicos de Entregables */
+.checklist-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  transition: all var(--transition-fast);
+}
+.checklist-card:hover {
+  border-color: var(--green-600);
+  box-shadow: var(--shadow-sm);
+}
+.cl-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 280px;
+}
+.cl-check-box {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: 2px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+.cl-check-box.checked {
+  background: var(--green-600);
+  border-color: var(--green-600);
+  color: #fff;
+}
+.cl-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin: 0 0 2px 0;
+}
+.cl-desc {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+.cl-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+</style>
+</head>
+
+<body data-section="entregables">
+
+<main class="page-wrapper" id="main-content">
+  <div class="container">
+
+    <!-- Encabezado de la página -->
+    <header class="page-header reveal-on-scroll">
+      <div class="eyebrow">
+        <span class="dot"></span> Verificación Académica · UIS
+      </div>
+      <h1>Checklist de Entregables del Curso</h1>
+      <p class="page-lead">
+        Matriz de cumplimiento de requisitos exigidos en Diseño Estratégico (UIS). Puedes marcar los estados como Hecho, En progreso o Pendiente y navegar directamente a la evidencia correspondiente.
+      </p>
+      
+      <!-- Mini-navegación de anclas -->
+      <div data-mini-nav></div>
+    </header>
+
+    <!-- Barra de progreso global -->
+    <div class="card reveal-on-scroll" style="margin-bottom:28px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <span style="font-family:var(--font-display); font-size:1.1rem; font-weight:700; color:var(--text-main);">
+          Progreso Global de Entregables
+        </span>
+        <strong id="progressPercent" style="font-family:var(--font-mono); font-size:1.2rem; color:var(--green-600);">85%</strong>
+      </div>
+      <div style="width:100%; height:12px; background:var(--bg-muted); border-radius:99px; overflow:hidden;">
+        <div id="progressBar" style="height:100%; width:85%; background:var(--green-600); border-radius:99px; transition:width 0.4s ease;"></div>
+      </div>
+    </div>
+
+    <!-- Lista interactiva de entregables -->
+    <section class="reveal-on-scroll" id="lista-entregables" data-anchor-title="Lista de Entregables">
+      
+      <!-- Entregable 1 -->
+      <div class="checklist-card" data-deliverable-id="d1">
+        <div class="cl-left">
+          <div class="cl-check-box checked" onclick="toggleCheck(this)">✓</div>
+          <div>
+            <h3 class="cl-title">1. Diagnóstico, Reto y Árbol de Problemas</h3>
+            <p class="cl-desc">Causas raíces, problema central de Camila, efectos y variables medibles del producto cerámico.</p>
+          </div>
+        </div>
+        <div class="cl-actions">
+          <span class="badge-status status-completa">Hecho</span>
+          <a href="reto.html" class="btn btn-outline btn-sm">Ver Sección →</a>
+        </div>
+      </div>
+
+      <!-- Entregable 2 -->
+      <div class="checklist-card" data-deliverable-id="d2">
+        <div class="cl-left">
+          <div class="cl-check-box checked" onclick="toggleCheck(this)">✓</div>
+          <div>
+            <h3 class="cl-title">2. Investigación de Mercado y Benchmarking Ponderado</h3>
+            <p class="cl-desc">Comparador con pesos recalculables, cadena de valor y dashboards de mercado y diseño.</p>
+          </div>
+        </div>
+        <div class="cl-actions">
+          <span class="badge-status status-completa">Hecho</span>
+          <a href="investigar.html" class="btn btn-outline btn-sm">Ver Sección →</a>
+        </div>
+      </div>
+
+      <!-- Entregable 3 -->
+      <div class="checklist-card" data-deliverable-id="d3">
+        <div class="cl-left">
+          <div class="cl-check-box checked" onclick="toggleCheck(this)">✓</div>
+          <div>
+            <h3 class="cl-title">3. Arquetipo de Usuario y Mapa de Empatía</h3>
+            <p class="cl-desc">Ficha de Camila Rojas, 4 cuadrantes de empatía y resultados cuantitativos de sondeo.</p>
+          </div>
+        </div>
+        <div class="cl-actions">
+          <span class="badge-status status-completa">Hecho</span>
+          <a href="empatizar.html" class="btn btn-outline btn-sm">Ver Sección →</a>
+        </div>
+      </div>
+
+      <!-- Entregable 4 -->
+      <div class="checklist-card" data-deliverable-id="d4">
+        <div class="cl-left">
+          <div class="cl-check-box checked" onclick="toggleCheck(this)">✓</div>
+          <div>
+            <h3 class="cl-title">4. Definición: POV, Propuesta de Valor y Requerimientos</h3>
+            <p class="cl-desc">Lienzo VPC, mapa de interacciones en cocina, matriz MoSCoW y preguntas HMW ponderadas.</p>
+          </div>
+        </div>
+        <div class="cl-actions">
+          <span class="badge-status status-completa">Hecho</span>
+          <a href="definir.html" class="btn btn-outline btn-sm">Ver Sección →</a>
+        </div>
+      </div>
+
+      <!-- Entregable 5 -->
+      <div class="checklist-card" data-deliverable-id="d5">
+        <div class="cl-left">
+          <div class="cl-check-box checked" onclick="toggleCheck(this)">✓</div>
+          <div>
+            <h3 class="cl-title">5. Conceptos, Matriz de Decisión y Bocetos</h3>
+            <p class="cl-desc">3 alternativas formales, matriz Pugh con pesos y protocolo de 6 etapas de construcción en arcilla.</p>
+          </div>
+        </div>
+        <div class="cl-actions">
+          <span class="badge-status status-completa">Hecho</span>
+          <a href="idear.html" class="btn btn-outline btn-sm">Ver Sección →</a>
+        </div>
+      </div>
+
+      <!-- Entregable 6 -->
+      <div class="checklist-card" data-deliverable-id="d6">
+        <div class="cl-left">
+          <div class="cl-check-box checked" onclick="toggleCheck(this)">✓</div>
+          <div>
+            <h3 class="cl-title">6. Prototipado 1 y 2, Ensayos de Contracción y Morfología</h3>
+            <p class="cl-desc">Probetas de absorción, torre a escala 1:1, justificación de forma y retrospectiva Iniciar/Parar/Continuar.</p>
+          </div>
+        </div>
+        <div class="cl-actions">
+          <span class="badge-status status-en-curso">En Proceso</span>
+          <a href="prototipar.html" class="btn btn-outline btn-sm">Ver Sección →</a>
+        </div>
+      </div>
+
+      <!-- Entregable 7 -->
+      <div class="checklist-card" data-deliverable-id="d7">
+        <div class="cl-left">
+          <div class="cl-check-box" onclick="toggleCheck(this)"></div>
+          <div>
+            <h3 class="cl-title">7. Plan de Validación de Campo y Decision Gates</h3>
+            <p class="cl-desc">Prueba de estanqueidad, autonomía capilar de 7 días, respuesta vegetal y compuertas de salida.</p>
+          </div>
+        </div>
+        <div class="cl-actions">
+          <span class="badge-status status-por-iniciar">Pendiente</span>
+          <a href="validar.html" class="btn btn-outline btn-sm">Ver Sección →</a>
+        </div>
+      </div>
+
+      <!-- Entregable 8 -->
+      <div class="checklist-card" data-deliverable-id="d8">
+        <div class="cl-left">
+          <div class="cl-check-box checked" onclick="toggleCheck(this)">✓</div>
+          <div>
+            <h3 class="cl-title">8. Gestión: WBS Editable, FMEA con NPR, SIPOC y RACI</h3>
+            <p class="cl-desc">Cálculo de horas en ruta crítica, recálculo dinámico de riesgos FMEA, roles y uso ético de IA.</p>
+          </div>
+        </div>
+        <div class="cl-actions">
+          <span class="badge-status status-completa">Hecho</span>
+          <a href="gestion.html" class="btn btn-outline btn-sm">Ver Sección →</a>
+        </div>
+      </div>
+
+      <!-- Entregable 9 -->
+      <div class="checklist-card" data-deliverable-id="d9">
+        <div class="cl-left">
+          <div class="cl-check-box checked" onclick="toggleCheck(this)">✓</div>
+          <div>
+            <h3 class="cl-title">9. Visión: Pitch, Objetivos SMART, Presupuesto y Glosario</h3>
+            <p class="cl-desc">Elevator pitch, metas temporales, costos de prototipo/lote, modelo de negocio y glosario interactivo.</p>
+          </div>
+        </div>
+        <div class="cl-actions">
+          <span class="badge-status status-completa">Hecho</span>
+          <a href="vision.html" class="btn btn-outline btn-sm">Ver Sección →</a>
+        </div>
+      </div>
+
+      <!-- Entregable 10 -->
+      <div class="checklist-card" data-deliverable-id="d10">
+        <div class="cl-left">
+          <div class="cl-check-box checked" onclick="toggleCheck(this)">✓</div>
+          <div>
+            <h3 class="cl-title">10. Bitácora de Registro Continuo y Gráfico de Sensores</h3>
+            <p class="cl-desc">Entradas con fecha, pH, EC, temperatura, notas Markdown, etiquetas y fotos con dibujo anotador.</p>
+          </div>
+        </div>
+        <div class="cl-actions">
+          <span class="badge-status status-completa">Hecho</span>
+          <a href="index.html#timelineArea" class="btn btn-outline btn-sm">Ver Sección →</a>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+</main>
+
+<script src="js/design-system.js"></script>
+
+<script>
+function toggleCheck(el) {
+  var isChecked = el.classList.toggle('checked');
+  el.textContent = isChecked ? '✓' : '';
+  var card = el.closest('.checklist-card');
+  var badge = card.querySelector('.badge-status');
+  if (badge) {
+    if (isChecked) {
+      badge.className = 'badge-status status-completa';
+      badge.textContent = 'Hecho';
+    } else {
+      badge.className = 'badge-status status-por-iniciar';
+      badge.textContent = 'Pendiente';
+    }
+  }
+  updateProgress();
+}
+
+function updateProgress() {
+  var total = document.querySelectorAll('.checklist-card').length;
+  var done = document.querySelectorAll('.cl-check-box.checked').length;
+  var pct = Math.round((done / total) * 100);
+  var bar = document.getElementById('progressBar');
+  var text = document.getElementById('progressPercent');
+  if (bar) bar.style.width = pct + '%';
+  if (text) text.textContent = pct + '%';
+}
+</script>
+
+</body>
+</html>

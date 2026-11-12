@@ -3,81 +3,409 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Investigar · HydroKultivoz</title>
+<meta name="description" content="Fase de Investigación · HydroKultivoz · UIS: Mercado hidropónico colombiano, cadena de valor artesanal y benchmarking ponderado interactivo.">
+<title>Investigar · HydroKultivoz · UIS</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/design-system.css">
 <link rel="stylesheet" href="shared-nav.css">
+
 <style>
-  .dash-grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
-  @media(max-width:1000px){ .dash-grid{ grid-template-columns:1fr; } }
-  .dash-card{ background:var(--card); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid var(--line); border-radius:var(--radius); padding:28px 30px; box-shadow:var(--shadow-sm); display:flex; flex-direction:column; transition:var(--transition); }
-  .dash-card:hover{ transform:translateY(-3px); border-color:var(--line-strong); }
-  .dash-card .dc-ic{ font-size:34px; }
-  .dash-card h3{ margin:10px 0 6px; font-size:23px; color:var(--text); letter-spacing:-0.01em; }
-  .dash-card p{ margin:0 0 4px; color:var(--text-dim); font-size:17px; font-family:'Source Serif 4',serif; line-height:1.6; }
-  .dash-card .dc-stat{ font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--text-faint); text-transform:uppercase; letter-spacing:0.1em; margin:8px 0 16px; }
-  .dash-card .dc-stat b{ color:var(--green); }
-  .dash-card .dc-actions{ margin-top:auto; display:flex; gap:10px; flex-wrap:wrap; }
-  .info-row{ display:flex; gap:20px; flex-wrap:wrap; color:var(--text-dim); font-size:16.5px; font-family:'Source Serif 4',serif; margin-top:8px; }
-  .info-row b{ color:var(--green); font-family:'IBM Plex Mono',monospace; }
+/* Estilos del Benchmarking Ponderado */
+.benchmark-controls-panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+.weight-slider-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.weight-slider-row:last-child {
+  border-bottom: none;
+}
+.slider-label {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-main);
+  min-width: 220px;
+}
+.slider-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  max-width: 320px;
+}
+.slider-input-wrap input[type="range"] {
+  width: 100%;
+  accent-color: var(--terra-600);
+}
+.slider-weight-val {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--terra-600);
+  min-width: 28px;
+  text-align: right;
+}
+
+/* Tarjetas de cadena de valor */
+.chain-step-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+.chain-num-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--green-600);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
 </style>
 </head>
+
 <body data-section="investigar">
 
-<nav class="navbar">
-  <div class="navbar-inner">
-    <a class="nav-brand" href="index.html"><img src="logo.jpg" alt=""><span><span class="nb-sub">Diseño Estratégico · UIS</span>HydroKultivoz</span></a>
-    <div class="nav-bar" data-nav></div>
-  </div>
-</nav>
+<main class="page-wrapper" id="main-content">
+  <div class="container">
 
-<div class="page-wrap">
-  <div class="page-head">
-    <div class="eyebrow"><span class="dot"></span> Sección · Investigar</div>
-    <h1>Investigar</h1>
-    <p>Dashboards de investigación: comparación de productos del mercado hidropónico colombiano y referentes de diseño.</p>
-  </div>
-
-  <div class="dash-grid">
-    <div class="dash-card" style="border-top:3px solid var(--blue)">
-      <div class="dc-ic">📊</div>
-      <h3>Dashboard comparativo de mercado</h3>
-      <p>Compara productos hidropónicos reales del mercado colombiano por precio, material, tipo de sistema y energía requerida. Incluye scraping automático desde Mercado Libre, INDULIFE y otros WooCommerce.</p>
-      <div class="dc-stat"><b>15+</b> productos curados · <b>7</b> fuentes</div>
-      <div class="dc-actions">
-        <a class="btn primary" href="hidroponia-dashboard/dashboard.html" target="_blank">Abrir dashboard →</a>
-        <a class="btn" href="comparador.html" target="_blank">Comparador de hidrocultivos</a>
+    <!-- Encabezado de la página -->
+    <header class="page-header reveal-on-scroll">
+      <div class="eyebrow">
+        <span class="dot"></span> Sección · Investigar · UIS
       </div>
-    </div>
+      <h1>Investigación de Mercado y Referentes</h1>
+      <p class="page-lead">
+        Mapeo del mercado colombiano, cadena de valor cerámica, benchmarking interactivo con pesos recalculables y dashboards especializados.
+      </p>
+      
+      <!-- Mini-navegación de anclas -->
+      <div data-mini-nav></div>
+    </header>
 
-    <div class="dash-card" style="border-top:3px solid var(--pink)">
-      <div class="dc-ic">🎨</div>
-      <h3>Dashboard de diseño hidropónico</h3>
-      <p>Referentes de proyectos de diseño hidropónico de Red Dot, Behance, iF Design y más. Con imágenes, bibliografías y fases de cada proyecto.</p>
-      <div class="dc-stat"><b>6</b> proyectos · Red Dot · Behance · GrowWithoutSoil</div>
-      <div class="dc-actions">
-        <a class="btn primary" href="dashboard-diseno.html" target="_blank">Abrir dashboard →</a>
+    <!-- ===================================================================
+         ACCESO A DASHBOARDS ESPECIALIZADOS
+         =================================================================== -->
+    <section class="grid-2 reveal-on-scroll" style="margin-bottom: 36px;" id="dashboards-hub" data-anchor-title="Dashboards Especializados">
+      <div class="card card-green" style="margin-bottom: 0;">
+        <span class="card-kicker">Mapeo de Productos Comerciales</span>
+        <h3 class="card-title">📊 Dashboard Comparativo de Mercado</h3>
+        <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.55;">
+          Base de datos de más de 15 productos reales disponibles en Colombia (Mercado Libre, Indulife, etc.) con precios en COP, materiales, consumo de energía y capacidad de plantas.
+        </p>
+        <div style="margin-top:auto; display:flex; gap:10px; flex-wrap:wrap; padding-top:14px;">
+          <a class="btn btn-primary btn-sm" href="hidroponia-dashboard/dashboard.html" target="_blank">Abrir Dashboard de Mercado →</a>
+          <a class="btn btn-outline btn-sm" href="comparador.html" target="_blank">Comparador de Hidrocultivos</a>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="card" style="margin-top:8px">
-    <h2>¿Qué estás investigando?</h2>
-    <p class="kicker">Guía de la sección</p>
-    <div class="info-row">
-      <span>1. <b>Mercado</b> — revisa precios, materiales y sistemas en el dashboard comparativo.</span>
-    </div>
-    <div class="info-row">
-      <span>2. <b>Diseño</b> — explora proyectos referentes en el dashboard de diseño hidropónico.</span>
-    </div>
-    <div class="info-row">
-      <span>3. <b>Documenta</b> — registra tus hallazgos como entradas en la bitácora desde <a href="index.html" style="color:var(--green)">Inicio</a>.</span>
-    </div>
-  </div>
-</div>
+      <div class="card card-terra" style="margin-bottom: 0;">
+        <span class="card-kicker">Benchmarking Internacional de Diseño</span>
+        <h3 class="card-title">🎨 Dashboard de Referentes de Diseño</h3>
+        <p style="color:var(--text-muted); font-size:0.92rem; line-height:1.55;">
+          Proyectos premiados en Red Dot, iF Design Award y publicaciones de Behance. Análisis morfológico, elecciones de material, acabados cerámicos y bibliografía técnica.
+        </p>
+        <div style="margin-top:auto; display:flex; gap:10px; flex-wrap:wrap; padding-top:14px;">
+          <a class="btn btn-terracotta btn-sm" href="dashboard-diseno.html" target="_blank">Abrir Dashboard de Diseño →</a>
+        </div>
+      </div>
+    </section>
 
-<div class="toast" id="toast"></div>
-<script src="shared-nav.js"></script>
+    <!-- ===================================================================
+         CADENA DE VALOR ARTESANAL Y PRODUCTIVA
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="cadena-valor" data-anchor-title="Cadena de Valor">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Análisis Estratégico de Suministro</span>
+          <h2 class="card-title">🔗 Cadena de Valor del Proyecto Cerámico</h2>
+        </div>
+        <span class="badge-status status-avanzada">Mapeado</span>
+      </div>
+
+      <p style="color:var(--text-muted); font-size:0.92rem; margin-bottom:20px;">
+        Flujo desde la extracción de arcilla local santandereana hasta la experiencia culinaria de Camila en su cocina.
+      </p>
+
+      <div class="grid-4">
+        <div class="chain-step-card">
+          <div class="chain-num-badge">1</div>
+          <strong style="font-family:var(--font-display); font-size:0.98rem; color:var(--text-main);">Extracción y Molienda</strong>
+          <p style="font-size:0.85rem; color:var(--text-body); margin:0;">
+            Arcilla terracota roja de grano fino procedente de canteras de la región de Santander. Control de plasticidad y libre de impurezas.
+          </p>
+          <span class="badge-status status-completa" style="margin-top:auto; font-size:0.68rem;">Materia Prima Local</span>
+        </div>
+
+        <div class="chain-step-card">
+          <div class="chain-num-badge">2</div>
+          <strong style="font-family:var(--font-display); font-size:0.98rem; color:var(--text-main);">Moldeo y Fabricación</strong>
+          <p style="font-size:0.85rem; color:var(--text-body); margin:0;">
+            Elaboración combinada: cuerpo torneado o por placas con moldes de yeso para estandarizar módulos de cultivo. Taller artesanal.
+          </p>
+          <span class="badge-status status-en-curso" style="margin-top:auto; font-size:0.68rem;">Artesanos Aliados</span>
+        </div>
+
+        <div class="chain-step-card">
+          <div class="chain-num-badge">3</div>
+          <strong style="font-family:var(--font-display); font-size:0.98rem; color:var(--text-main);">Cocción y Esmaltado</strong>
+          <p style="font-size:0.85rem; color:var(--text-body); margin:0;">
+            Quema a baja/media temperatura (980 °C a 1020 °C). Esmaltes libres de plomo aplicados solo en reservorio interior y base.
+          </p>
+          <span class="badge-status status-completa" style="margin-top:auto; font-size:0.68rem;">Horno Cerámico</span>
+        </div>
+
+        <div class="chain-step-card">
+          <div class="chain-num-badge">4</div>
+          <strong style="font-family:var(--font-display); font-size:0.98rem; color:var(--text-main);">Distribución a Camila</strong>
+          <p style="font-size:0.85rem; color:var(--text-body); margin:0;">
+            Kit en caja de cartón reciclable que incluye torre, sustrato mineral inerte (perlita/grava), semillas iniciales y guía rápida.
+          </p>
+          <span class="badge-por-validar" style="margin-top:auto; font-size:0.68rem;">Empaque por validar</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         BENCHMARKING CON PESOS AJUSTABLES Y RANKING RECALCULABLE
+         =================================================================== -->
+    <section class="card reveal-on-scroll" id="benchmarking-interactivo" data-anchor-title="Benchmarking Ponderado">
+      <div class="card-header">
+        <div>
+          <span class="card-kicker">Evaluación Comparativa Multicriterio</span>
+          <h2 class="card-title">⚖️ Benchmarking Interactivo con Pesos Ajustables</h2>
+        </div>
+        <span class="badge-status status-completa">Recálculo en Vivo</span>
+      </div>
+
+      <p style="color:var(--text-muted); font-size:0.92rem; margin-bottom:20px;">
+        Ajusta la importancia relativa (peso de 1 a 5) de cada atributo según las prioridades de Camila. El ranking y puntaje final ponderado de cada alternativa se actualiza automáticamente.
+      </p>
+
+      <!-- Panel de Controles / Sliders de Ponderación -->
+      <div class="benchmark-controls-panel">
+        <h4 style="margin:0 0 12px 0; font-family:var(--font-display); color:var(--text-main);">Ponderación de Atributos de Decisión</h4>
+        
+        <div class="weight-slider-row">
+          <span class="slider-label">1. Cero Electricidad (Pasivo / Silencioso)</span>
+          <div class="slider-input-wrap">
+            <input type="range" id="w-elec" min="1" max="5" value="5" step="1">
+            <span class="slider-weight-val" id="val-elec">5</span>
+          </div>
+        </div>
+
+        <div class="weight-slider-row">
+          <span class="slider-label">2. Sostenibilidad (0% Plásticos)</span>
+          <div class="slider-input-wrap">
+            <input type="range" id="w-plast" min="1" max="5" value="5" step="1">
+            <span class="slider-weight-val" id="val-plast">5</span>
+          </div>
+        </div>
+
+        <div class="weight-slider-row">
+          <span class="slider-label">3. Estética Culinaria y Calidez</span>
+          <div class="slider-input-wrap">
+            <input type="range" id="w-estet" min="1" max="5" value="4" step="1">
+            <span class="slider-weight-val" id="val-estet">4</span>
+          </div>
+        </div>
+
+        <div class="weight-slider-row">
+          <span class="slider-label">4. Costo de Adquisición</span>
+          <div class="slider-input-wrap">
+            <input type="range" id="w-costo" min="1" max="5" value="3" step="1">
+            <span class="slider-weight-val" id="val-costo">3</span>
+          </div>
+        </div>
+
+        <div class="weight-slider-row">
+          <span class="slider-label">5. Facilidad y Bajo Mantenimiento</span>
+          <div class="slider-input-wrap">
+            <input type="range" id="w-mant" min="1" max="5" value="4" step="1">
+            <span class="slider-weight-val" id="val-mant">4</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabla de Resultados con Ranking Dinámico -->
+      <div class="table-responsive">
+        <table class="data-table" id="benchmarkTable">
+          <thead>
+            <tr>
+              <th>Puesto</th>
+              <th>Alternativa / Sistema</th>
+              <th>Material Principal</th>
+              <th>Puntaje Base (1-10)</th>
+              <th>Puntaje Ponderado (0-100)</th>
+              <th>Diferencial Clave</th>
+            </tr>
+          </thead>
+          <tbody id="benchmarkTbody">
+            <!-- Rellenado dinámicamente por JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         LO QUE YA FUNCIONA VS. LO QUE CASI NADIE OFRECE
+         =================================================================== -->
+    <section class="grid-2 reveal-on-scroll" id="hallazgos-mercado" data-anchor-title="Hallazgos del Mercado">
+      <div class="card" style="border-top:4px solid var(--green-600);">
+        <span class="card-kicker">Lecciones Aprendidas del Mercado</span>
+        <h3 class="card-title">✅ Lo que ya funciona</h3>
+        <ul style="padding-left:20px; font-size:0.92rem; color:var(--text-body); line-height:1.65;">
+          <li><strong>Cultivo vertical:</strong> Optimiza hasta un 70% de área en comparación con macetas horizontales.</li>
+          <li><strong>Sustratos minerales inertes (perlita, cascarilla, piedra pómez):</strong> Facilitan el agarre de raíces sin plagas de tierra.</li>
+          <li><strong>Reservorios de fondo:</strong> Dan estabilidad y permiten que el agua suba por acción física constante.</li>
+          <li><strong>Cosecha hoja a hoja:</strong> El cilantro y la albahaca rebrotan rápido si se conservan las guías apicales.</li>
+        </ul>
+      </div>
+
+      <div class="card" style="border-top:4px solid var(--terra-600);">
+        <span class="card-kicker">Oportunidad de Innovación UIS</span>
+        <h3 class="card-title">🚀 Lo que casi nadie ofrece</h3>
+        <ul style="padding-left:20px; font-size:0.92rem; color:var(--text-body); line-height:1.65;">
+          <li><strong>Cero plástico en contacto con el cultivo:</strong> El 95% del mercado hidropónico actual usa PVC o polipropileno.</li>
+          <li><strong>Enfriamiento evaporativo pasivo:</strong> La transpiración de la arcilla mantiene la solución fresca sin enfriador eléctrico.</li>
+          <li><strong>Objeto cerámico con identidad artesanal:</strong> Un producto que embellece la cocina en lugar de parecer un laboratorio o tubería.</li>
+          <li><strong>Silencio absoluto:</strong> Sin el zumbido constante de bombas sumergibles que molestan en apartamentos pequeños.</li>
+        </ul>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<script src="js/design-system.js"></script>
+
+<!-- Script de cálculo automático de Benchmarking -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var alternatives = [
+    {
+      id: 'hydrokultivoz',
+      name: 'HydroKultivoz (Torre de Arcilla UIS)',
+      material: 'Arcilla terracota microporosa',
+      isHero: true,
+      scores: { elec: 10, plast: 10, estet: 9.5, costo: 8, mant: 8.5 },
+      diff: '0% plástico, 0% electricidad, enfriamiento cerámico y estética cálida'
+    },
+    {
+      id: 'maceta_click',
+      name: 'Smart Garden Eléctrico (Importado)',
+      material: 'Plástico ABS + Leds + Bomba',
+      scores: { elec: 2, plast: 2, estet: 7.5, costo: 4, mant: 9 },
+      diff: 'Muy costoso, piezas plásticas desechables y depende de enchufe'
+    },
+    {
+      id: 'torre_pvc',
+      name: 'Torre Hidropónica Comercial NFT',
+      material: 'Tubos PVC sanitarios',
+      scores: { elec: 3, plast: 1, estet: 3, costo: 6.5, mant: 6 },
+      diff: 'Estética de fontanería, ruido constante de bomba de agua'
+    },
+    {
+      id: 'maceta_tierra',
+      name: 'Macetas Tradicionales con Tierra',
+      material: 'Barro o plástico con sustrato orgánico',
+      scores: { elec: 10, plast: 6, estet: 7, costo: 9, mant: 4 },
+      diff: 'Se seca rápido, suciedad de tierra en cocina y fácil pudrición'
+    }
+  ];
+
+  var sliders = {
+    elec: document.getElementById('w-elec'),
+    plast: document.getElementById('w-plast'),
+    estet: document.getElementById('w-estet'),
+    costo: document.getElementById('w-costo'),
+    mant: document.getElementById('w-mant')
+  };
+
+  var valLabels = {
+    elec: document.getElementById('val-elec'),
+    plast: document.getElementById('val-plast'),
+    estet: document.getElementById('val-estet'),
+    costo: document.getElementById('val-costo'),
+    mant: document.getElementById('val-mant')
+  };
+
+  function recalculate() {
+    var weights = {
+      elec: parseInt(sliders.elec.value, 10),
+      plast: parseInt(sliders.plast.value, 10),
+      estet: parseInt(sliders.estet.value, 10),
+      costo: parseInt(sliders.costo.value, 10),
+      mant: parseInt(sliders.mant.value, 10)
+    };
+
+    // Actualizar etiquetas numéricas
+    Object.keys(weights).forEach(function(k){
+      if (valLabels[k]) valLabels[k].textContent = weights[k];
+    });
+
+    var totalWeight = weights.elec + weights.plast + weights.estet + weights.costo + weights.mant;
+
+    // Calcular puntaje ponderado
+    alternatives.forEach(function (alt) {
+      var weightedSum = (alt.scores.elec * weights.elec) +
+                        (alt.scores.plast * weights.plast) +
+                        (alt.scores.estet * weights.estet) +
+                        (alt.scores.costo * weights.costo) +
+                        (alt.scores.mant * weights.mant);
+      alt.finalScore = Math.round((weightedSum / (totalWeight * 10)) * 100);
+    });
+
+    // Ordenar de mayor a menor
+    alternatives.sort(function (a, b) { return b.finalScore - a.finalScore; });
+
+    // Renderizar filas de tabla
+    var tbody = document.getElementById('benchmarkTbody');
+    if (!tbody) return;
+
+    tbody.innerHTML = alternatives.map(function (alt, idx) {
+      var medal = idx === 0 ? '🥇' : (idx === 1 ? '🥈' : (idx === 2 ? '🥉' : '4°'));
+      var highlightStyle = alt.isHero ? 'style="background: var(--bg-highlight); font-weight: 600;"' : '';
+      return '<tr ' + highlightStyle + '>' +
+        '<td><span style="font-size:1.1rem;">' + medal + '</span></td>' +
+        '<td><strong>' + alt.name + '</strong>' + (alt.isHero ? ' <span class="badge-status status-completa" style="font-size:0.68rem;">Propuesta UIS</span>' : '') + '</td>' +
+        '<td>' + alt.material + '</td>' +
+        '<td style="font-family:var(--font-mono);">' + (alt.scores.elec + alt.scores.plast + alt.scores.estet + alt.scores.costo + alt.scores.mant) / 5 + '/10</td>' +
+        '<td><strong style="font-family:var(--font-mono); font-size:1.1rem; color:var(--green-600);">' + alt.finalScore + ' pts</strong></td>' +
+        '<td style="font-size:0.85rem; color:var(--text-muted);">' + alt.diff + '</td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  // Vincular eventos a sliders
+  Object.values(sliders).forEach(function (slider) {
+    if (slider) slider.addEventListener('input', recalculate);
+  });
+
+  recalculate();
+});
+</script>
+
 </body>
 </html>

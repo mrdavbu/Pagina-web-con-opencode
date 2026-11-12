@@ -8,6 +8,7 @@
 <title>Comparador de Hidrocultivos — Mercado Colombiano</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/design-system.css">
 <style>
   :root{
     --bg:#EFF6F1; --bg-panel:rgba(255,255,255,0.92); --bg-input:rgba(240,247,242,0.95);
@@ -26,7 +27,7 @@
                 radial-gradient(ellipse at 80% 60%, rgba(141,85,36,0.04) 0%, transparent 40%),
                 radial-gradient(ellipse at 20% 80%, rgba(105,240,174,0.03) 0%, transparent 40%); }
   .mono{ font-family:'IBM Plex Mono',monospace; }
-  #root{ max-width:1180px; margin:0 auto; padding:56px 24px 70px; position:relative; z-index:1; font-family:'Source Serif 4',Georgia,serif; line-height:1.6; }
+  #root{ max-width:1180px; margin:0 auto; padding: calc(var(--header-height, 72px) + 24px) 24px 70px; position:relative; z-index:1; font-family:'Source Serif 4',Georgia,serif; line-height:1.6; }
   #root h1,#root h2,#root h3,#root .mono,#root .eyebrow,#root button,#root input,#root select,#root .tag{ font-family:'Space Grotesk',sans-serif; }
   header.top{ margin-bottom:26px; }
   .eyebrow{ font-family:'IBM Plex Mono',monospace; font-size:14px; letter-spacing:.14em; text-transform:uppercase; color:var(--green); margin-bottom:10px; display:flex; align-items:center; gap:10px; }
@@ -147,7 +148,7 @@
   footer a:hover{ color:var(--green); }
 </style>
 </head>
-<body>
+<body data-section="investigar">
 <div id="root">
 
   <header class="top">
@@ -691,5 +692,6 @@
 
 })();
 </script>
+<script src="js/design-system.js"></script>
 </body>
 </html>
