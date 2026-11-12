@@ -1,17 +1,3 @@
 {
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/reto", "destination": "/reto.html" },
-    { "source": "/investigar", "destination": "/investigar.html" },
-    { "source": "/empatizar", "destination": "/empatizar.html" },
-    { "source": "/definir", "destination": "/definir.html" },
-    { "source": "/idear", "destination": "/idear.html" },
-    { "source": "/prototipar", "destination": "/prototipar.html" },
-    { "source": "/validar", "destination": "/validar.html" },
-    { "source": "/gestion", "destination": "/gestion.html" },
-    { "source": "/vision", "destination": "/vision.html" },
-    { "source": "/entregables", "destination": "/entregables.html" },
-    { "source": "/comparador", "destination": "/comparador.html" },
-    { "source": "/dashboard-diseno", "destination": "/dashboard-diseno.html" }
-  ]
+  "rewrites": []
 }

@@ -3,8 +3,5 @@
   "version": "1.0.0",
   "private": true,
   "description": "Bitácora de proyecto hidropónico compartida entre dispositivos",
-  "dependencies": {
-    "cheerio": "^1.0.0-rc.12",
-    "node-fetch": "^2.7.0"
-  }
+  "dependencies": {}
 }
